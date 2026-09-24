@@ -1,137 +1,901 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقعي التعليمي</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f2f5f9;
-            color: #222;
-        }
+<title>EduDZ | منصتك التعليمية</title>
 
-        header {
-            background: #2563eb;
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        nav {
-            background: white;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 2px 8px #ccc;
-        }
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --success: #16a34a;
+    --danger: #dc2626;
+}
 
-        nav button {
-            margin: 5px;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            background: #2563eb;
-            color: white;
-            cursor: pointer;
-        }
+body.dark {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #f8fafc;
+    --muted: #cbd5e1;
+    --border: #334155;
+}
 
-        nav button:hover {
-            background: #1d4ed8;
-        }
+body {
+    font-family: Arial, Tahoma, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: .3s;
+}
 
-        main {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 20px;
-        }
+/* HEADER */
 
-        .section {
-            display: none;
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px #ddd;
-        }
+header {
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    color: white;
+    padding: 35px 20px;
+}
 
-        .section.active {
-            display: block;
-        }
+.header-content {
+    max-width: 1100px;
+    margin: auto;
+}
 
-        .card {
-            background: #f8fafc;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border-right: 5px solid #2563eb;
-        }
-    </style>
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+header p {
+    margin-top: 10px;
+    opacity: .9;
+}
+
+/* NAVIGATION */
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-container {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    overflow-x: auto;
+}
+
+.nav-btn {
+    border: none;
+    background: transparent;
+    color: var(--text);
+    padding: 11px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 15px;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* MAIN */
+
+main {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* HERO */
+
+.hero {
+    background: var(--card);
+    padding: 35px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border);
+}
+
+.hero h1 {
+    font-size: 35px;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.primary-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 9px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+.primary-btn:hover {
+    background: var(--primary-dark);
+}
+
+/* CARDS */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 22px;
+    transition: .2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.card button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 11px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ICON */
+
+.icon {
+    font-size: 35px;
+    margin-bottom: 12px;
+}
+
+/* SEARCH */
+
+.search-box {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* LESSON */
+
+.lesson {
+    background: var(--card);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    margin-bottom: 15px;
+}
+
+.lesson h3 {
+    margin-bottom: 12px;
+}
+
+.lesson-content {
+    display: none;
+    color: var(--muted);
+    line-height: 2;
+    margin-top: 15px;
+}
+
+.lesson.open .lesson-content {
+    display: block;
+}
+
+/* QUIZ */
+
+.quiz {
+    background: var(--card);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
+.question h3 {
+    margin-bottom: 12px;
+}
+
+.option {
+    display: block;
+    padding: 12px;
+    margin: 7px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.option:hover {
+    background: var(--bg);
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: var(--bg);
+    display: none;
+}
+
+/* PROGRESS */
+
+.progress-container {
+    background: var(--border);
+    height: 18px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.progress-bar {
+    width: 35%;
+    height: 100%;
+    background: var(--primary);
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 50px;
+    padding: 30px;
+    text-align: center;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+}
+
+/* MOBILE */
+
+@media(max-width:600px) {
+
+    .logo {
+        font-size: 25px;
+    }
+
+    .hero h1 {
+        font-size: 27px;
+    }
+
+    .hero {
+        padding: 25px;
+    }
+
+    main {
+        padding: 0 12px;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <h1>📚 موقعي التعليمي</h1>
-    <p>دروس، تمارين، فروض واختبارات</p>
+    <div class="header-content">
+        <div class="logo">📚 EduDZ</div>
+        <p>منصتك التعليمية للتعلم والتدرب والنجاح</p>
+    </div>
 </header>
 
 <nav>
-    <button onclick="showSection('home')">الرئيسية</button>
-    <button onclick="showSection('lessons')">الدروس</button>
-    <button onclick="showSection('exercises')">التمارين</button>
-    <button onclick="showSection('tests')">الاختبارات</button>
+    <div class="nav-container">
+
+        <button class="nav-btn active" onclick="showSection('home', this)">
+            🏠 الرئيسية
+        </button>
+
+        <button class="nav-btn" onclick="showSection('lessons', this)">
+            📚 الدروس
+        </button>
+
+        <button class="nav-btn" onclick="showSection('exercises', this)">
+            📝 التمارين
+        </button>
+
+        <button class="nav-btn" onclick="showSection('tests', this)">
+            🎯 الاختبارات
+        </button>
+
+        <button class="nav-btn" onclick="showSection('progress', this)">
+            📊 تقدمي
+        </button>
+
+        <button class="nav-btn" onclick="showSection('search', this)">
+            🔎 بحث
+        </button>
+
+        <button class="nav-btn" onclick="toggleDarkMode()">
+            🌙
+        </button>
+
+    </div>
 </nav>
 
 <main>
 
-    <section id="home" class="section active">
-        <h2>مرحبا بك 👋</h2>
-        <p>هذا موقع تعليمي تجريبي للطلاب.</p>
-    </section>
+<!-- HOME -->
 
-    <section id="lessons" class="section">
-        <h2>📖 الدروس</h2>
+<section id="home" class="section active">
+
+    <div class="hero">
+
+        <h1>مرحبًا بك في EduDZ 👋</h1>
+
+        <p>
+            موقع تعليمي يساعدك على مراجعة الدروس،
+            حل التمارين، والتدرب على الاختبارات.
+        </p>
+
+        <button class="primary-btn"
+                onclick="showSection('lessons', document.querySelectorAll('.nav-btn')[1])">
+            ابدأ التعلم 🚀
+        </button>
+
+    </div>
+
+    <h2>ماذا تريد أن تفعل؟</h2>
+
+    <br>
+
+    <div class="grid">
 
         <div class="card">
-            <h3>الرياضيات</h3>
-            <p>دروس الرياضيات للسنة الأولى ثانوي.</p>
+            <div class="icon">📚</div>
+            <h3>الدروس</h3>
+            <p>راجع أهم الدروس بطريقة منظمة.</p>
+            <button onclick="showSection('lessons', document.querySelectorAll('.nav-btn')[1])">
+                مشاهدة الدروس
+            </button>
         </div>
 
         <div class="card">
-            <h3>العلوم</h3>
-            <p>دروس العلوم الطبيعية.</p>
+            <div class="icon">📝</div>
+            <h3>التمارين</h3>
+            <p>تدرب على مجموعة من التمارين.</p>
+            <button onclick="showSection('exercises', document.querySelectorAll('.nav-btn')[2])">
+                حل التمارين
+            </button>
         </div>
-    </section>
-
-    <section id="exercises" class="section">
-        <h2>📝 التمارين</h2>
 
         <div class="card">
-            <h3>تمرين رياضيات</h3>
-            <p>تمارين للتدرب وتحسين مستواك.</p>
+            <div class="icon">🎯</div>
+            <h3>الاختبارات</h3>
+            <p>اختبر معلوماتك واحصل على نتيجتك.</p>
+            <button onclick="showSection('tests', document.querySelectorAll('.nav-btn')[3])">
+                ابدأ الاختبار
+            </button>
         </div>
-    </section>
 
-    <section id="tests" class="section">
-        <h2>🎯 الاختبارات</h2>
+    </div>
+
+</section>
+
+
+<!-- LESSONS -->
+
+<section id="lessons" class="section">
+
+    <h1>📚 الدروس</h1>
+
+    <br>
+
+    <div class="lesson">
+
+        <h3>📐 الرياضيات — الدوال</h3>
+
+        <button class="primary-btn"
+                onclick="toggleLesson(this)">
+            فتح الدرس
+        </button>
+
+        <div class="lesson-content">
+
+            <p>
+                الدالة هي علاقة تربط كل عنصر من مجموعة تعريف
+                بعنصر واحد فقط من مجموعة أخرى.
+            </p>
+
+            <br>
+
+            <p>
+                مثال:
+                إذا كانت f(x) = 2x + 1
+                فإن f(3) = 7.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="lesson">
+
+        <h3>⚡ الفيزياء — الكهرباء</h3>
+
+        <button class="primary-btn"
+                onclick="toggleLesson(this)">
+            فتح الدرس
+        </button>
+
+        <div class="lesson-content">
+
+            <p>
+                شدة التيار الكهربائي تقاس بالأمبير،
+                والتوتر الكهربائي يقاس بالفولت.
+            </p>
+
+            <br>
+
+            <p>
+                قانون أوم:
+                U = R × I
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="lesson">
+
+        <h3>🧬 العلوم الطبيعية — الخلية</h3>
+
+        <button class="primary-btn"
+                onclick="toggleLesson(this)">
+            فتح الدرس
+        </button>
+
+        <div class="lesson-content">
+
+            <p>
+                الخلية هي الوحدة الأساسية لبناء الكائنات الحية.
+            </p>
+
+            <br>
+
+            <p>
+                تحتوي الخلايا حقيقية النواة على نواة
+                وعضيات مختلفة.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EXERCISES -->
+
+<section id="exercises" class="section">
+
+    <h1>📝 التمارين</h1>
+
+    <br>
+
+    <div class="grid">
 
         <div class="card">
-            <h3>اختبار تجريبي</h3>
-            <p>اختبر معلوماتك.</p>
+            <h3>تمرين 1 — الرياضيات</h3>
+            <p>
+                إذا كان f(x)=2x+3 احسب f(5).
+            </p>
+
+            <button onclick="alert('الإجابة: 13')">
+                إظهار الحل
+            </button>
         </div>
-    </section>
+
+
+        <div class="card">
+            <h3>تمرين 2 — الفيزياء</h3>
+            <p>
+                إذا كان R=5Ω و I=2A احسب U.
+            </p>
+
+            <button onclick="alert('الإجابة: U = 10V')">
+                إظهار الحل
+            </button>
+        </div>
+
+
+        <div class="card">
+            <h3>تمرين 3 — العلوم</h3>
+            <p>
+                ما هي الوحدة الأساسية للكائن الحي؟
+            </p>
+
+            <button onclick="alert('الإجابة: الخلية')">
+                إظهار الحل
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TESTS -->
+
+<section id="tests" class="section">
+
+    <h1>🎯 اختبار سريع</h1>
+
+    <br>
+
+    <div class="quiz">
+
+        <div class="question">
+
+            <h3>1. كم يساوي 2 × 5؟</h3>
+
+            <label class="option">
+                <input type="radio" name="q1" value="0">
+                8
+            </label>
+
+            <label class="option">
+                <input type="radio" name="q1" value="1">
+                10
+            </label>
+
+            <label class="option">
+                <input type="radio" name="q1" value="0">
+                12
+            </label>
+
+        </div>
+
+
+        <div class="question">
+
+            <h3>2. ما وحدة قياس شدة التيار؟</h3>
+
+            <label class="option">
+                <input type="radio" name="q2" value="1">
+                الأمبير
+            </label>
+
+            <label class="option">
+                <input type="radio" name="q2" value="0">
+                الفولت
+            </label>
+
+            <label class="option">
+                <input type="radio" name="q2" value="0">
+                الأوم
+            </label>
+
+        </div>
+
+
+        <div class="question">
+
+            <h3>3. ما الوحدة الأساسية للكائن الحي؟</h3>
+
+            <label class="option">
+                <input type="radio" name="q3" value="0">
+                النسيج
+            </label>
+
+            <label class="option">
+                <input type="radio" name="q3" value="1">
+                الخلية
+            </label>
+
+            <label class="option">
+                <input type="radio" name="q3" value="0">
+                العضو
+            </label>
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="calculateQuiz()">
+            احسب النتيجة
+        </button>
+
+        <div id="result" class="result"></div>
+
+    </div>
+
+</section>
+
+
+<!-- PROGRESS -->
+
+<section id="progress" class="section">
+
+    <h1>📊 تقدمي</h1>
+
+    <br>
+
+    <div class="card">
+
+        <h3>مستوى التعلم</h3>
+
+        <p>تقدمك الحالي: 35%</p>
+
+        <div class="progress-container">
+
+            <div class="progress-bar"></div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>📚 الدروس</h3>
+            <p>3 دروس</p>
+        </div>
+
+        <div class="card">
+            <h3>📝 التمارين</h3>
+            <p>3 تمارين</p>
+        </div>
+
+        <div class="card">
+            <h3>🎯 الاختبارات</h3>
+            <p>1 اختبار</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SEARCH -->
+
+<section id="search" class="section">
+
+    <h1>🔎 البحث</h1>
+
+    <br>
+
+    <input
+        type="text"
+        id="searchInput"
+        class="search-box"
+        placeholder="ابحث عن درس أو مادة..."
+        oninput="searchContent()"
+    >
+
+    <div id="searchResults">
+
+        <div class="card search-item">
+            <h3>📐 الرياضيات — الدوال</h3>
+            <p>درس حول الدوال الرياضية.</p>
+        </div>
+
+        <div class="card search-item">
+            <h3>⚡ الفيزياء — الكهرباء</h3>
+            <p>درس حول الكهرباء وقانون أوم.</p>
+        </div>
+
+        <div class="card search-item">
+            <h3>🧬 العلوم — الخلية</h3>
+            <p>درس حول الخلية والكائنات الحية.</p>
+        </div>
+
+    </div>
+
+</section>
 
 </main>
 
-<script>
-    function showSection(sectionId) {
-        document.querySelectorAll('.section').forEach(section => {
-            section.classList.remove('active');
-        });
 
-        document.getElementById(sectionId).classList.add('active');
+<footer>
+
+    <p>© 2026 EduDZ — مشروع تعليمي تجريبي</p>
+
+</footer>
+
+
+<script>
+
+/* التنقل */
+
+function showSection(id, button) {
+
+    document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    if(button) {
+        button.classList.add("active");
     }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* فتح الدرس */
+
+function toggleLesson(button) {
+
+    const lesson = button.parentElement;
+
+    lesson.classList.toggle("open");
+
+    if(lesson.classList.contains("open")) {
+        button.textContent = "إغلاق الدرس";
+    } else {
+        button.textContent = "فتح الدرس";
+    }
+}
+
+
+/* الاختبار */
+
+function calculateQuiz() {
+
+    let score = 0;
+
+    const questions = ["q1", "q2", "q3"];
+
+    questions.forEach(question => {
+
+        const answer = document.querySelector(
+            `input[name="${question}"]:checked`
+        );
+
+        if(answer) {
+            score += Number(answer.value);
+        }
+
+    });
+
+    const result = document.getElementById("result");
+
+    result.style.display = "block";
+
+    if(score === 3) {
+
+        result.innerHTML =
+        "🎉 ممتاز! حصلت على 3/3";
+
+    } else if(score === 2) {
+
+        result.innerHTML =
+        "👏 جيد جدًا! حصلت على 2/3";
+
+    } else if(score === 1) {
+
+        result.innerHTML =
+        "💪 حصلت على 1/3. حاول مرة أخرى!";
+
+    } else {
+
+        result.innerHTML =
+        "📚 حصلت على 0/3. راجع الدروس وحاول من جديد.";
+
+    }
+}
+
+
+/* البحث */
+
+function searchContent() {
+
+    const query =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const items =
+        document.querySelectorAll(".search-item");
+
+    items.forEach(item => {
+
+        const text =
+            item.innerText.toLowerCase();
+
+        if(text.includes(query)) {
+            item.style.display = "block";
+        } else {
+            item.style.display = "none";
+        }
+
+    });
+}
+
+
+/* الوضع الليلي */
+
+function toggleDarkMode() {
+
+    document.body.classList.toggle("dark");
+
+    if(document.body.classList.contains("dark")) {
+
+        localStorage.setItem("darkMode", "true");
+
+    } else {
+
+        localStorage.setItem("darkMode", "false");
+
+    }
+}
+
+
+/* حفظ الوضع الليلي */
+
+if(localStorage.getItem("darkMode") === "true") {
+
+    document.body.classList.add("dark");
+
+}
+
 </script>
 
 </body>
