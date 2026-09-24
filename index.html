@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقعي التعليمي</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f2f5f9;
+            color: #222;
+        }
+
+        header {
+            background: #2563eb;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        nav {
+            background: white;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        nav button {
+            margin: 5px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+
+        nav button:hover {
+            background: #1d4ed8;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .section {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px #ddd;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background: #f8fafc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-right: 5px solid #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>📚 موقعي التعليمي</h1>
+    <p>دروس، تمارين، فروض واختبارات</p>
+</header>
+
+<nav>
+    <button onclick="showSection('home')">الرئيسية</button>
+    <button onclick="showSection('lessons')">الدروس</button>
+    <button onclick="showSection('exercises')">التمارين</button>
+    <button onclick="showSection('tests')">الاختبارات</button>
+</nav>
+
+<main>
+
+    <section id="home" class="section active">
+        <h2>مرحبا بك 👋</h2>
+        <p>هذا موقع تعليمي تجريبي للطلاب.</p>
+    </section>
+
+    <section id="lessons" class="section">
+        <h2>📖 الدروس</h2>
+
+        <div class="card">
+            <h3>الرياضيات</h3>
+            <p>دروس الرياضيات للسنة الأولى ثانوي.</p>
+        </div>
+
+        <div class="card">
+            <h3>العلوم</h3>
+            <p>دروس العلوم الطبيعية.</p>
+        </div>
+    </section>
+
+    <section id="exercises" class="section">
+        <h2>📝 التمارين</h2>
+
+        <div class="card">
+            <h3>تمرين رياضيات</h3>
+            <p>تمارين للتدرب وتحسين مستواك.</p>
+        </div>
+    </section>
+
+    <section id="tests" class="section">
+        <h2>🎯 الاختبارات</h2>
+
+        <div class="card">
+            <h3>اختبار تجريبي</h3>
+            <p>اختبر معلوماتك.</p>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    function showSection(sectionId) {
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
+
+        document.getElementById(sectionId).classList.add('active');
+    }
+</script>
+
+</body>
+</html>
