@@ -1,451 +1,299 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>WebBox | مواقع مفيدة</title>
+    <title>WebBox - دليل المواقع</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="header">
+<header>
+    <div class="logo">🌐 WebBox</div>
 
-    <div class="logo">
-        🌐 WebBox
-    </div>
-
-    <nav class="navbar">
-
-        <button onclick="showSection('home')">
-            الرئيسية
-        </button>
-
-        <button onclick="showSection('categories')">
-            التصنيفات
-        </button>
-
-        <button onclick="showSection('sites')">
-            المواقع
-        </button>
-
-        <button onclick="showSection('about')">
-            عن WebBox
-        </button>
-
+    <nav>
+        <button onclick="showSection('home')">الرئيسية</button>
+        <button onclick="showSection('categories')">التصنيفات</button>
+        <button onclick="showSection('sites')">كل المواقع</button>
+        <button onclick="showSection('about')">حول</button>
     </nav>
 
-    <button
-        class="dark-button"
-        onclick="toggleDarkMode()"
-        title="الوضع الليلي"
-    >
-        🌙
-    </button>
-
+    <button class="dark-btn" onclick="toggleDarkMode()">🌙</button>
 </header>
 
 
 <main>
 
+    <!-- HOME -->
 
-<!-- =========================
-     HOME
-========================= -->
+    <section id="home" class="section active">
 
-<section id="home" class="section active">
+        <div class="hero">
 
-    <div class="hero">
+            <div class="hero-content">
 
-        <div class="hero-badge">
-            🌐 بوابتك إلى الإنترنت
+                <h1>🌐 WebBox</h1>
+
+                <h2>ماذا تريد أن تفعل على الإنترنت؟</h2>
+
+                <p>
+                    ابحث عن المواقع التي تحتاجها بسرعة.
+                </p>
+
+                <div class="main-search">
+
+                    <input
+                        id="searchInput"
+                        type="text"
+                        placeholder="مثلاً: أريد تعلم البرمجة..."
+                        oninput="smartSearch()"
+                        onkeydown="handleSearchKey(event)"
+                    >
+
+                    <button onclick="showAllSearchResults()">
+                        🔍 بحث
+                    </button>
+
+                </div>
+
+                <div id="suggestions"></div>
+
+                <div id="smartResults"></div>
+
+                <div class="examples">
+
+                    <button onclick="useExample('أريد ألعاب مجانية')">
+                        🎮 ألعاب
+                    </button>
+
+                    <button onclick="useExample('أريد تعلم البرمجة')">
+                        💻 برمجة
+                    </button>
+
+                    <button onclick="useExample('أريد كتب مجانية')">
+                        📚 كتب
+                    </button>
+
+                    <button onclick="useExample('أريد أدوات مفيدة')">
+                        🛠️ أدوات
+                    </button>
+
+                    <button onclick="useExample('أريد مواقع ذكاء اصطناعي')">
+                        🤖 AI
+                    </button>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <h1>
-            ماذا تريد أن تفعل؟
-        </h1>
 
-        <p>
-            اكتب ما تبحث عنه وسأقترح عليك مواقع يمكن أن تساعدك.
-        </p>
+        <div class="quick-section">
 
+            <h2>🚀 تصفح سريع</h2>
 
-        <div class="search-area">
+            <div class="quick-grid">
 
-            <div class="search-box">
+                <button onclick="filterCategory('games')">
+                    🎮 الألعاب
+                </button>
 
-                <input
-                    id="searchInput"
-                    type="text"
-                    autocomplete="off"
-                    placeholder="مثال: أريد تعديل فيديو..."
-                    oninput="smartSearch()"
-                    onkeydown="handleSearchKey(event)"
-                >
+                <button onclick="filterCategory('education')">
+                    🎓 التعليم
+                </button>
 
-                <button onclick="showAllSearchResults()">
-                    🔍 بحث
+                <button onclick="filterCategory('books')">
+                    📚 الكتب
+                </button>
+
+                <button onclick="filterCategory('ai')">
+                    🤖 الذكاء الاصطناعي
+                </button>
+
+                <button onclick="filterCategory('design')">
+                    🎨 التصميم
+                </button>
+
+                <button onclick="filterCategory('video')">
+                    🎬 الفيديو
+                </button>
+
+                <button onclick="filterCategory('music')">
+                    🎵 الموسيقى
+                </button>
+
+                <button onclick="filterCategory('programming')">
+                    💻 البرمجة
+                </button>
+
+                <button onclick="filterCategory('tools')">
+                    🛠️ الأدوات
                 </button>
 
             </div>
 
-
-            <div
-                id="suggestions"
-                class="suggestions"
-            ></div>
-
         </div>
 
-
-        <div
-            id="smartResults"
-            class="smart-results"
-        ></div>
+    </section>
 
 
-        <div class="example-searches">
+    <!-- CATEGORIES -->
 
-            <span>جرب:</span>
+    <section id="categories" class="section">
 
-            <button onclick="useExample('أريد لعبة')">
-                🎮 أريد لعبة
-            </button>
-
-            <button onclick="useExample('أريد تعديل فيديو')">
-                🎬 تعديل فيديو
-            </button>
-
-            <button onclick="useExample('أريد قراءة كتاب')">
-                📖 قراءة كتاب
-            </button>
-
-            <button onclick="useExample('أريد تصميم صورة')">
-                🎨 تصميم صورة
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div class="quick-section">
-
-        <h2>
-            🚀 تصفح سريع
-        </h2>
-
-        <p>
-            اختر شيئاً من القائمة.
-        </p>
-
+        <h1>📂 التصنيفات</h1>
 
         <div class="category-grid">
 
-            <button onclick="filterCategory('ألعاب')">
-                <span>🎮</span>
-                ألعاب
-            </button>
-
-            <button onclick="filterCategory('تعليم')">
-                <span>📚</span>
-                تعليم
-            </button>
-
-            <button onclick="filterCategory('كتب')">
-                <span>📖</span>
-                كتب
-            </button>
-
-            <button onclick="filterCategory('AI')">
-                <span>🤖</span>
-                ذكاء اصطناعي
-            </button>
-
-            <button onclick="filterCategory('تصميم')">
-                <span>🎨</span>
-                تصميم
-            </button>
-
-            <button onclick="filterCategory('فيديو')">
-                <span>🎬</span>
-                فيديو
-            </button>
-
-            <button onclick="filterCategory('موسيقى')">
-                <span>🎵</span>
-                موسيقى
-            </button>
-
-            <button onclick="filterCategory('برمجة')">
-                <span>💻</span>
-                برمجة
-            </button>
-
-            <button onclick="filterCategory('أدوات')">
-                <span>🛠️</span>
-                أدوات
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     CATEGORIES
-========================= -->
-
-<section id="categories" class="section">
-
-    <div class="page-title">
-
-        <span>🗂️</span>
-
-        <div>
-            <h2>التصنيفات</h2>
-
-            <p>
-                اكتشف مواقع الإنترنت حسب المجال.
-            </p>
-        </div>
-
-    </div>
-
-
-    <div class="category-grid large">
-
-        <button onclick="filterCategory('ألعاب')">
-            🎮
-            <strong>ألعاب</strong>
-            <small>ألعاب يمكن لعبها عبر الإنترنت</small>
-        </button>
-
-        <button onclick="filterCategory('تعليم')">
-            📚
-            <strong>تعليم</strong>
-            <small>دراسة ودروس وتمارين</small>
-        </button>
-
-        <button onclick="filterCategory('كتب')">
-            📖
-            <strong>كتب</strong>
-            <small>قراءة ومكتبات رقمية</small>
-        </button>
-
-        <button onclick="filterCategory('AI')">
-            🤖
-            <strong>ذكاء اصطناعي</strong>
-            <small>أدوات ومساعدات AI</small>
-        </button>
-
-        <button onclick="filterCategory('تصميم')">
-            🎨
-            <strong>تصميم</strong>
-            <small>صور وتصميمات ورسومات</small>
-        </button>
-
-        <button onclick="filterCategory('فيديو')">
-            🎬
-            <strong>فيديو</strong>
-            <small>مشاهدة وتحرير الفيديو</small>
-        </button>
-
-        <button onclick="filterCategory('موسيقى')">
-            🎵
-            <strong>موسيقى</strong>
-            <small>استماع ومحتوى صوتي</small>
-        </button>
-
-        <button onclick="filterCategory('برمجة')">
-            💻
-            <strong>برمجة</strong>
-            <small>أدوات ومواقع للمبرمجين</small>
-        </button>
-
-        <button onclick="filterCategory('أدوات')">
-            🛠️
-            <strong>أدوات</strong>
-            <small>أدوات مفيدة للحياة اليومية</small>
-        </button>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================
-     SITES
-========================= -->
-
-<section id="sites" class="section">
-
-    <div class="page-title">
-
-        <span>🌐</span>
-
-        <div>
-            <h2>المواقع</h2>
-
-            <p id="resultText">
-                جميع المواقع
-            </p>
-        </div>
-
-    </div>
-
-
-    <div class="filter-bar">
-
-        <input
-            id="siteSearch"
-            type="text"
-            placeholder="🔎 ابحث عن موقع..."
-            oninput="filterSiteList()"
-        >
-
-
-        <select
-            id="categorySelect"
-            onchange="selectCategory()"
-        >
-
-            <option value="الكل">
-                كل التصنيفات
-            </option>
-
-            <option value="ألعاب">
-                🎮 ألعاب
-            </option>
-
-            <option value="تعليم">
-                📚 تعليم
-            </option>
-
-            <option value="كتب">
-                📖 كتب
-            </option>
-
-            <option value="AI">
-                🤖 ذكاء اصطناعي
-            </option>
-
-            <option value="تصميم">
-                🎨 تصميم
-            </option>
-
-            <option value="فيديو">
-                🎬 فيديو
-            </option>
-
-            <option value="موسيقى">
-                🎵 موسيقى
-            </option>
-
-            <option value="برمجة">
-                💻 برمجة
-            </option>
-
-            <option value="أدوات">
-                🛠️ أدوات
-            </option>
-
-        </select>
-
-    </div>
-
-
-    <div
-        id="sitesContainer"
-        class="sites-grid"
-    ></div>
-
-</section>
-
-
-
-<!-- =========================
-     ABOUT
-========================= -->
-
-<section id="about" class="section">
-
-    <div class="about-card">
-
-        <div class="about-icon">
-            🌐
-        </div>
-
-        <h2>
-            ما هو WebBox؟
-        </h2>
-
-        <p>
-            WebBox هو موقع يجمع مواقع الإنترنت المفيدة
-            في مكان واحد.
-        </p>
-
-        <p>
-            بدلاً من البحث في الإنترنت كل مرة عن موقع
-            للألعاب أو الكتب أو التصميم أو الدراسة،
-            يمكنك استخدام WebBox للوصول إليها بسرعة.
-        </p>
-
-
-        <div class="idea-box">
-
-            💡
-
-            <div>
-
-                <strong>
-                    الفكرة الأساسية
-                </strong>
-
-                <p>
-                    اكتب ما تريد فعله باللغة الطبيعية،
-                    وسيحاول WebBox فهم طلبك واقتراح
-                    المواقع المناسبة.
-                </p>
-
+            <div onclick="filterCategory('games')">
+                🎮
+                <h3>الألعاب</h3>
+                <p>30 موقعًا</p>
+            </div>
+
+            <div onclick="filterCategory('education')">
+                🎓
+                <h3>التعليم</h3>
+                <p>30 موقعًا</p>
+            </div>
+
+            <div onclick="filterCategory('books')">
+                📚
+                <h3>الكتب</h3>
+                <p>30 موقعًا</p>
+            </div>
+
+            <div onclick="filterCategory('ai')">
+                🤖
+                <h3>الذكاء الاصطناعي</h3>
+                <p>30 موقعًا</p>
+            </div>
+
+            <div onclick="filterCategory('design')">
+                🎨
+                <h3>التصميم</h3>
+                <p>30 موقعًا</p>
+            </div>
+
+            <div onclick="filterCategory('video')">
+                🎬
+                <h3>الفيديو</h3>
+                <p>30 موقعًا</p>
+            </div>
+
+            <div onclick="filterCategory('music')">
+                🎵
+                <h3>الموسيقى</h3>
+                <p>30 موقعًا</p>
+            </div>
+
+            <div onclick="filterCategory('programming')">
+                💻
+                <h3>البرمجة</h3>
+                <p>30 موقعًا</p>
+            </div>
+
+            <div onclick="filterCategory('tools')">
+                🛠️
+                <h3>الأدوات</h3>
+                <p>30 موقعًا</p>
             </div>
 
         </div>
 
-    </div>
+    </section>
 
-</section>
+
+    <!-- SITES -->
+
+    <section id="sites" class="section">
+
+        <h1>🌐 كل المواقع</h1>
+
+        <div class="filters">
+
+            <input
+                id="siteSearch"
+                placeholder="🔎 ابحث في المواقع..."
+                oninput="filterSiteList()"
+            >
+
+            <select id="categorySelect" onchange="filterSiteList()">
+
+                <option value="all">كل التصنيفات</option>
+
+                <option value="games">🎮 الألعاب</option>
+
+                <option value="education">🎓 التعليم</option>
+
+                <option value="books">📚 الكتب</option>
+
+                <option value="ai">🤖 الذكاء الاصطناعي</option>
+
+                <option value="design">🎨 التصميم</option>
+
+                <option value="video">🎬 الفيديو</option>
+
+                <option value="music">🎵 الموسيقى</option>
+
+                <option value="programming">💻 البرمجة</option>
+
+                <option value="tools">🛠️ الأدوات</option>
+
+            </select>
+
+        </div>
+
+        <p id="resultText"></p>
+
+        <div id="sitesContainer" class="sites-grid"></div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section id="about" class="section">
+
+        <div class="about-card">
+
+            <h1>🌐 عن WebBox</h1>
+
+            <p>
+                WebBox هو دليل بسيط يساعدك على العثور على مواقع مفيدة
+                في مكان واحد.
+            </p>
+
+            <p>
+                يحتوي على مئات المواقع في مجالات مختلفة مثل الألعاب،
+                التعليم، الكتب، الذكاء الاصطناعي، التصميم، الفيديو،
+                الموسيقى، البرمجة والأدوات.
+            </p>
+
+            <h2>🚀 الهدف</h2>
+
+            <p>
+                عندما تحتاج شيئًا على الإنترنت، لا تضيع وقتك في البحث
+                من الصفر. ابحث عنه داخل WebBox.
+            </p>
+
+        </div>
+
+    </section>
 
 </main>
 
 
-
 <footer>
-
-    <div class="footer-logo">
-        🌐 WebBox
-    </div>
-
-    <p>
-        مواقع مفيدة في مكان واحد.
-    </p>
-
-    <small>
-        © 2026 WebBox
-    </small>
-
+    <p>🌐 WebBox © 2026</p>
 </footer>
 
 
 <script src="script.js"></script>
 
 </body>
-
 </html>
