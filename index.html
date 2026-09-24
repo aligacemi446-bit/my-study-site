@@ -1,66 +1,129 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>WebBox - عالم المواقع المفيدة والمسلية</title>
-    <meta name="description" content="WebBox - اكتشف أفضل المواقع المفيدة والمسلية على الإنترنت">
+    <title>WebBox | اكتشف الإنترنت</title>
+
+    <meta
+        name="description"
+        content="WebBox - اكتشف أفضل المواقع المفيدة والمسلية في مكان واحد"
+    >
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    <div class="logo">
-        🌐 <span>WebBox</span>
-    </div>
+<!-- ================= BACKGROUND ================= -->
 
-    <nav>
-        <button onclick="showSection('home')">الرئيسية</button>
-        <button onclick="showSection('categories')">التصنيفات</button>
-        <button onclick="showSection('sites')">كل المواقع</button>
-        <button onclick="showSection('fun')">🎉 مسلية</button>
-        <button onclick="showSection('gaming')">🎮 ألعاب</button>
-        <button onclick="showSection('about')">حول الموقع</button>
-        <button class="dark-btn" onclick="toggleDarkMode()">🌙</button>
+<div class="background-effects">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+</div>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <a class="logo" onclick="showSection('home')">
+        <span class="logo-icon">🌐</span>
+        <span class="logo-text">Web<span>Box</span></span>
+    </a>
+
+
+    <nav class="nav">
+
+        <button onclick="showSection('home')">
+            🏠 الرئيسية
+        </button>
+
+        <button onclick="showSection('categories')">
+            🗂️ التصنيفات
+        </button>
+
+        <button onclick="showSection('sites')">
+            🌐 المواقع
+        </button>
+
+        <button onclick="showSection('fun')">
+            🎉 مسلية
+        </button>
+
+        <button onclick="showSection('gaming')">
+            🎮 ألعاب
+        </button>
+
+        <button onclick="showFavorites()">
+            ⭐ المفضلة
+        </button>
+
+        <button
+            class="theme-button"
+            onclick="toggleDarkMode()"
+            id="themeButton"
+        >
+            🌙
+        </button>
+
     </nav>
+
 </header>
 
 
+<!-- ================= MAIN ================= -->
+
 <main>
+
 
 <!-- ================= HOME ================= -->
 
 <section id="home" class="section active">
 
+
     <div class="hero">
 
         <div class="hero-content">
 
-            <div class="badge">
-                ✨ اكتشف الإنترنت بطريقة جديدة
+
+            <div class="hero-badge">
+                ✨ عالم الإنترنت بين يديك
             </div>
 
+
             <h1>
-                مرحباً بك في
-                <span>WebBox</span>
+                اكتشف
+                <span>الإنترنت</span>
+                بطريقة جديدة
             </h1>
 
-            <p>
-                مكان واحد لاكتشاف مواقع مفيدة، تعليمية، مسلية، ألعاب،
-                ذكاء اصطناعي، تصميم، موسيقى وأكثر.
+
+            <p class="hero-description">
+
+                WebBox يجمع لك مواقع الألعاب،
+                الدراسة، الذكاء الاصطناعي،
+                التصميم، الترفيه والمزيد في مكان واحد.
+
             </p>
 
-            <div class="search-box">
 
-                <span>🔎</span>
+            <!-- SEARCH -->
+
+            <div class="main-search">
+
+                <span class="search-icon">
+                    🔎
+                </span>
 
                 <input
                     id="searchInput"
                     type="text"
-                    placeholder="ماذا تريد أن تجد؟ مثل ألعاب، ذكاء اصطناعي، دراسة..."
+                    placeholder="ماذا تريد أن تجد؟"
+                    autocomplete="off"
                     oninput="smartSearch()"
                     onkeydown="handleSearchKey(event)"
                 >
@@ -71,10 +134,15 @@
 
             </div>
 
-            <div id="suggestions"></div>
+
             <div id="smartResults"></div>
 
-            <div class="examples">
+
+            <!-- EXAMPLES -->
+
+            <div class="search-examples">
+
+                <span>جرب:</span>
 
                 <button onclick="useExample('ألعاب')">
                     🎮 ألعاب
@@ -88,71 +156,162 @@
                     📚 دراسة
                 </button>
 
-                <button onclick="useExample('مواقع مسلية')">
+                <button onclick="useExample('مسلية')">
                     🎉 تسلية
                 </button>
 
             </div>
 
+
+            <!-- RANDOM BUTTON -->
+
+            <button
+                class="random-button"
+                onclick="randomSite()"
+            >
+                🎲 اكتشف موقعاً عشوائياً
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= STATS ================= -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <span class="stat-icon">
+                🌐
+            </span>
+
+            <div>
+                <strong id="siteCount">
+                    0
+                </strong>
+
+                <span>
+                    موقع
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <span class="stat-icon">
+                🗂️
+            </span>
+
+            <div>
+                <strong>
+                    10
+                </strong>
+
+                <span>
+                    تصنيفات
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <span class="stat-icon">
+                ⭐
+            </span>
+
+            <div>
+                <strong id="favoriteCount">
+                    0
+                </strong>
+
+                <span>
+                    مفضلة
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <span class="stat-icon">
+                🆓
+            </span>
+
+            <div>
+                <strong>
+                    100%
+                </strong>
+
+                <span>
+                    مجاني
+                </span>
+            </div>
+
         </div>
 
     </div>
 
 
-    <div class="quick-section">
+    <!-- ================= FEATURED ================= -->
 
-        <h2>⚡ وصول سريع</h2>
+    <div class="home-section-title">
 
-        <div class="quick-grid">
+        <div>
+            <span>🔥</span>
 
-            <div onclick="filterCategory('games')">
-                🎮
-                <span>الألعاب</span>
-            </div>
-
-            <div onclick="filterCategory('fun')">
-                🎉
-                <span>مسلية</span>
-            </div>
-
-            <div onclick="filterCategory('education')">
-                📚
-                <span>التعليم</span>
-            </div>
-
-            <div onclick="filterCategory('ai')">
-                🤖
-                <span>الذكاء الاصطناعي</span>
-            </div>
-
-            <div onclick="filterCategory('design')">
-                🎨
-                <span>التصميم</span>
-            </div>
-
-            <div onclick="filterCategory('tools')">
-                🛠️
-                <span>الأدوات</span>
-            </div>
-
+            <h2>
+                مواقع تستحق التجربة
+            </h2>
         </div>
 
+        <button onclick="showSection('sites')">
+            مشاهدة الكل →
+        </button>
+
     </div>
+
+
+    <div
+        id="featuredContainer"
+        class="featured-grid"
+    ></div>
+
 
 </section>
 
 
 <!-- ================= CATEGORIES ================= -->
 
-<section id="categories" class="section">
+<section
+    id="categories"
+    class="section"
+>
 
-    <div class="section-title">
 
-        <span>🗂️</span>
+    <div class="page-heading">
+
+        <div class="page-heading-icon">
+            🗂️
+        </div>
 
         <div>
-            <h2>التصنيفات</h2>
-            <p>اختر المجال الذي تبحث عنه</p>
+
+            <h2>
+                التصنيفات
+            </h2>
+
+            <p>
+                اختر المجال الذي تريد استكشافه
+            </p>
+
         </div>
 
     </div>
@@ -160,281 +319,276 @@
 
     <div class="category-grid">
 
-        <div class="category-card games-card"
-             onclick="filterCategory('games')">
-            <div class="category-icon">🎮</div>
-            <h3>الألعاب</h3>
-            <p>ألعاب ومتعة ومواقع لعب مباشرة</p>
+
+        <div
+            class="category-card games"
+            onclick="filterCategory('games')"
+        >
+
+            <div class="category-icon">
+                🎮
+            </div>
+
+            <h3>
+                الألعاب
+            </h3>
+
+            <p>
+                ألعاب ومواقع لعب ممتعة
+            </p>
+
+            <span>
+                استكشف →
+            </span>
+
         </div>
 
 
-        <div class="category-card fun-card"
-             onclick="filterCategory('fun')">
-            <div class="category-icon">🎉</div>
-            <h3>مسلية</h3>
-            <p>مواقع غريبة وممتعة وتفاعلية</p>
+        <div
+            class="category-card fun"
+            onclick="filterCategory('fun')"
+        >
+
+            <div class="category-icon">
+                🎉
+            </div>
+
+            <h3>
+                مسلية
+            </h3>
+
+            <p>
+                مواقع غريبة وممتعة
+            </p>
+
+            <span>
+                استكشف →
+            </span>
+
         </div>
 
 
-        <div class="category-card"
-             onclick="filterCategory('education')">
-            <div class="category-icon">📚</div>
-            <h3>التعليم</h3>
-            <p>تعلم ودراسة ومراجع</p>
+        <div
+            class="category-card education"
+            onclick="filterCategory('education')"
+        >
+
+            <div class="category-icon">
+                📚
+            </div>
+
+            <h3>
+                التعليم
+            </h3>
+
+            <p>
+                تعلم ودراسة ومراجع
+            </p>
+
+            <span>
+                استكشف →
+            </span>
+
         </div>
 
 
-        <div class="category-card"
-             onclick="filterCategory('books')">
-            <div class="category-icon">📖</div>
-            <h3>الكتب</h3>
-            <p>قراءة وكتب ومكتبات</p>
+        <div
+            class="category-card books"
+            onclick="filterCategory('books')"
+        >
+
+            <div class="category-icon">
+                📖
+            </div>
+
+            <h3>
+                الكتب
+            </h3>
+
+            <p>
+                كتب ومكتبات إلكترونية
+            </p>
+
+            <span>
+                استكشف →
+            </span>
+
         </div>
 
 
-        <div class="category-card"
-             onclick="filterCategory('ai')">
-            <div class="category-icon">🤖</div>
-            <h3>الذكاء الاصطناعي</h3>
-            <p>أدوات AI ومساعدات ذكية</p>
+        <div
+            class="category-card ai"
+            onclick="filterCategory('ai')"
+        >
+
+            <div class="category-icon">
+                🤖
+            </div>
+
+            <h3>
+                الذكاء الاصطناعي
+            </h3>
+
+            <p>
+                أدوات AI ومساعدات ذكية
+            </p>
+
+            <span>
+                استكشف →
+            </span>
+
         </div>
 
 
-        <div class="category-card"
-             onclick="filterCategory('design')">
-            <div class="category-icon">🎨</div>
-            <h3>التصميم</h3>
-            <p>صور وفيديو وتصميم</p>
+        <div
+            class="category-card design"
+            onclick="filterCategory('design')"
+        >
+
+            <div class="category-icon">
+                🎨
+            </div>
+
+            <h3>
+                التصميم
+            </h3>
+
+            <p>
+                تصميم وصور وألوان
+            </p>
+
+            <span>
+                استكشف →
+            </span>
+
         </div>
 
 
-        <div class="category-card"
-             onclick="filterCategory('video')">
-            <div class="category-icon">🎬</div>
-            <h3>الفيديو</h3>
-            <p>مشاهدة وتحرير الفيديو</p>
+        <div
+            class="category-card video"
+            onclick="filterCategory('video')"
+        >
+
+            <div class="category-icon">
+                🎬
+            </div>
+
+            <h3>
+                الفيديو
+            </h3>
+
+            <p>
+                فيديو وتحرير ومحتوى
+            </p>
+
+            <span>
+                استكشف →
+            </span>
+
         </div>
 
 
-        <div class="category-card"
-             onclick="filterCategory('music')">
-            <div class="category-icon">🎵</div>
-            <h3>الموسيقى</h3>
-            <p>استماع واكتشاف الموسيقى</p>
+        <div
+            class="category-card music"
+            onclick="filterCategory('music')"
+        >
+
+            <div class="category-icon">
+                🎵
+            </div>
+
+            <h3>
+                الموسيقى
+            </h3>
+
+            <p>
+                استماع واكتشاف الموسيقى
+            </p>
+
+            <span>
+                استكشف →
+            </span>
+
         </div>
 
 
-        <div class="category-card"
-             onclick="filterCategory('programming')">
-            <div class="category-icon">💻</div>
-            <h3>البرمجة</h3>
-            <p>تعلم البرمجة وتطوير المواقع</p>
+        <div
+            class="category-card programming"
+            onclick="filterCategory('programming')"
+        >
+
+            <div class="category-icon">
+                💻
+            </div>
+
+            <h3>
+                البرمجة
+            </h3>
+
+            <p>
+                برمجة وتطوير المواقع والألعاب
+            </p>
+
+            <span>
+                استكشف →
+            </span>
+
         </div>
 
 
-        <div class="category-card"
-             onclick="filterCategory('tools')">
-            <div class="category-icon">🛠️</div>
-            <h3>الأدوات</h3>
-            <p>أدوات الإنترنت المفيدة</p>
+        <div
+            class="category-card tools"
+            onclick="filterCategory('tools')"
+        >
+
+            <div class="category-icon">
+                🛠️
+            </div>
+
+            <h3>
+                الأدوات
+            </h3>
+
+            <p>
+                أدوات إنترنت مفيدة
+            </p>
+
+            <span>
+                استكشف →
+            </span>
+
         </div>
+
 
     </div>
 
 </section>
 
 
-<!-- ================= FUN ================= -->
+<!-- ================= SITES ================= -->
 
-<section id="fun" class="section">
+<section
+    id="sites"
+    class="section"
+>
 
-    <div class="fun-hero">
+
+    <div class="page-heading">
+
+        <div class="page-heading-icon">
+            🌐
+        </div>
 
         <div>
-            <span class="big-emoji">🎉</span>
 
             <h2>
-                وقت الترفيه!
+                كل المواقع
             </h2>
 
             <p>
-                مللت؟ جرب واحداً من هذه المواقع واكتشف شيئاً جديداً.
-            </p>
-        </div>
-
-    </div>
-
-
-    <div class="featured-grid">
-
-        <a class="featured-card" href="https://neal.fun/" target="_blank">
-
-            <div class="featured-icon">🧠</div>
-
-            <div>
-                <h3>Neal.fun</h3>
-                <p>
-                    مجموعة من التجارب والألعاب التفاعلية الغريبة والممتعة.
-                </p>
-            </div>
-
-            <span>فتح الموقع →</span>
-
-        </a>
-
-
-        <a class="featured-card" href="https://quickdraw.withgoogle.com/" target="_blank">
-
-            <div class="featured-icon">✏️</div>
-
-            <div>
-                <h3>Quick, Draw!</h3>
-                <p>
-                    ارسم شيئاً ودع الذكاء الاصطناعي يحاول معرفة ما رسمته.
-                </p>
-            </div>
-
-            <span>جرب الآن →</span>
-
-        </a>
-
-
-        <a class="featured-card" href="https://earth.google.com/web/" target="_blank">
-
-            <div class="featured-icon">🌍</div>
-
-            <div>
-                <h3>Google Earth</h3>
-                <p>
-                    استكشف العالم والمدن والأماكن من المتصفح.
-                </p>
-            </div>
-
-            <span>استكشف →</span>
-
-        </a>
-
-
-        <a class="featured-card" href="https://www.geo-fs.com/" target="_blank">
-
-            <div class="featured-icon">✈️</div>
-
-            <div>
-                <h3>GeoFS</h3>
-                <p>
-                    محاكي طيران يعمل مباشرة من المتصفح.
-                </p>
-            </div>
-
-            <span>إقلاع →</span>
-
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- ================= GAMING ================= -->
-
-<section id="gaming" class="section">
-
-    <div class="gaming-header">
-
-        <div>
-            <span>🎮</span>
-
-            <h2>Gaming Zone</h2>
-
-            <p>
-                ألعاب ومواقع لعب مباشرة من المتصفح.
-            </p>
-        </div>
-
-    </div>
-
-
-    <div class="gaming-grid">
-
-        <a href="https://poki.com/" target="_blank"
-           class="game-big-card">
-
-            <div class="game-card-icon">🎮</div>
-
-            <h3>Poki</h3>
-
-            <p>
-                آلاف الألعاب المجانية مباشرة من المتصفح.
+                ابحث واكتشف مواقع جديدة
             </p>
 
-            <strong>العب الآن →</strong>
-
-        </a>
-
-
-        <a href="https://www.crazygames.com/" target="_blank"
-           class="game-big-card">
-
-            <div class="game-card-icon">🔥</div>
-
-            <h3>CrazyGames</h3>
-
-            <p>
-                ألعاب متصفح كثيرة تشمل السباق والمغامرات والمحاكاة وغيرها.
-            </p>
-
-            <strong>العب الآن →</strong>
-
-        </a>
-
-
-        <a href="https://www.geo-fs.com/" target="_blank"
-           class="game-big-card">
-
-            <div class="game-card-icon">✈️</div>
-
-            <h3>GeoFS</h3>
-
-            <p>
-                محاكي طيران عالمي يعمل مباشرة داخل المتصفح.
-            </p>
-
-            <strong>حلّق الآن →</strong>
-
-        </a>
-
-
-        <a href="https://scratch.mit.edu/" target="_blank"
-           class="game-big-card">
-
-            <div class="game-card-icon">🐱</div>
-
-            <h3>Scratch</h3>
-
-            <p>
-                ألعاب ومشاريع تفاعلية يمكنك لعبها وصنعها.
-            </p>
-
-            <strong>اكتشف →</strong>
-
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- ================= ALL SITES ================= -->
-
-<section id="sites" class="section">
-
-    <div class="section-title">
-
-        <span>🌐</span>
-
-        <div>
-            <h2>كل المواقع</h2>
-            <p>استخدم البحث أو اختر تصنيفاً</p>
         </div>
 
     </div>
@@ -442,19 +596,29 @@
 
     <div class="filters">
 
-        <input
-            id="siteSearch"
-            type="text"
-            placeholder="🔎 ابحث عن موقع..."
-            oninput="filterSiteList()"
+        <div class="filter-search">
+
+            <span>
+                🔎
+            </span>
+
+            <input
+                id="siteSearch"
+                type="text"
+                placeholder="ابحث عن موقع..."
+                oninput="filterSiteList()"
+            >
+
+        </div>
+
+
+        <select
+            id="categorySelect"
+            onchange="filterSiteList()"
         >
 
-
-        <select id="categorySelect"
-                onchange="filterSiteList()">
-
             <option value="all">
-                كل التصنيفات
+                🗂️ كل التصنيفات
             </option>
 
             <option value="games">
@@ -502,54 +666,196 @@
     </div>
 
 
-    <div id="resultText" class="result-text"></div>
+    <div class="results-bar">
 
-    <div id="sitesContainer" class="sites-grid"></div>
+        <span id="resultText">
+            عرض المواقع
+        </span>
+
+        <button onclick="randomSite()">
+            🎲 عشوائي
+        </button>
+
+    </div>
+
+
+    <div
+        id="sitesContainer"
+        class="sites-grid"
+    ></div>
+
+
+</section>
+
+
+<!-- ================= FUN ================= -->
+
+<section
+    id="fun"
+    class="section"
+>
+
+
+    <div class="special-hero fun-hero">
+
+        <div>
+
+            <div class="special-icon">
+                🎉
+            </div>
+
+            <h2>
+                وقت الترفيه!
+            </h2>
+
+            <p>
+                مواقع غريبة وتفاعلية وممتعة لتكتشفها.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="funContainer"
+        class="fun-grid"
+    ></div>
+
+
+</section>
+
+
+<!-- ================= GAMING ================= -->
+
+<section
+    id="gaming"
+    class="section"
+>
+
+
+    <div class="special-hero gaming-hero">
+
+        <div>
+
+            <div class="special-icon">
+                🎮
+            </div>
+
+            <h2>
+                Gaming Zone
+            </h2>
+
+            <p>
+                مواقع ألعاب ومحاكاة وتجارب تفاعلية.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="gamingContainer"
+        class="gaming-grid"
+    ></div>
+
+
+</section>
+
+
+<!-- ================= FAVORITES ================= -->
+
+<section
+    id="favorites"
+    class="section"
+>
+
+
+    <div class="page-heading">
+
+        <div class="page-heading-icon">
+            ⭐
+        </div>
+
+        <div>
+
+            <h2>
+                مواقعي المفضلة
+            </h2>
+
+            <p>
+                المواقع التي حفظتها
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="favoritesContainer"
+        class="sites-grid"
+    ></div>
+
 
 </section>
 
 
 <!-- ================= ABOUT ================= -->
 
-<section id="about" class="section">
+<section
+    id="about"
+    class="section"
+>
 
-    <div class="about-box">
+
+    <div class="about-card">
 
         <div class="about-logo">
             🌐
         </div>
 
-        <h2>ما هو WebBox؟</h2>
+        <h2>
+            WebBox
+        </h2>
 
         <p>
-            WebBox هو دليل بسيط يساعدك على اكتشاف مواقع مفيدة
-            ومسلية من مكان واحد.
+
+            WebBox هو دليل مواقع بسيط يساعدك
+            على اكتشاف الإنترنت بطريقة أسهل.
+
         </p>
 
-        <div class="about-features">
+
+        <div class="about-grid">
 
             <div>
                 🔎
-                <strong>بحث ذكي</strong>
-                <span>ابحث عن الموقع الذي تحتاجه</span>
+                <strong>
+                    بحث ذكي
+                </strong>
             </div>
 
             <div>
-                🗂️
-                <strong>تصنيفات</strong>
-                <span>مواقع مرتبة حسب المجال</span>
+                ⭐
+                <strong>
+                    مفضلة
+                </strong>
+            </div>
+
+            <div>
+                🎲
+                <strong>
+                    مواقع عشوائية
+                </strong>
             </div>
 
             <div>
                 🌙
-                <strong>الوضع الليلي</strong>
-                <span>تصفح مريح في الليل</span>
-            </div>
-
-            <div>
-                🎉
-                <strong>مواقع مسلية</strong>
-                <span>اكتشف مواقع جديدة</span>
+                <strong>
+                    Dark Mode
+                </strong>
             </div>
 
         </div>
@@ -558,24 +864,57 @@
 
 </section>
 
+
 </main>
 
 
+<!-- ================= FOOTER ================= -->
+
 <footer>
 
-    <div>
-        🌐 <strong>WebBox</strong>
+    <div class="footer-logo">
+        🌐 WebBox
     </div>
 
     <p>
         اكتشف الإنترنت بطريقة أسهل ✨
     </p>
 
-    <p class="copyright">
+    <div class="footer-links">
+
+        <button onclick="showSection('home')">
+            الرئيسية
+        </button>
+
+        <button onclick="showSection('categories')">
+            التصنيفات
+        </button>
+
+        <button onclick="showSection('sites')">
+            المواقع
+        </button>
+
+        <button onclick="showSection('about')">
+            حول
+        </button>
+
+    </div>
+
+    <div class="copyright">
         © 2026 WebBox
-    </p>
+    </div>
 
 </footer>
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast"
+>
+    تم الحفظ ⭐
+</div>
 
 
 <script src="script.js"></script>
