@@ -12,99 +12,139 @@
 
 <body>
 
-    <!-- ======================================
+    <!-- =========================
          HEADER
-    ======================================= -->
+    ========================== -->
 
     <header class="main-header">
 
         <div class="header-inner">
 
-            <!-- الشعار -->
+            <!-- LOGO -->
 
             <div class="logo" onclick="showHome()">
-                <span class="logo-icon">🌐</span>
-                <span class="logo-text">WebBox</span>
+
+                <div class="logo-glow"></div>
+
+                <span class="logo-icon">
+                    🌐
+                </span>
+
+                <span class="logo-text">
+                    Web<span>Box</span>
+                </span>
+
             </div>
 
 
-            <!-- شريط التنقل -->
+            <!-- NAVIGATION -->
 
             <nav class="nav-bar">
 
                 <button
                     class="nav-btn active"
-                    onclick="showHome()"
-                    id="nav-home">
+                    id="nav-home"
+                    onclick="showHome()">
 
-                    <span class="nav-icon">🏠</span>
-                    <span>الرئيسية</span>
+                    <span class="nav-icon">
+                        🏠
+                    </span>
 
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    onclick="showCategories()"
-                    id="nav-categories">
-
-                    <span class="nav-icon">▦</span>
-                    <span>التصنيفات</span>
+                    <span class="nav-label">
+                        الرئيسية
+                    </span>
 
                 </button>
 
 
                 <button
                     class="nav-btn"
-                    onclick="showSection('sites')"
-                    id="nav-sites">
+                    id="nav-categories"
+                    onclick="showCategories()">
 
-                    <span class="nav-icon">🌐</span>
-                    <span>المواقع</span>
+                    <span class="nav-icon">
+                        ▦
+                    </span>
 
-                </button>
-
-
-                <button
-                    class="nav-btn"
-                    onclick="showFun()"
-                    id="nav-fun">
-
-                    <span class="nav-icon">😎</span>
-                    <span>مسلية</span>
+                    <span class="nav-label">
+                        التصنيفات
+                    </span>
 
                 </button>
 
 
                 <button
                     class="nav-btn"
-                    onclick="showGaming()"
-                    id="nav-gaming">
+                    id="nav-sites"
+                    onclick="showSection('sites')">
 
-                    <span class="nav-icon">🎮</span>
-                    <span>الألعاب</span>
+                    <span class="nav-icon">
+                        🌐
+                    </span>
+
+                    <span class="nav-label">
+                        المواقع
+                    </span>
 
                 </button>
 
 
                 <button
                     class="nav-btn"
-                    onclick="showFavorites()"
-                    id="nav-favorites">
+                    id="nav-fun"
+                    onclick="showFun()">
 
-                    <span class="nav-icon">❤️</span>
-                    <span>المفضلة</span>
+                    <span class="nav-icon">
+                        😎
+                    </span>
+
+                    <span class="nav-label">
+                        مسلية
+                    </span>
 
                 </button>
 
+
+                <button
+                    class="nav-btn"
+                    id="nav-gaming"
+                    onclick="showGaming()">
+
+                    <span class="nav-icon">
+                        🎮
+                    </span>
+
+                    <span class="nav-label">
+                        الألعاب
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="nav-btn"
+                    id="nav-favorites"
+                    onclick="showFavorites()">
+
+                    <span class="nav-icon">
+                        ❤️
+                    </span>
+
+                    <span class="nav-label">
+                        المفضلة
+                    </span>
+
+                </button>
+
+
+                <!-- THEME -->
 
                 <div class="nav-divider"></div>
 
-
                 <button
                     class="theme-btn"
-                    onclick="toggleDarkMode()"
-                    id="darkModeBtn">
+                    id="darkModeBtn"
+                    onclick="toggleDarkMode()">
 
                     🌙
 
@@ -117,16 +157,16 @@
     </header>
 
 
-    <!-- ======================================
+    <!-- =========================
          MAIN
-    ======================================= -->
+    ========================== -->
 
     <main>
 
 
-        <!-- ==================================
+        <!-- =====================
              HOME
-        =================================== -->
+        ====================== -->
 
         <section
             id="home"
@@ -134,43 +174,72 @@
 
             <div class="hero">
 
-                <div class="hero-glow"></div>
+                <div class="hero-orb orb-1"></div>
+                <div class="hero-orb orb-2"></div>
+                <div class="hero-orb orb-3"></div>
+
+                <div class="floating-shape shape-1">
+                    ✦
+                </div>
+
+                <div class="floating-shape shape-2">
+                    +
+                </div>
+
+                <div class="floating-shape shape-3">
+                    ◇
+                </div>
+
 
                 <div class="hero-content">
 
                     <div class="hero-badge">
-                        ✨ عالم المواقع في مكان واحد
+                        ✨ عالم المواقع في جيبك ✨
                     </div>
+
+
+                    <div class="hero-logo">
+                        WebBox
+                    </div>
+
 
                     <h1>
                         مرحباً بك في
-                        <span>WebBox</span>
                     </h1>
+
 
                     <p>
                         اكتشف أفضل المواقع المفيدة والممتعة
-                        في مكان واحد.
+                        في مكان واحد
                     </p>
 
 
-                    <!-- البحث -->
+                    <!-- SEARCH -->
 
                     <div class="hero-search">
 
                         <span class="search-icon">
-                            🔎
+                            🔍
                         </span>
 
                         <input
-                            type="text"
                             id="searchInput"
-                            placeholder="ابحث عن موقع... مثل Minecraft أو YouTube"
+                            type="text"
+                            placeholder="ابحث عن أي موقع... مثل Minecraft أو YouTube"
                             autocomplete="off">
+
+                        <button
+                            class="search-send"
+                            onclick="handleSearchKey({key:'Enter'})">
+
+                            ➤
+
+                        </button>
 
                     </div>
 
 
-                    <!-- نتائج البحث الذكي -->
+                    <!-- SEARCH RESULTS -->
 
                     <div
                         id="smartResults"
@@ -178,39 +247,66 @@
                     </div>
 
 
-                    <!-- أمثلة -->
+                    <!-- QUICK SEARCH -->
 
-                    <div class="search-examples">
+                    <div class="quick-search">
 
-                        <span>جرب:</span>
+                        <span class="quick-title">
+                            ✨ جرب البحث عن:
+                        </span>
 
-                        <button onclick="useExample('Minecraft')">
-                            Minecraft
+
+                        <button
+                            onclick="useExample('Minecraft')">
+
+                            🎮 Minecraft
+
                         </button>
 
-                        <button onclick="useExample('AI')">
-                            AI
+
+                        <button
+                            onclick="useExample('AI')">
+
+                            🤖 AI
+
                         </button>
 
-                        <button onclick="useExample('ألعاب')">
-                            ألعاب
+
+                        <button
+                            onclick="useExample('ألعاب')">
+
+                            🎮 ألعاب
+
                         </button>
 
-                        <button onclick="useExample('تعليم')">
-                            تعليم
+
+                        <button
+                            onclick="useExample('تعليم')">
+
+                            🎓 تعليم
+
                         </button>
 
                     </div>
 
 
-                    <!-- زر عشوائي -->
+                    <!-- RANDOM -->
 
                     <button
                         class="random-btn"
                         onclick="randomSite()">
 
-                        <span>🎲</span>
-                        فاجئني بموقع عشوائي
+                        <span>
+                            🎲
+                        </span>
+
+                        <span>
+                            فاجئني بموقع عشوائي
+                        </span>
+
+                        <b>
+                            ←
+                        </b>
 
                     </button>
 
@@ -219,7 +315,7 @@
             </div>
 
 
-            <!-- الإحصائيات -->
+            <!-- STATS -->
 
             <div class="stats-container">
 
@@ -230,13 +326,15 @@
                     </span>
 
                     <div>
+
                         <strong id="totalSites">
                             0
                         </strong>
 
-                        <span>
+                        <small>
                             موقع
-                        </span>
+                        </small>
+
                     </div>
 
                 </div>
@@ -249,13 +347,15 @@
                     </span>
 
                     <div>
+
                         <strong id="totalCategories">
                             0
                         </strong>
 
-                        <span>
+                        <small>
                             تصنيف
-                        </span>
+                        </small>
+
                     </div>
 
                 </div>
@@ -268,13 +368,15 @@
                     </span>
 
                     <div>
+
                         <strong id="totalFavorites">
                             0
                         </strong>
 
-                        <span>
+                        <small>
                             مفضلة
-                        </span>
+                        </small>
+
                     </div>
 
                 </div>
@@ -282,26 +384,26 @@
             </div>
 
 
-            <!-- المواقع المميزة -->
+            <!-- FEATURED -->
 
             <div class="content-section">
 
                 <div class="section-title">
 
+                    <div class="section-icon">
+                        🔥
+                    </div>
+
                     <div>
-                        <span class="section-icon">
-                            🔥
-                        </span>
 
-                        <div>
-                            <h2>
-                                مواقع مميزة
-                            </h2>
+                        <h2>
+                            مواقع مميزة
+                        </h2>
 
-                            <p>
-                                مواقع تستحق التجربة
-                            </p>
-                        </div>
+                        <p>
+                            مواقع تستحق التجربة
+                        </p>
+
                     </div>
 
                 </div>
@@ -317,9 +419,9 @@
         </section>
 
 
-        <!-- ==================================
+        <!-- =====================
              CATEGORIES
-        =================================== -->
+        ====================== -->
 
         <section
             id="categories"
@@ -327,16 +429,20 @@
 
             <div class="page-title">
 
-                <span>📂</span>
+                <span>
+                    📂
+                </span>
 
                 <div>
+
                     <h1>
                         التصنيفات
                     </h1>
 
                     <p>
-                        اختر ما تريد واستكشف المواقع
+                        اختر تصنيفاً لاستكشاف المواقع
                     </p>
+
                 </div>
 
             </div>
@@ -344,9 +450,8 @@
 
             <div class="categories-grid">
 
-
                 <button
-                    class="category-card category-games"
+                    class="category-card"
                     onclick="filterCategory('games')">
 
                     <span>🎮</span>
@@ -363,7 +468,7 @@
 
 
                 <button
-                    class="category-card category-fun"
+                    class="category-card"
                     onclick="filterCategory('fun')">
 
                     <span>😎</span>
@@ -380,7 +485,7 @@
 
 
                 <button
-                    class="category-card category-education"
+                    class="category-card"
                     onclick="filterCategory('education')">
 
                     <span>🎓</span>
@@ -397,7 +502,7 @@
 
 
                 <button
-                    class="category-card category-books"
+                    class="category-card"
                     onclick="filterCategory('books')">
 
                     <span>📚</span>
@@ -414,7 +519,7 @@
 
 
                 <button
-                    class="category-card category-ai"
+                    class="category-card"
                     onclick="filterCategory('ai')">
 
                     <span>🤖</span>
@@ -431,7 +536,7 @@
 
 
                 <button
-                    class="category-card category-design"
+                    class="category-card"
                     onclick="filterCategory('design')">
 
                     <span>🎨</span>
@@ -448,7 +553,7 @@
 
 
                 <button
-                    class="category-card category-video"
+                    class="category-card"
                     onclick="filterCategory('video')">
 
                     <span>🎬</span>
@@ -465,7 +570,7 @@
 
 
                 <button
-                    class="category-card category-music"
+                    class="category-card"
                     onclick="filterCategory('music')">
 
                     <span>🎵</span>
@@ -482,7 +587,7 @@
 
 
                 <button
-                    class="category-card category-programming"
+                    class="category-card"
                     onclick="filterCategory('programming')">
 
                     <span>💻</span>
@@ -499,7 +604,7 @@
 
 
                 <button
-                    class="category-card category-tools"
+                    class="category-card"
                     onclick="filterCategory('tools')">
 
                     <span>🛠️</span>
@@ -519,9 +624,9 @@
         </section>
 
 
-        <!-- ==================================
+        <!-- =====================
              SITES
-        =================================== -->
+        ====================== -->
 
         <section
             id="sites"
@@ -532,6 +637,7 @@
                 <span>🌐</span>
 
                 <div>
+
                     <h1>
                         جميع المواقع
                     </h1>
@@ -539,6 +645,7 @@
                     <p>
                         اكتشف مواقع WebBox
                     </p>
+
                 </div>
 
             </div>
@@ -548,11 +655,11 @@
 
                 <div class="filter-search">
 
-                    🔎
+                    🔍
 
                     <input
-                        type="text"
                         id="siteSearch"
+                        type="text"
                         placeholder="ابحث في المواقع...">
 
                 </div>
@@ -610,11 +717,9 @@
 
 
             <div class="result-info">
-
                 <span id="resultText">
                     0 موقع
                 </span>
-
             </div>
 
 
@@ -626,9 +731,9 @@
         </section>
 
 
-        <!-- ==================================
+        <!-- =====================
              FUN
-        =================================== -->
+        ====================== -->
 
         <section
             id="fun"
@@ -639,13 +744,15 @@
                 <span>😎</span>
 
                 <div>
+
                     <h1>
-                        مواقع مسلية
+                        مسلية
                     </h1>
 
                     <p>
-                        أشياء ممتعة وغريبة لتجربتها
+                        مواقع ممتعة وغريبة
                     </p>
+
                 </div>
 
             </div>
@@ -659,9 +766,9 @@
         </section>
 
 
-        <!-- ==================================
+        <!-- =====================
              GAMING
-        =================================== -->
+        ====================== -->
 
         <section
             id="gaming"
@@ -672,13 +779,15 @@
                 <span>🎮</span>
 
                 <div>
+
                     <h1>
                         الألعاب
                     </h1>
 
                     <p>
-                        مواقع وألعاب يمكنك تجربتها
+                        أفضل مواقع الألعاب
                     </p>
+
                 </div>
 
             </div>
@@ -692,9 +801,9 @@
         </section>
 
 
-        <!-- ==================================
+        <!-- =====================
              FAVORITES
-        =================================== -->
+        ====================== -->
 
         <section
             id="favorites"
@@ -705,6 +814,7 @@
                 <span>❤️</span>
 
                 <div>
+
                     <h1>
                         المفضلة
                     </h1>
@@ -712,6 +822,7 @@
                     <p>
                         المواقع التي حفظتها
                     </p>
+
                 </div>
 
             </div>
@@ -724,23 +835,16 @@
 
         </section>
 
-
     </main>
 
 
-    <!-- ======================================
-         TOAST
-    ======================================= -->
+    <!-- TOAST -->
 
     <div
         id="toast"
         class="toast">
     </div>
 
-
-    <!-- ======================================
-         JAVASCRIPT
-    ======================================= -->
 
     <script src="script.js"></script>
 
