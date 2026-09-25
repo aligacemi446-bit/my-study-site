@@ -1,233 +1,290 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <title>WebBox 🌐 — عالم الإنترنت بين يديك</title>
 
-    <meta name="theme-color" content="#0b1020">
-
-    <meta name="description"
-          content="WebBox - اكتشف أفضل المواقع المفيدة والترفيهية والتعليمية.">
-
-    <title>WebBox - اكتشف عالم الويب</title>
+    <meta
+        name="description"
+        content="WebBox — اكتشف أفضل مواقع الإنترنت في مكان واحد"
+    >
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ============================= -->
-<!-- HEADER -->
-<!-- ============================= -->
+<!-- =====================================================
+     🌐 HEADER
+===================================================== -->
 
-<header class="header">
+<header class="main-header">
 
     <div class="header-inner">
 
-        <button class="logo" onclick="showHome()">
-            <span class="logo-icon">🌐</span>
-            <span>
+        <div class="brand">
+
+            <div class="brand-globe">
+                🌐
+            </div>
+
+            <div class="brand-text">
                 <strong>WebBox</strong>
-                <small>عالم الويب بين يديك</small>
-            </span>
-        </button>
+                <span>عالم الويب بين يديك</span>
+            </div>
 
-        <nav class="nav">
+        </div>
 
-            <button class="nav-btn active"
-                    data-section="home"
-                    onclick="showHome()">
+
+        <nav class="main-nav">
+
+            <button
+                class="nav-btn active"
+                onclick="showHome()"
+            >
                 <span>🏠</span>
                 الرئيسية
             </button>
 
-            <button class="nav-btn"
-                    data-section="categories"
-                    onclick="showCategories()">
-                <span>🗂️</span>
+            <button
+                class="nav-btn"
+                onclick="showCategories()"
+            >
+                <span>📁</span>
                 التصنيفات
             </button>
 
-            <button class="nav-btn"
-                    data-section="sites"
-                    onclick="showSection('sites')">
+            <button
+                class="nav-btn"
+                onclick="showSection('sites')"
+            >
                 <span>🌐</span>
                 المواقع
             </button>
 
-            <button class="nav-btn"
-                    data-section="fun"
-                    onclick="showFun()">
+            <button
+                class="nav-btn"
+                onclick="showFun()"
+            >
                 <span>🎉</span>
                 مسلية
             </button>
 
-            <button class="nav-btn"
-                    data-section="gaming"
-                    onclick="showGaming()">
+            <button
+                class="nav-btn"
+                onclick="showGaming()"
+            >
                 <span>🎮</span>
                 الألعاب
             </button>
 
-            <button class="nav-btn"
-                    data-section="favorites"
-                    onclick="showFavorites()">
+            <button
+                class="nav-btn"
+                onclick="showFavorites()"
+            >
                 <span>❤️</span>
                 المفضلة
             </button>
 
         </nav>
 
-        <div class="header-actions">
 
-            <button class="icon-btn"
-                    id="darkModeBtn"
-                    onclick="toggleDarkMode()"
-                    title="تغيير المظهر">
-                🌙
-            </button>
+        <button
+            class="theme-btn"
+            id="themeBtn"
+            onclick="toggleDarkMode()"
+            title="تغيير المظهر"
+        >
+            <span class="theme-icon">☀️</span>
+        </button>
 
-            <button class="icon-btn mobile-menu-btn"
-                    onclick="toggleMobileMenu()">
-                ☰
-            </button>
 
-        </div>
+        <button
+            class="mobile-menu-btn"
+            type="button"
+            onclick="toggleMobileMenu()"
+        >
+            ☰
+        </button>
 
     </div>
 
 </header>
 
 
-<!-- ============================= -->
-<!-- MOBILE NAV -->
-<!-- ============================= -->
+<!-- =====================================================
+     📱 MOBILE NAV
+===================================================== -->
 
-<div id="mobileNav" class="mobile-nav">
+<div
+    id="mobileNav"
+    class="mobile-nav"
+>
 
-    <button onclick="showHome()">🏠 الرئيسية</button>
-    <button onclick="showCategories()">🗂️ التصنيفات</button>
-    <button onclick="showSection('sites')">🌐 المواقع</button>
-    <button onclick="showFun()">🎉 مسلية</button>
-    <button onclick="showGaming()">🎮 الألعاب</button>
-    <button onclick="showFavorites()">❤️ المفضلة</button>
+    <button onclick="showHome()">
+        🏠 الرئيسية
+    </button>
+
+    <button onclick="showCategories()">
+        📁 التصنيفات
+    </button>
+
+    <button onclick="showSection('sites')">
+        🌐 المواقع
+    </button>
+
+    <button onclick="showFun()">
+        🎉 مسلية
+    </button>
+
+    <button onclick="showGaming()">
+        🎮 الألعاب
+    </button>
+
+    <button onclick="showFavorites()">
+        ❤️ المفضلة
+    </button>
 
 </div>
 
 
+<!-- =====================================================
+     🏠 HOME
+===================================================== -->
+
 <main>
 
 
-<!-- ============================= -->
-<!-- HOME -->
-<!-- ============================= -->
+<section
+    id="home"
+    class="page-section active"
+>
 
-<section id="home"
-         class="page-section active">
 
-    <div class="hero">
+    <!-- HERO -->
 
-        <div class="hero-background">
-            <span class="orb orb-1"></span>
-            <span class="orb orb-2"></span>
-            <span class="orb orb-3"></span>
+    <section class="hero">
+
+        <div class="hero-stars"></div>
+
+        <div class="hero-glow glow-one"></div>
+        <div class="hero-glow glow-two"></div>
+        <div class="hero-glow glow-three"></div>
+
+
+        <div class="hero-planet planet-one">
+            🪐
         </div>
+
+        <div class="hero-planet planet-two">
+            ✨
+        </div>
+
 
         <div class="hero-content">
 
+
             <div class="hero-badge">
-                <span class="live-dot"></span>
-                WebBox 2.0
+                🚀 WebBox 4.0
             </div>
 
+
             <h1>
+
                 اكتشف
-                <span>عالم الويب</span>
-                بسهولة
+                <span>عالم الإنترنت</span>
+                المذهل
+
             </h1>
 
-            <p>
-                مكان واحد للوصول إلى أفضل المواقع
-                للألعاب والتعليم والذكاء الاصطناعي
-                والتصميم والترفيه وأكثر.
+
+            <p class="hero-subtitle">
+
+                أكثر من
+                <strong>500 موقع</strong>
+                في مكان واحد
+
+                <br>
+
+                تصفح • تعلم • العب • صمم • استمتع
+
             </p>
+
 
             <!-- SEARCH -->
 
-            <div class="main-search">
+            <form
+                class="hero-search"
+                onsubmit="handleMainSearch(event)"
+            >
 
-                <span class="search-icon">🔎</span>
+                <div class="search-icon">
+                    🔍
+                </div>
 
                 <input
                     id="searchInput"
-                    type="text"
+                    type="search"
                     autocomplete="off"
-                    placeholder="ابحث عن موقع... مثل Minecraft أو Canva">
+                    placeholder="ابحث عن أي موقع... مثل Minecraft أو YouTube أو ChatGPT"
+                >
 
                 <button
-                    class="voice-btn"
-                    id="voiceBtn"
-                    onclick="startVoiceSearch()"
-                    title="بحث صوتي">
-                    🎤
-                </button>
-
-                <button
+                    type="submit"
                     class="search-submit"
-                    onclick="performMainSearch()">
-                    بحث
+                >
+                    🔎
                 </button>
 
-            </div>
-
-            <div id="smartResults"
-                 class="smart-results"></div>
-
-            <div class="search-hint">
-                اضغط
-                <kbd>Ctrl</kbd>
-                +
-                <kbd>K</kbd>
-                للبحث بسرعة
-            </div>
+            </form>
 
 
             <!-- QUICK SEARCH -->
 
             <div class="quick-search">
 
-                <span>جرب:</span>
+                <span>
+                    ابحث سريعًا:
+                </span>
 
-                <button onclick="useExample('Minecraft')">
-                    ⛏️ Minecraft
+                <button onclick="quickSearch('Minecraft')">
+                    🎮 Minecraft
                 </button>
 
-                <button onclick="useExample('ChatGPT')">
-                    🤖 ChatGPT
-                </button>
-
-                <button onclick="useExample('YouTube')">
+                <button onclick="quickSearch('YouTube')">
                     ▶️ YouTube
                 </button>
 
-                <button onclick="useExample('Canva')">
+                <button onclick="quickSearch('ChatGPT')">
+                    🤖 ChatGPT
+                </button>
+
+                <button onclick="quickSearch('Canva')">
                     🎨 Canva
                 </button>
 
             </div>
 
 
-            <div class="hero-buttons">
+            <!-- HERO BUTTONS -->
 
-                <button class="primary-btn"
-                        onclick="showSection('sites')">
+            <div class="hero-actions">
+
+                <button
+                    class="primary-btn"
+                    onclick="showSection('sites')"
+                >
                     🌐 استكشف المواقع
+                    <span>↗</span>
                 </button>
 
-                <button class="secondary-btn"
-                        onclick="randomSite()">
+                <button
+                    class="secondary-btn"
+                    onclick="randomSite()"
+                >
                     🎲 موقع عشوائي
                 </button>
 
@@ -235,160 +292,330 @@
 
         </div>
 
-    </div>
 
+        <!-- ROBOT -->
 
-    <!-- STATS -->
+        <div class="hero-robot">
 
-    <div class="stats-grid">
+            <div class="robot-glow"></div>
 
-        <div class="stat-card">
-            <div class="stat-icon">🌐</div>
-            <div>
-                <strong id="totalSites">0</strong>
-                <span>موقع</span>
+            <div class="robot">
+
+                <div class="robot-antenna">
+                    ✦
+                </div>
+
+                <div class="robot-head">
+
+                    <div class="robot-screen">
+
+                        <span class="robot-eye">
+                            ●
+                        </span>
+
+                        <span class="robot-eye">
+                            ●
+                        </span>
+
+                        <div class="robot-mouth">
+                            ◡
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="robot-body">
+
+                    <div class="robot-logo">
+                        🌐
+                    </div>
+
+                </div>
+
+                <div class="robot-arm left">
+                    👋
+                </div>
+
+                <div class="robot-arm right">
+                    ✨
+                </div>
+
             </div>
+
         </div>
 
-        <div class="stat-card">
-            <div class="stat-icon">🗂️</div>
+
+        <div class="hero-floating-card">
+
+            <span>❤️</span>
+
             <div>
-                <strong id="totalCategories">0</strong>
-                <span>تصنيف</span>
+                <strong>مواقعك المفضلة</strong>
+                <small>في مكان واحد</small>
             </div>
+
         </div>
 
-        <div class="stat-card">
-            <div class="stat-icon">❤️</div>
+
+    </section>
+
+
+    <!-- =================================================
+         📊 STATS
+    ================================================= -->
+
+    <section class="stats-section">
+
+        <div class="stat-card stat-blue">
+
+            <div class="stat-icon">
+                🌐
+            </div>
+
+            <div class="stat-info">
+
+                <strong id="totalSites">
+                    500
+                </strong>
+
+                <span>
+                    موقع متاح
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card stat-purple">
+
+            <div class="stat-icon">
+                📁
+            </div>
+
+            <div class="stat-info">
+
+                <strong id="totalCategories">
+                    10
+                </strong>
+
+                <span>
+                    تصنيفات
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card stat-pink">
+
+            <div class="stat-icon">
+                ❤️
+            </div>
+
+            <div class="stat-info">
+
+                <strong id="totalFavorites">
+                    0
+                </strong>
+
+                <span>
+                    مفضلة لديك
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card stat-orange">
+
+            <div class="stat-icon">
+                🚀
+            </div>
+
+            <div class="stat-info">
+
+                <strong id="totalVisits">
+                    0
+                </strong>
+
+                <span>
+                    زيارة
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ⭐ FEATURED
+    ================================================= -->
+
+    <section class="content-section featured-section">
+
+        <div class="section-heading">
+
             <div>
-                <strong id="totalFavorites">0</strong>
-                <span>مفضلة</span>
+
+                <span class="section-mini-title">
+                    WEBBOX مختارات
+                </span>
+
+                <h2>
+                    ⭐ مواقع مميزة
+                </h2>
+
             </div>
+
+            <button
+                class="see-all-btn"
+                onclick="showSection('sites')"
+            >
+                مشاهدة الكل ←
+            </button>
+
         </div>
 
-        <div class="stat-card">
-            <div class="stat-icon">🚀</div>
+
+        <div
+            id="featuredContainer"
+            class="sites-grid"
+        ></div>
+
+    </section>
+
+
+    <!-- =================================================
+         📁 HOME CATEGORIES
+    ================================================= -->
+
+    <section class="content-section">
+
+        <div class="section-heading">
+
             <div>
-                <strong id="totalVisits">0</strong>
-                <span>زيارة</span>
+
+                <span class="section-mini-title">
+                    اكتشف عالمك
+                </span>
+
+                <h2>
+                    📁 التصنيفات
+                </h2>
+
             </div>
+
+            <button
+                class="see-all-btn"
+                onclick="showCategories()"
+            >
+                جميع التصنيفات ←
+            </button>
+
         </div>
 
-    </div>
 
+        <div
+            id="homeCategories"
+            class="categories-grid"
+        ></div>
 
-    <!-- FEATURED -->
+    </section>
 
-    <div class="section-heading">
-
-        <div>
-            <span class="eyebrow">مختارات WebBox</span>
-            <h2>⭐ مواقع مميزة</h2>
-        </div>
-
-        <button class="text-btn"
-                onclick="showSection('sites')">
-            مشاهدة الكل →
-        </button>
-
-    </div>
-
-    <div id="featuredContainer"
-         class="sites-grid">
-    </div>
-
-
-    <!-- CATEGORIES -->
-
-    <div class="section-heading">
-
-        <div>
-            <span class="eyebrow">استكشف</span>
-            <h2>🗂️ التصنيفات</h2>
-        </div>
-
-        <button class="text-btn"
-                onclick="showCategories()">
-            كل التصنيفات →
-        </button>
-
-    </div>
-
-    <div id="homeCategories"
-         class="category-grid">
-    </div>
 
 </section>
 
 
-<!-- ============================= -->
-<!-- CATEGORIES -->
-<!-- ============================= -->
+<!-- =====================================================
+     📁 CATEGORIES PAGE
+===================================================== -->
 
-<section id="categories"
-         class="page-section">
+<section
+    id="categories"
+    class="page-section"
+    style="display:none"
+>
 
-    <div class="page-title">
+    <div class="page-hero">
 
-        <div>
-            <span class="eyebrow">WebBox</span>
-            <h1>🗂️ تصنيفات المواقع</h1>
-            <p>
-                اختر التصنيف الذي تريد استكشافه.
-            </p>
+        <div class="page-icon">
+            📁
         </div>
 
+        <h1>
+            جميع التصنيفات
+        </h1>
+
+        <p>
+            اختر المجال الذي تريد استكشافه
+        </p>
+
     </div>
 
-    <div id="categoriesContainer"
-         class="category-grid large">
-    </div>
+
+    <div
+        id="categoriesContainer"
+        class="categories-grid"
+    ></div>
 
 </section>
 
 
-<!-- ============================= -->
-<!-- SITES -->
-<!-- ============================= -->
+<!-- =====================================================
+     🌐 SITES PAGE
+===================================================== -->
 
-<section id="sites"
-         class="page-section">
+<section
+    id="sites"
+    class="page-section"
+    style="display:none"
+>
 
-    <div class="page-title">
+    <div class="page-hero">
 
-        <div>
-            <span class="eyebrow">دليل المواقع</span>
-            <h1>🌐 جميع المواقع</h1>
-            <p>
-                ابحث، فلتر ورتب المواقع كما تريد.
-            </p>
+        <div class="page-icon">
+            🌐
         </div>
+
+        <h1>
+            استكشف المواقع
+        </h1>
+
+        <p>
+            ابحث بين مئات المواقع
+        </p>
 
     </div>
 
 
-    <!-- FILTER BAR -->
+    <div class="filters-panel">
 
-    <div class="filter-panel">
 
         <div class="filter-search">
 
-            <span>🔎</span>
+            <span>
+                🔍
+            </span>
 
             <input
                 id="siteSearch"
-                type="text"
-                placeholder="ابحث في المواقع...">
+                type="search"
+                placeholder="ابحث عن موقع..."
+            >
 
         </div>
 
 
         <select id="categorySelect">
-
             <option value="all">
                 كل التصنيفات
             </option>
-
         </select>
 
 
@@ -399,11 +626,11 @@
             </option>
 
             <option value="name">
-                الاسم
+                حسب الاسم
             </option>
 
             <option value="popular">
-                الأكثر استخدامًا
+                الأكثر زيارة
             </option>
 
             <option value="favorites">
@@ -413,16 +640,36 @@
         </select>
 
 
-        <div class="view-switch">
+        <button
+            class="clear-btn"
+            onclick="clearFilters()"
+        >
+            ↻
+        </button>
 
-            <button id="gridViewBtn"
-                    class="active"
-                    onclick="setViewMode('grid')">
+    </div>
+
+
+    <div class="results-header">
+
+        <strong id="resultText">
+            500 موقع
+        </strong>
+
+        <div class="view-buttons">
+
+            <button
+                id="gridViewBtn"
+                class="active"
+                onclick="setViewMode('grid')"
+            >
                 ▦
             </button>
 
-            <button id="listViewBtn"
-                    onclick="setViewMode('list')">
+            <button
+                id="listViewBtn"
+                onclick="setViewMode('list')"
+            >
                 ☰
             </button>
 
@@ -431,195 +678,223 @@
     </div>
 
 
-    <div class="results-header">
-
-        <span id="resultText">
-            0 موقع
-        </span>
-
-        <button class="clear-btn"
-                onclick="clearFilters()">
-            إعادة ضبط
-        </button>
-
-    </div>
-
-
-    <div id="sitesContainer"
-         class="sites-grid">
-    </div>
+    <div
+        id="sitesContainer"
+        class="sites-grid grid-view"
+    ></div>
 
 </section>
 
 
-<!-- ============================= -->
-<!-- FUN -->
-<!-- ============================= -->
+<!-- =====================================================
+     🎉 FUN PAGE
+===================================================== -->
 
-<section id="fun"
-         class="page-section">
+<section
+    id="fun"
+    class="page-section"
+    style="display:none"
+>
 
-    <div class="page-title">
+    <div class="page-hero fun-hero">
 
-        <div>
-            <span class="eyebrow">استراحة</span>
-            <h1>🎉 مواقع مسلية</h1>
-            <p>
-                تجارب وأفكار ومواقع ممتعة.
-            </p>
+        <div class="page-icon">
+            🎉
         </div>
 
+        <h1>
+            مواقع مسلية
+        </h1>
+
+        <p>
+            مواقع غريبة وممتعة وتجارب تفاعلية
+        </p>
+
     </div>
 
-    <div id="funContainer"
-         class="sites-grid">
-    </div>
+
+    <div
+        id="funContainer"
+        class="sites-grid"
+    ></div>
 
 </section>
 
 
-<!-- ============================= -->
-<!-- GAMING -->
-<!-- ============================= -->
+<!-- =====================================================
+     🎮 GAMING PAGE
+===================================================== -->
 
-<section id="gaming"
-         class="page-section">
+<section
+    id="gaming"
+    class="page-section"
+    style="display:none"
+>
 
-    <div class="page-title">
+    <div class="page-hero gaming-hero">
 
-        <div>
-            <span class="eyebrow">Gaming Zone</span>
-            <h1>🎮 الألعاب</h1>
-            <p>
-                مواقع وألعاب تعمل مباشرة من المتصفح.
-            </p>
+        <div class="page-icon">
+            🎮
         </div>
 
+        <h1>
+            عالم الألعاب
+        </h1>
+
+        <p>
+            اكتشف ألعابًا جديدة واستمتع
+        </p>
+
     </div>
 
-    <div id="gamingContainer"
-         class="sites-grid">
-    </div>
+
+    <div
+        id="gamingContainer"
+        class="sites-grid"
+    ></div>
 
 </section>
 
 
-<!-- ============================= -->
-<!-- FAVORITES -->
-<!-- ============================= -->
+<!-- =====================================================
+     ❤️ FAVORITES PAGE
+===================================================== -->
 
-<section id="favorites"
-         class="page-section">
+<section
+    id="favorites"
+    class="page-section"
+    style="display:none"
+>
 
-    <div class="page-title">
+    <div class="page-hero favorite-hero">
 
-        <div>
-            <span class="eyebrow">محفوظاتك</span>
-            <h1>❤️ المفضلة</h1>
-            <p>
-                المواقع التي حفظتها للوصول إليها بسرعة.
-            </p>
+        <div class="page-icon">
+            ❤️
         </div>
 
+        <h1>
+            مواقعك المفضلة
+        </h1>
+
+        <p>
+            كل مواقعك المحفوظة في مكان واحد
+        </p>
+
     </div>
 
-    <div id="favoritesContainer"
-         class="sites-grid">
-    </div>
+
+    <div
+        id="favoritesContainer"
+        class="sites-grid"
+    ></div>
 
 </section>
 
 
-<!-- ============================= -->
-<!-- RECENT -->
-<!-- ============================= -->
+<!-- =====================================================
+     🕘 RECENT
+===================================================== -->
 
-<section id="recent"
-         class="page-section">
+<section
+    id="recent"
+    class="page-section"
+    style="display:none"
+>
 
-    <div class="page-title">
+    <div class="page-hero">
 
-        <div>
-            <span class="eyebrow">History</span>
-            <h1>🕘 آخر المواقع</h1>
-            <p>
-                المواقع التي فتحتها مؤخرًا.
-            </p>
+        <div class="page-icon">
+            🕘
         </div>
 
-        <button class="danger-btn"
-                onclick="clearHistory()">
-            مسح السجل
-        </button>
+        <h1>
+            المواقع الأخيرة
+        </h1>
 
     </div>
 
-    <div id="recentContainer"
-         class="sites-grid">
-    </div>
+
+    <div
+        id="recentContainer"
+        class="sites-grid"
+    ></div>
 
 </section>
+
 
 </main>
 
 
-<!-- ============================= -->
-<!-- SITE MODAL -->
-<!-- ============================= -->
+<!-- =====================================================
+     📋 MODAL
+===================================================== -->
 
-<div id="siteModal"
-     class="modal-overlay"
-     onclick="closeModal(event)">
+<div
+    id="siteModal"
+    class="modal"
+>
 
-    <div class="modal">
+    <div class="modal-box">
 
-        <button class="modal-close"
-                onclick="closeSiteModal()">
+        <button
+            class="modal-close"
+            onclick="closeModal()"
+        >
             ×
         </button>
 
-        <div id="modalIcon"
-             class="modal-icon">
+
+        <div
+            id="modalIcon"
+            class="modal-icon"
+        >
             🌐
         </div>
 
+
         <h2 id="modalTitle">
-            موقع
+            الموقع
         </h2>
+
+
+        <div
+            id="modalCategory"
+            class="modal-category"
+        >
+            🌐 المواقع
+        </div>
+
 
         <p id="modalDescription">
             وصف الموقع
         </p>
 
-        <span id="modalCategory"
-              class="modal-category">
-            التصنيف
-        </span>
 
-        <div class="modal-stats">
+        <div class="modal-meta">
 
-            <div>
-                <strong id="modalVisits">0</strong>
-                <span>زيارة</span>
-            </div>
-
-            <div>
-                <strong id="modalFavorite">🤍</strong>
-                <span>المفضلة</span>
-            </div>
+            <span id="modalVisits">
+                👁️ 0
+            </span>
 
         </div>
 
+
         <div class="modal-actions">
 
-            <button id="modalOpenBtn"
-                    class="primary-btn">
-                🚀 فتح الموقع
+            <button
+                id="modalOpenBtn"
+                class="primary-btn"
+            >
+                فتح الموقع ↗
             </button>
 
-            <button id="modalFavoriteBtn"
-                    class="secondary-btn">
-                ❤️ المفضلة
+            <button
+                id="modalFavoriteBtn"
+                class="modal-favorite-btn"
+            >
+                <span id="modalFavorite">
+                    ☆ أضف للمفضلة
+                </span>
             </button>
 
         </div>
@@ -629,18 +904,19 @@
 </div>
 
 
-<!-- ============================= -->
-<!-- TOAST -->
-<!-- ============================= -->
+<!-- =====================================================
+     🔔 TOAST
+===================================================== -->
 
-<div id="toast"
-     class="toast">
-</div>
+<div
+    id="toast"
+    class="toast"
+></div>
 
 
-<!-- ============================= -->
-<!-- FOOTER -->
-<!-- ============================= -->
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer class="footer">
 
@@ -649,19 +925,12 @@
     </div>
 
     <p>
-        بوابتك لاكتشاف مواقع الويب المفيدة والممتعة.
+        عالم الإنترنت بين يديك ✨
     </p>
 
-    <div class="footer-links">
-        <button onclick="showHome()">الرئيسية</button>
-        <button onclick="showCategories()">التصنيفات</button>
-        <button onclick="showSection('sites')">المواقع</button>
-        <button onclick="showFavorites()">المفضلة</button>
-    </div>
-
-    <small>
+    <span>
         WebBox © 2026
-    </small>
+    </span>
 
 </footer>
 
