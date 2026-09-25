@@ -1,1970 +1,2004 @@
 /* =========================================================
-   WEBBOX - SCRIPT.JS
-   200 WEBSITE
+   WEBBOX 2.0
+   FULL SCRIPT
+   Compatible with:
+   index.html
+   style.css
    ========================================================= */
 
 
 /* =========================================================
-   DATABASE
+   1. DATA
    ========================================================= */
 
 const sites = [
 
-/* ==================== GAMES 20 ==================== */
+    /* =========================
+       GAMES - 20
+       ========================= */
 
-{
-    name:"Minecraft",
-    url:"https://www.minecraft.net/",
-    category:"games",
-    description:"الموقع الرسمي لـ Minecraft."
-},
-{
-    name:"Eaglercraft",
-    url:"https://eaglercraft.com/",
-    category:"games",
-    description:"Minecraft تعمل مباشرة من المتصفح."
-},
-{
-    name:"Poki",
-    url:"https://poki.com/",
-    category:"games",
-    description:"ألعاب مجانية تعمل من المتصفح."
-},
-{
-    name:"CrazyGames",
-    url:"https://www.crazygames.com/",
-    category:"games",
-    description:"مجموعة ضخمة من ألعاب المتصفح."
-},
-{
-    name:"Scratch",
-    url:"https://scratch.mit.edu/",
-    category:"games",
-    description:"اصنع ألعابك ومشاريعك التفاعلية."
-},
-{
-    name:"GeoFS",
-    url:"https://www.geo-fs.com/",
-    category:"games",
-    description:"محاكي طيران يعمل من المتصفح."
-},
-{
-    name:"itch.io",
-    url:"https://itch.io/",
-    category:"games",
-    description:"منصة ألعاب للمطورين المستقلين."
-},
-{
-    name:"Chess.com",
-    url:"https://www.chess.com/",
-    category:"games",
-    description:"لعب الشطرنج والتدريب."
-},
-{
-    name:"Lichess",
-    url:"https://lichess.org/",
-    category:"games",
-    description:"منصة شطرنج مجانية."
-},
-{
-    name:"2048",
-    url:"https://play2048.co/",
-    category:"games",
-    description:"لعبة الأرقام الشهيرة."
-},
-{
-    name:"Sudoku",
-    url:"https://sudoku.com/",
-    category:"games",
-    description:"العب Sudoku على الإنترنت."
-},
-{
-    name:"Jigsaw Explorer",
-    url:"https://www.jigsawexplorer.com/",
-    category:"games",
-    description:"ألغاز تركيب الصور."
-},
-{
-    name:"Coolmath Games",
-    url:"https://www.coolmathgames.com/",
-    category:"games",
-    description:"ألعاب متنوعة للمتصفح."
-},
-{
-    name:"Miniclip",
-    url:"https://www.miniclip.com/",
-    category:"games",
-    description:"منصة ألعاب إلكترونية."
-},
-{
-    name:"Game Jolt",
-    url:"https://gamejolt.com/",
-    category:"games",
-    description:"ألعاب ومجتمع للمطورين."
-},
-{
-    name:"Pokémon Showdown",
-    url:"https://pokemonshowdown.com/",
-    category:"games",
-    description:"معارك Pokémon عبر الإنترنت."
-},
-{
-    name:"Armor Games",
-    url:"https://armorgames.com/",
-    category:"games",
-    description:"ألعاب متصفح متنوعة."
-},
-{
-    name:"Kongregate",
-    url:"https://www.kongregate.com/",
-    category:"games",
-    description:"منصة ألعاب على الإنترنت."
-},
-{
-    name:"Newgrounds",
-    url:"https://www.newgrounds.com/",
-    category:"games",
-    description:"ألعاب ورسوم ومشاريع إبداعية."
-},
-{
-    name:"Slither.io",
-    url:"https://slither.io/",
-    category:"games",
-    description:"لعبة الثعابين متعددة اللاعبين."
-},
+    {
+        name: "Minecraft",
+        url: "https://www.minecraft.net/",
+        description: "الموقع الرسمي للعبة Minecraft.",
+        category: "games",
+        icon: "⛏️",
+        visits: 0
+    },
+    {
+        name: "Eaglercraft",
+        url: "https://eaglercraft.com/",
+        description: "تجربة Minecraft تعمل مباشرة من المتصفح.",
+        category: "games",
+        icon: "⛏️",
+        visits: 0
+    },
+    {
+        name: "Poki",
+        url: "https://poki.com/",
+        description: "ألعاب مجانية متنوعة تعمل من المتصفح.",
+        category: "games",
+        icon: "🎮",
+        visits: 0
+    },
+    {
+        name: "CrazyGames",
+        url: "https://www.crazygames.com/",
+        description: "مكتبة كبيرة من ألعاب المتصفح.",
+        category: "games",
+        icon: "🎮",
+        visits: 0
+    },
+    {
+        name: "Scratch",
+        url: "https://scratch.mit.edu/",
+        description: "إنشاء ومشاركة الألعاب والمشاريع التفاعلية.",
+        category: "games",
+        icon: "🐱",
+        visits: 0
+    },
+    {
+        name: "GeoFS",
+        url: "https://www.geo-fs.com/",
+        description: "محاكي طيران يعمل مباشرة من المتصفح.",
+        category: "games",
+        icon: "✈️",
+        visits: 0
+    },
+    {
+        name: "itch.io",
+        url: "https://itch.io/",
+        description: "منصة لألعاب ومشاريع المطورين المستقلين.",
+        category: "games",
+        icon: "🎮",
+        visits: 0
+    },
+    {
+        name: "Chess.com",
+        url: "https://www.chess.com/",
+        description: "لعب الشطرنج والتدرب ومتابعة المباريات.",
+        category: "games",
+        icon: "♟️",
+        visits: 0
+    },
+    {
+        name: "Lichess",
+        url: "https://lichess.org/",
+        description: "منصة شطرنج مجانية ومفتوحة المصدر.",
+        category: "games",
+        icon: "♟️",
+        visits: 0
+    },
+    {
+        name: "2048",
+        url: "https://play2048.co/",
+        description: "لعبة الأرقام الشهيرة 2048.",
+        category: "games",
+        icon: "🔢",
+        visits: 0
+    },
+    {
+        name: "Sudoku",
+        url: "https://sudoku.com/",
+        description: "لعب Sudoku عبر المتصفح.",
+        category: "games",
+        icon: "🧩",
+        visits: 0
+    },
+    {
+        name: "Jigsaw Explorer",
+        url: "https://www.jigsawexplorer.com/",
+        description: "ألغاز تركيب الصور على الإنترنت.",
+        category: "games",
+        icon: "🧩",
+        visits: 0
+    },
+    {
+        name: "Coolmath Games",
+        url: "https://www.coolmathgames.com/",
+        description: "ألعاب متصفح متنوعة.",
+        category: "games",
+        icon: "🎯",
+        visits: 0
+    },
+    {
+        name: "Miniclip",
+        url: "https://www.miniclip.com/",
+        description: "منصة ألعاب إلكترونية.",
+        category: "games",
+        icon: "🎮",
+        visits: 0
+    },
+    {
+        name: "Game Jolt",
+        url: "https://gamejolt.com/",
+        description: "منصة ألعاب ومجتمع للمطورين واللاعبين.",
+        category: "games",
+        icon: "🕹️",
+        visits: 0
+    },
+    {
+        name: "Pokémon Showdown",
+        url: "https://pokemonshowdown.com/",
+        description: "معارك Pokémon استراتيجية عبر الإنترنت.",
+        category: "games",
+        icon: "⚡",
+        visits: 0
+    },
+    {
+        name: "Agar.io",
+        url: "https://agar.io/",
+        description: "لعبة المتصفح الشهيرة Agar.io.",
+        category: "games",
+        icon: "🔵",
+        visits: 0
+    },
+    {
+        name: "Slither.io",
+        url: "https://slither.io/",
+        description: "لعبة الثعابين متعددة اللاعبين.",
+        category: "games",
+        icon: "🐍",
+        visits: 0
+    },
+    {
+        name: "Tetris",
+        url: "https://tetris.com/play-tetris",
+        description: "لعبة Tetris الكلاسيكية.",
+        category: "games",
+        icon: "🧱",
+        visits: 0
+    },
+    {
+        name: "Falling Sand",
+        url: "https://sandspiel.club/",
+        description: "تجربة محاكاة للرمل والعناصر.",
+        category: "games",
+        icon: "🏖️",
+        visits: 0
+    },
 
-/* ==================== FUN 20 ==================== */
 
-{
-    name:"Neal.fun",
-    url:"https://neal.fun/",
-    category:"fun",
-    description:"تجارب تفاعلية ممتعة."
-},
-{
-    name:"Quick Draw",
-    url:"https://quickdraw.withgoogle.com/",
-    category:"fun",
-    description:"دع الذكاء الاصطناعي يخمن رسوماتك."
-},
-{
-    name:"Google Earth",
-    url:"https://earth.google.com/",
-    category:"fun",
-    description:"استكشف العالم."
-},
-{
-    name:"Radio Garden",
-    url:"https://radio.garden/",
-    category:"fun",
-    description:"استمع إلى محطات راديو حول العالم."
-},
-{
-    name:"Stellarium",
-    url:"https://stellarium-web.org/",
-    category:"fun",
-    description:"استكشف النجوم والسماء."
-},
-{
-    name:"WindowSwap",
-    url:"https://www.window-swap.com/",
-    category:"fun",
-    description:"شاهد من نوافذ أشخاص حول العالم."
-},
-{
-    name:"Little Alchemy",
-    url:"https://littlealchemy.com/",
-    category:"fun",
-    description:"ادمج العناصر واكتشف أشياء جديدة."
-},
-{
-    name:"Pointer Pointer",
-    url:"https://pointerpointer.com/",
-    category:"fun",
-    description:"تجربة طريفة تعتمد على مؤشر الماوس."
-},
-{
-    name:"Zoomquilt",
-    url:"https://zoomquilt.org/",
-    category:"fun",
-    description:"تجربة بصرية لا نهائية."
-},
-{
-    name:"Patatap",
-    url:"https://patatap.com/",
-    category:"fun",
-    description:"اصنع أصواتًا ورسومات تفاعلية."
-},
-{
-    name:"Silk",
-    url:"https://silk.kano.me/",
-    category:"fun",
-    description:"ارسم أعمالًا فنية تفاعلية."
-},
-{
-    name:"The Useless Web",
-    url:"https://theuselessweb.com/",
-    category:"fun",
-    description:"اكتشف مواقع عشوائية وغريبة."
-},
-{
-    name:"A Soft Murmur",
-    url:"https://asoftmurmur.com/",
-    category:"fun",
-    description:"امزج أصواتًا هادئة."
-},
-{
-    name:"Rainy Mood",
-    url:"https://www.rainymood.com/",
-    category:"fun",
-    description:"أجواء صوت المطر."
-},
-{
-    name:"This Is Sand",
-    url:"https://thisissand.com/",
-    category:"fun",
-    description:"تجربة الرسم بالرمل."
-},
-{
-    name:"Bored Button",
-    url:"https://www.boredbutton.com/",
-    category:"fun",
-    description:"اكتشف تجارب عشوائية."
-},
-{
-    name:"FutureMe",
-    url:"https://www.futureme.org/",
-    category:"fun",
-    description:"اكتب رسالة لنفسك في المستقبل."
-},
-{
-    name:"MapCrunch",
-    url:"https://www.mapcrunch.com/",
-    category:"fun",
-    description:"استكشف أماكن عشوائية."
-},
-{
-    name:"GeoGuessr",
-    url:"https://www.geoguessr.com/",
-    category:"fun",
-    description:"اختبر معرفتك بجغرافيا العالم."
-},
-{
-    name:"The Wiki Game",
-    url:"https://www.thewikigame.com/",
-    category:"fun",
-    description:"تحديات تعتمد على ويكيبيديا."
-},
+    /* =========================
+       FUN - 20
+       ========================= */
 
-/* ==================== EDUCATION 20 ==================== */
+    {
+        name: "Neal.fun",
+        url: "https://neal.fun/",
+        description: "مجموعة من التجارب التفاعلية الممتعة.",
+        category: "fun",
+        icon: "✨",
+        visits: 0
+    },
+    {
+        name: "Quick Draw",
+        url: "https://quickdraw.withgoogle.com/",
+        description: "حاول الرسم ودع الذكاء الاصطناعي يخمنه.",
+        category: "fun",
+        icon: "✏️",
+        visits: 0
+    },
+    {
+        name: "Google Earth",
+        url: "https://earth.google.com/",
+        description: "استكشاف العالم من خلال الخرائط والصور.",
+        category: "fun",
+        icon: "🌍",
+        visits: 0
+    },
+    {
+        name: "Radio Garden",
+        url: "https://radio.garden/",
+        description: "استمع إلى محطات الراديو حول العالم.",
+        category: "fun",
+        icon: "📻",
+        visits: 0
+    },
+    {
+        name: "Stellarium",
+        url: "https://stellarium-web.org/",
+        description: "استكشاف السماء والنجوم.",
+        category: "fun",
+        icon: "🌌",
+        visits: 0
+    },
+    {
+        name: "WindowSwap",
+        url: "https://www.window-swap.com/",
+        description: "شاهد من نوافذ أشخاص حول العالم.",
+        category: "fun",
+        icon: "🪟",
+        visits: 0
+    },
+    {
+        name: "Little Alchemy",
+        url: "https://littlealchemy.com/",
+        description: "اكتشف عناصر جديدة بدمج العناصر.",
+        category: "fun",
+        icon: "🧪",
+        visits: 0
+    },
+    {
+        name: "Pointer Pointer",
+        url: "https://pointerpointer.com/",
+        description: "تجربة غريبة تعتمد على مؤشر الفأرة.",
+        category: "fun",
+        icon: "🖱️",
+        visits: 0
+    },
+    {
+        name: "Zoomquilt",
+        url: "https://zoomquilt.org/",
+        description: "تجربة بصرية لا نهائية.",
+        category: "fun",
+        icon: "🌀",
+        visits: 0
+    },
+    {
+        name: "Patatap",
+        url: "https://patatap.com/",
+        description: "أصوات ورسوم تفاعلية مع لوحة المفاتيح.",
+        category: "fun",
+        icon: "🎵",
+        visits: 0
+    },
+    {
+        name: "Silk",
+        url: "https://silkspace.net/",
+        description: "ارسم أشكالًا فنية تفاعلية.",
+        category: "fun",
+        icon: "🎨",
+        visits: 0
+    },
+    {
+        name: "The Useless Web",
+        url: "https://theuselessweb.com/",
+        description: "اضغط وانتقل إلى مواقع غريبة ومضحكة.",
+        category: "fun",
+        icon: "😂",
+        visits: 0
+    },
+    {
+        name: "Bored Button",
+        url: "https://www.boredbutton.com/",
+        description: "زر يوصلك إلى تجارب عشوائية.",
+        category: "fun",
+        icon: "🔴",
+        visits: 0
+    },
+    {
+        name: "Pointer Pointer",
+        url: "https://pointerpointer.com/",
+        description: "صور تتفاعل بطريقة غريبة مع مؤشر الفأرة.",
+        category: "fun",
+        icon: "👆",
+        visits: 0
+    },
+    {
+        name: "Earth Nullschool",
+        url: "https://earth.nullschool.net/",
+        description: "تصور تفاعلي للرياح والطقس على الأرض.",
+        category: "fun",
+        icon: "🌎",
+        visits: 0
+    },
+    {
+        name: "Radiooooo",
+        url: "https://radiooooo.com/",
+        description: "اكتشف الموسيقى حسب البلد والزمن.",
+        category: "fun",
+        icon: "🎶",
+        visits: 0
+    },
+    {
+        name: "MyNoise",
+        url: "https://mynoise.net/",
+        description: "أصوات وأجواء للاسترخاء والتركيز.",
+        category: "fun",
+        icon: "🔊",
+        visits: 0
+    },
+    {
+        name: "Rainy Mood",
+        url: "https://rainymood.com/",
+        description: "أجواء صوت المطر.",
+        category: "fun",
+        icon: "🌧️",
+        visits: 0
+    },
+    {
+        name: "A Soft Murmur",
+        url: "https://asoftmurmur.com/",
+        description: "مزج أصوات طبيعية مختلفة.",
+        category: "fun",
+        icon: "🌊",
+        visits: 0
+    },
+    {
+        name: "Chrome Music Lab",
+        url: "https://musiclab.chromeexperiments.com/",
+        description: "تجارب موسيقية تفاعلية من Google.",
+        category: "fun",
+        icon: "🎹",
+        visits: 0
+    },
 
-{
-    name:"Khan Academy",
-    url:"https://www.khanacademy.org/",
-    category:"education",
-    description:"تعلم الرياضيات والعلوم والعديد من المواد."
-},
-{
-    name:"Coursera",
-    url:"https://www.coursera.org/",
-    category:"education",
-    description:"دورات تعليمية عبر الإنترنت."
-},
-{
-    name:"edX",
-    url:"https://www.edx.org/",
-    category:"education",
-    description:"دورات من جامعات ومؤسسات."
-},
-{
-    name:"Duolingo",
-    url:"https://www.duolingo.com/",
-    category:"education",
-    description:"تعلم اللغات بطريقة تفاعلية."
-},
-{
-    name:"WolframAlpha",
-    url:"https://www.wolframalpha.com/",
-    category:"education",
-    description:"محرك معرفة وحسابات علمية."
-},
-{
-    name:"Wikipedia",
-    url:"https://www.wikipedia.org/",
-    category:"education",
-    description:"موسوعة حرة متعددة اللغات."
-},
-{
-    name:"MIT OpenCourseWare",
-    url:"https://ocw.mit.edu/",
-    category:"education",
-    description:"مواد تعليمية من MIT."
-},
-{
-    name:"OpenStax",
-    url:"https://openstax.org/",
-    category:"education",
-    description:"كتب تعليمية مجانية."
-},
-{
-    name:"Codecademy",
-    url:"https://www.codecademy.com/",
-    category:"education",
-    description:"تعلم البرمجة بطريقة تفاعلية."
-},
-{
-    name:"freeCodeCamp",
-    url:"https://www.freecodecamp.org/",
-    category:"education",
-    description:"تعلم البرمجة وتطوير الويب."
-},
-{
-    name:"TED-Ed",
-    url:"https://ed.ted.com/",
-    category:"education",
-    description:"دروس تعليمية قصيرة."
-},
-{
-    name:"Brilliant",
-    url:"https://brilliant.org/",
-    category:"education",
-    description:"تعلم الرياضيات والعلوم."
-},
-{
-    name:"Quizlet",
-    url:"https://quizlet.com/",
-    category:"education",
-    description:"بطاقات للمراجعة والتعلم."
-},
-{
-    name:"Desmos",
-    url:"https://www.desmos.com/",
-    category:"education",
-    description:"آلات حاسبة ورسوم بيانية."
-},
-{
-    name:"CK-12",
-    url:"https://www.ck12.org/",
-    category:"education",
-    description:"موارد تعليمية مجانية."
-},
-{
-    name:"PhET",
-    url:"https://phet.colorado.edu/",
-    category:"education",
-    description:"محاكاة تفاعلية للعلوم."
-},
-{
-    name:"BBC Bitesize",
-    url:"https://www.bbc.co.uk/bitesize",
-    category:"education",
-    description:"موارد تعليمية ومراجعة."
-},
-{
-    name:"FutureLearn",
-    url:"https://www.futurelearn.com/",
-    category:"education",
-    description:"دورات تعليمية."
-},
-{
-    name:"Alison",
-    url:"https://alison.com/",
-    category:"education",
-    description:"دورات ومهارات تعليمية."
-},
-{
-    name:"OpenLearn",
-    url:"https://www.open.edu/openlearn/",
-    category:"education",
-    description:"مواد تعليمية مجانية."
-},
 
-/* ==================== BOOKS 20 ==================== */
+    /* =========================
+       EDUCATION - 20
+       ========================= */
 
-{
-    name:"Project Gutenberg",
-    url:"https://www.gutenberg.org/",
-    category:"books",
-    description:"مكتبة ضخمة من الكتب المجانية."
-},
-{
-    name:"Internet Archive",
-    url:"https://archive.org/",
-    category:"books",
-    description:"أرشيف رقمي ضخم."
-},
-{
-    name:"Open Library",
-    url:"https://openlibrary.org/",
-    category:"books",
-    description:"مكتبة إلكترونية مفتوحة."
-},
-{
-    name:"Google Books",
-    url:"https://books.google.com/",
-    category:"books",
-    description:"البحث في ملايين الكتب."
-},
-{
-    name:"ManyBooks",
-    url:"https://manybooks.net/",
-    category:"books",
-    description:"مكتبة للكتب الإلكترونية."
-},
-{
-    name:"Standard Ebooks",
-    url:"https://standardebooks.org/",
-    category:"books",
-    description:"كتب كلاسيكية مجانية."
-},
-{
-    name:"LibriVox",
-    url:"https://librivox.org/",
-    category:"books",
-    description:"كتب صوتية."
-},
-{
-    name:"Wikisource",
-    url:"https://wikisource.org/",
-    category:"books",
-    description:"مكتبة نصوص حرة."
-},
-{
-    name:"HathiTrust",
-    url:"https://www.hathitrust.org/",
-    category:"books",
-    description:"مكتبة رقمية أكاديمية."
-},
-{
-    name:"WorldCat",
-    url:"https://www.worldcat.org/",
-    category:"books",
-    description:"البحث عن الكتب في المكتبات."
-},
-{
-    name:"OpenStax Books",
-    url:"https://openstax.org/subjects",
-    category:"books",
-    description:"كتب تعليمية مفتوحة."
-},
-{
-    name:"BookBub",
-    url:"https://www.bookbub.com/",
-    category:"books",
-    description:"اكتشف الكتب الجديدة."
-},
-{
-    name:"Goodreads",
-    url:"https://www.goodreads.com/",
-    category:"books",
-    description:"اكتشف الكتب والقراءات."
-},
-{
-    name:"LibraryThing",
-    url:"https://www.librarything.com/",
-    category:"books",
-    description:"نظم مكتبتك."
-},
-{
-    name:"Online Books Page",
-    url:"https://onlinebooks.library.upenn.edu/",
-    category:"books",
-    description:"فهرس للكتب الإلكترونية."
-},
-{
-    name:"Bartleby",
-    url:"https://www.bartleby.com/",
-    category:"books",
-    description:"كتب ومراجع."
-},
-{
-    name:"Poetry Foundation",
-    url:"https://www.poetryfoundation.org/",
-    category:"books",
-    description:"مجموعة كبيرة من الشعر."
-},
-{
-    name:"Poets.org",
-    url:"https://poets.org/",
-    category:"books",
-    description:"مورد للشعراء والقصائد."
-},
-{
-    name:"Classic Reader",
-    url:"https://www.classicreader.com/",
-    category:"books",
-    description:"كتب وقصص كلاسيكية."
-},
-{
-    name:"ISFDB",
-    url:"https://www.isfdb.org/",
-    category:"books",
-    description:"قاعدة بيانات للخيال العلمي والفانتازيا."
-},
+    {
+        name: "Khan Academy",
+        url: "https://www.khanacademy.org/",
+        description: "دروس وتمارين مجانية في العديد من المواد.",
+        category: "education",
+        icon: "📚",
+        visits: 0
+    },
+    {
+        name: "Coursera",
+        url: "https://www.coursera.org/",
+        description: "دورات تعليمية من جامعات ومؤسسات مختلفة.",
+        category: "education",
+        icon: "🎓",
+        visits: 0
+    },
+    {
+        name: "edX",
+        url: "https://www.edx.org/",
+        description: "دورات تعليمية عبر الإنترنت.",
+        category: "education",
+        icon: "🎓",
+        visits: 0
+    },
+    {
+        name: "Duolingo",
+        url: "https://www.duolingo.com/",
+        description: "تعلم اللغات بطريقة تفاعلية.",
+        category: "education",
+        icon: "🦉",
+        visits: 0
+    },
+    {
+        name: "WolframAlpha",
+        url: "https://www.wolframalpha.com/",
+        description: "محرك حساب ومعرفة للرياضيات والعلوم.",
+        category: "education",
+        icon: "🧮",
+        visits: 0
+    },
+    {
+        name: "Wikipedia",
+        url: "https://www.wikipedia.org/",
+        description: "موسوعة حرة تحتوي على ملايين المقالات.",
+        category: "education",
+        icon: "📖",
+        visits: 0
+    },
+    {
+        name: "Brilliant",
+        url: "https://brilliant.org/",
+        description: "تعلم الرياضيات والعلوم بطريقة تفاعلية.",
+        category: "education",
+        icon: "💡",
+        visits: 0
+    },
+    {
+        name: "MIT OpenCourseWare",
+        url: "https://ocw.mit.edu/",
+        description: "مواد ودورات تعليمية من MIT.",
+        category: "education",
+        icon: "🏫",
+        visits: 0
+    },
+    {
+        name: "TED-Ed",
+        url: "https://ed.ted.com/",
+        description: "دروس تعليمية وفيديوهات قصيرة.",
+        category: "education",
+        icon: "🎥",
+        visits: 0
+    },
+    {
+        name: "BBC Learning",
+        url: "https://www.bbc.co.uk/learningenglish/",
+        description: "موارد لتعلم اللغة الإنجليزية.",
+        category: "education",
+        icon: "🇬🇧",
+        visits: 0
+    },
+    {
+        name: "Quizlet",
+        url: "https://quizlet.com/",
+        description: "بطاقات تعليمية وأدوات للمراجعة.",
+        category: "education",
+        icon: "📝",
+        visits: 0
+    },
+    {
+        name: "Geogebra",
+        url: "https://www.geogebra.org/",
+        description: "أدوات تفاعلية للرياضيات والهندسة.",
+        category: "education",
+        icon: "📐",
+        visits: 0
+    },
+    {
+        name: "Desmos",
+        url: "https://www.desmos.com/",
+        description: "آلة حاسبة ورسوم بيانية تفاعلية.",
+        category: "education",
+        icon: "📊",
+        visits: 0
+    },
+    {
+        name: "Symbolab",
+        url: "https://www.symbolab.com/",
+        description: "حل مسائل رياضية مع خطوات.",
+        category: "education",
+        icon: "➗",
+        visits: 0
+    },
+    {
+        name: "CK-12",
+        url: "https://www.ck12.org/",
+        description: "موارد تعليمية مجانية للعلوم والرياضيات.",
+        category: "education",
+        icon: "🔬",
+        visits: 0
+    },
+    {
+        name: "OpenStax",
+        url: "https://openstax.org/",
+        description: "كتب تعليمية مجانية.",
+        category: "education",
+        icon: "📚",
+        visits: 0
+    },
+    {
+        name: "FutureLearn",
+        url: "https://www.futurelearn.com/",
+        description: "دورات تعليمية عبر الإنترنت.",
+        category: "education",
+        icon: "🎓",
+        visits: 0
+    },
+    {
+        name: "Study.com",
+        url: "https://study.com/",
+        description: "موارد ودروس تعليمية.",
+        category: "education",
+        icon: "📘",
+        visits: 0
+    },
+    {
+        name: "PhET",
+        url: "https://phet.colorado.edu/",
+        description: "محاكاة تفاعلية للعلوم والرياضيات.",
+        category: "education",
+        icon: "⚗️",
+        visits: 0
+    },
+    {
+        name: "NASA Education",
+        url: "https://www.nasa.gov/learning-resources/",
+        description: "موارد تعليمية عن الفضاء والعلوم.",
+        category: "education",
+        icon: "🚀",
+        visits: 0
+    },
 
-/* ==================== AI 20 ==================== */
 
-{
-    name:"ChatGPT",
-    url:"https://chatgpt.com/",
-    category:"ai",
-    description:"مساعد ذكاء اصطناعي."
-},
-{
-    name:"Google Gemini",
-    url:"https://gemini.google.com/",
-    category:"ai",
-    description:"مساعد الذكاء الاصطناعي من Google."
-},
-{
-    name:"Microsoft Copilot",
-    url:"https://copilot.microsoft.com/",
-    category:"ai",
-    description:"مساعد الذكاء الاصطناعي من Microsoft."
-},
-{
-    name:"Claude",
-    url:"https://claude.ai/",
-    category:"ai",
-    description:"مساعد ذكاء اصطناعي."
-},
-{
-    name:"Perplexity",
-    url:"https://www.perplexity.ai/",
-    category:"ai",
-    description:"محرك بحث مدعوم بالذكاء الاصطناعي."
-},
-{
-    name:"Poe",
-    url:"https://poe.com/",
-    category:"ai",
-    description:"منصة لنماذج الذكاء الاصطناعي."
-},
-{
-    name:"Hugging Face",
-    url:"https://huggingface.co/",
-    category:"ai",
-    description:"منصة لنماذج الذكاء الاصطناعي."
-},
-{
-    name:"Google AI Studio",
-    url:"https://aistudio.google.com/",
-    category:"ai",
-    description:"أدوات تجربة نماذج Google."
-},
-{
-    name:"NotebookLM",
-    url:"https://notebooklm.google.com/",
-    category:"ai",
-    description:"مساعد للبحث في المصادر."
-},
-{
-    name:"Phind",
-    url:"https://www.phind.com/",
-    category:"ai",
-    description:"مساعد ذكاء اصطناعي للمطورين."
-},
-{
-    name:"You.com",
-    url:"https://you.com/",
-    category:"ai",
-    description:"بحث ومساعد ذكاء اصطناعي."
-},
-{
-    name:"Character.AI",
-    url:"https://character.ai/",
-    category:"ai",
-    description:"تفاعل مع شخصيات ذكاء اصطناعي."
-},
-{
-    name:"Grammarly",
-    url:"https://www.grammarly.com/",
-    category:"ai",
-    description:"مساعدة في الكتابة."
-},
-{
-    name:"QuillBot",
-    url:"https://quillbot.com/",
-    category:"ai",
-    description:"أدوات للكتابة وإعادة الصياغة."
-},
-{
-    name:"DeepL Write",
-    url:"https://www.deepl.com/write",
-    category:"ai",
-    description:"تحسين الكتابة."
-},
-{
-    name:"Gamma",
-    url:"https://gamma.app/",
-    category:"ai",
-    description:"إنشاء عروض ومحتوى."
-},
-{
-    name:"Canva AI",
-    url:"https://www.canva.com/ai-image-generator/",
-    category:"ai",
-    description:"أدوات ذكاء اصطناعي للتصميم."
-},
-{
-    name:"Adobe Firefly",
-    url:"https://firefly.adobe.com/",
-    category:"ai",
-    description:"أدوات إبداعية بالذكاء الاصطناعي."
-},
-{
-    name:"Leonardo AI",
-    url:"https://leonardo.ai/",
-    category:"ai",
-    description:"إنشاء محتوى بصري بالذكاء الاصطناعي."
-},
-{
-    name:"Ideogram",
-    url:"https://ideogram.ai/",
-    category:"ai",
-    description:"إنشاء صور بالذكاء الاصطناعي."
-},
+    /* =========================
+       BOOKS - 20
+       ========================= */
 
-/* ==================== DESIGN 20 ==================== */
+    {
+        name: "Project Gutenberg",
+        url: "https://www.gutenberg.org/",
+        description: "مكتبة ضخمة من الكتب الإلكترونية المجانية.",
+        category: "books",
+        icon: "📚",
+        visits: 0
+    },
+    {
+        name: "Internet Archive",
+        url: "https://archive.org/",
+        description: "مكتبة رقمية ضخمة.",
+        category: "books",
+        icon: "🗄️",
+        visits: 0
+    },
+    {
+        name: "Open Library",
+        url: "https://openlibrary.org/",
+        description: "فهرس ومكتبة كتب على الإنترنت.",
+        category: "books",
+        icon: "📖",
+        visits: 0
+    },
+    {
+        name: "Google Books",
+        url: "https://books.google.com/",
+        description: "البحث واستكشاف الكتب.",
+        category: "books",
+        icon: "📗",
+        visits: 0
+    },
+    {
+        name: "ManyBooks",
+        url: "https://manybooks.net/",
+        description: "كتب إلكترونية متنوعة.",
+        category: "books",
+        icon: "📚",
+        visits: 0
+    },
+    {
+        name: "Standard Ebooks",
+        url: "https://standardebooks.org/",
+        description: "كتب كلاسيكية مجانية بتنسيق جميل.",
+        category: "books",
+        icon: "📕",
+        visits: 0
+    },
+    {
+        name: "LibriVox",
+        url: "https://librivox.org/",
+        description: "كتب صوتية من الملكية العامة.",
+        category: "books",
+        icon: "🎧",
+        visits: 0
+    },
+    {
+        name: "Wikisource",
+        url: "https://wikisource.org/",
+        description: "مكتبة نصوص حرة.",
+        category: "books",
+        icon: "📜",
+        visits: 0
+    },
+    {
+        name: "WorldCat",
+        url: "https://www.worldcat.org/",
+        description: "البحث في مكتبات العالم.",
+        category: "books",
+        icon: "🌍",
+        visits: 0
+    },
+    {
+        name: "Goodreads",
+        url: "https://www.goodreads.com/",
+        description: "اكتشاف الكتب ومراجعات القراء.",
+        category: "books",
+        icon: "📚",
+        visits: 0
+    },
+    {
+        name: "BookBub",
+        url: "https://www.bookbub.com/",
+        description: "اكتشاف الكتب والعروض.",
+        category: "books",
+        icon: "📕",
+        visits: 0
+    },
+    {
+        name: "BookFinder",
+        url: "https://www.bookfinder.com/",
+        description: "البحث عن الكتب.",
+        category: "books",
+        icon: "🔎",
+        visits: 0
+    },
+    {
+        name: "Feedbooks",
+        url: "https://www.feedbooks.com/",
+        description: "كتب إلكترونية وكتب كلاسيكية.",
+        category: "books",
+        icon: "📘",
+        visits: 0
+    },
+    {
+        name: "Smashwords",
+        url: "https://www.smashwords.com/",
+        description: "منصة للكتب الإلكترونية.",
+        category: "books",
+        icon: "📖",
+        visits: 0
+    },
+    {
+        name: "HathiTrust",
+        url: "https://www.hathitrust.org/",
+        description: "مكتبة رقمية للكتب والمواد الأكاديمية.",
+        category: "books",
+        icon: "🏛️",
+        visits: 0
+    },
+    {
+        name: "Digital Public Library",
+        url: "https://dp.la/",
+        description: "اكتشاف ملايين المواد الرقمية.",
+        category: "books",
+        icon: "🏛️",
+        visits: 0
+    },
+    {
+        name: "Book Riot",
+        url: "https://bookriot.com/",
+        description: "مقالات واكتشافات لمحبي القراءة.",
+        category: "books",
+        icon: "📚",
+        visits: 0
+    },
+    {
+        name: "LitCharts",
+        url: "https://www.litcharts.com/",
+        description: "أدلة وتحليلات للأعمال الأدبية.",
+        category: "books",
+        icon: "📝",
+        visits: 0
+    },
+    {
+        name: "Poetry Foundation",
+        url: "https://www.poetryfoundation.org/",
+        description: "استكشاف الشعر والشعراء.",
+        category: "books",
+        icon: "✒️",
+        visits: 0
+    },
+    {
+        name: "Poetry International",
+        url: "https://www.poetryinternational.com/",
+        description: "استكشاف الشعر من دول مختلفة.",
+        category: "books",
+        icon: "📜",
+        visits: 0
+    },
 
-{
-    name:"Canva",
-    url:"https://www.canva.com/",
-    category:"design",
-    description:"تصميم الصور والعروض."
-},
-{
-    name:"Figma",
-    url:"https://www.figma.com/",
-    category:"design",
-    description:"تصميم واجهات المستخدم."
-},
-{
-    name:"Photopea",
-    url:"https://www.photopea.com/",
-    category:"design",
-    description:"محرر صور متقدم."
-},
-{
-    name:"Pixlr",
-    url:"https://pixlr.com/",
-    category:"design",
-    description:"تحرير الصور."
-},
-{
-    name:"Adobe Express",
-    url:"https://www.adobe.com/express/",
-    category:"design",
-    description:"أدوات تصميم سهلة."
-},
-{
-    name:"Adobe Color",
-    url:"https://color.adobe.com/",
-    category:"design",
-    description:"إنشاء لوحات ألوان."
-},
-{
-    name:"Coolors",
-    url:"https://coolors.co/",
-    category:"design",
-    description:"إنشاء لوحات ألوان."
-},
-{
-    name:"Unsplash",
-    url:"https://unsplash.com/",
-    category:"design",
-    description:"صور عالية الجودة."
-},
-{
-    name:"Pexels",
-    url:"https://www.pexels.com/",
-    category:"design",
-    description:"صور وفيديوهات مجانية."
-},
-{
-    name:"Freepik",
-    url:"https://www.freepik.com/",
-    category:"design",
-    description:"موارد ورسومات للتصميم."
-},
-{
-    name:"Flaticon",
-    url:"https://www.flaticon.com/",
-    category:"design",
-    description:"مكتبة أيقونات."
-},
-{
-    name:"Icons8",
-    url:"https://icons8.com/",
-    category:"design",
-    description:"أيقونات وموارد تصميم."
-},
-{
-    name:"Font Awesome",
-    url:"https://fontawesome.com/",
-    category:"design",
-    description:"مكتبة أيقونات."
-},
-{
-    name:"Google Fonts",
-    url:"https://fonts.google.com/",
-    category:"design",
-    description:"خطوط مجانية."
-},
-{
-    name:"DaFont",
-    url:"https://www.dafont.com/",
-    category:"design",
-    description:"مكتبة خطوط."
-},
-{
-    name:"Font Squirrel",
-    url:"https://www.fontsquirrel.com/",
-    category:"design",
-    description:"خطوط مجانية."
-},
-{
-    name:"Remove.bg",
-    url:"https://www.remove.bg/",
-    category:"design",
-    description:"إزالة خلفية الصور."
-},
-{
-    name:"TinyPNG",
-    url:"https://tinypng.com/",
-    category:"design",
-    description:"ضغط الصور."
-},
-{
-    name:"Squoosh",
-    url:"https://squoosh.app/",
-    category:"design",
-    description:"تحسين وضغط الصور."
-},
-{
-    name:"Excalidraw",
-    url:"https://excalidraw.com/",
-    category:"design",
-    description:"رسم المخططات والأفكار."
-},
 
-/* ==================== VIDEO 20 ==================== */
+    /* =========================
+       AI - 20
+       ========================= */
 
-{
-    name:"YouTube",
-    url:"https://www.youtube.com/",
-    category:"video",
-    description:"منصة الفيديو الشهيرة."
-},
-{
-    name:"CapCut",
-    url:"https://www.capcut.com/",
-    category:"video",
-    description:"تحرير الفيديو."
-},
-{
-    name:"VEED",
-    url:"https://www.veed.io/",
-    category:"video",
-    description:"محرر فيديو عبر الإنترنت."
-},
-{
-    name:"Clipchamp",
-    url:"https://clipchamp.com/",
-    category:"video",
-    description:"إنشاء وتحرير الفيديو."
-},
-{
-    name:"Canva Video",
-    url:"https://www.canva.com/create/videos/",
-    category:"video",
-    description:"إنشاء فيديوهات."
-},
-{
-    name:"Adobe Express Video",
-    url:"https://www.adobe.com/express/create/video",
-    category:"video",
-    description:"إنشاء فيديوهات."
-},
-{
-    name:"Kapwing",
-    url:"https://www.kapwing.com/",
-    category:"video",
-    description:"تحرير الفيديو."
-},
-{
-    name:"InVideo",
-    url:"https://invideo.io/",
-    category:"video",
-    description:"إنشاء الفيديو."
-},
-{
-    name:"FlexClip",
-    url:"https://www.flexclip.com/",
-    category:"video",
-    description:"محرر فيديو."
-},
-{
-    name:"Descript",
-    url:"https://www.descript.com/",
-    category:"video",
-    description:"تحرير الفيديو والصوت."
-},
-{
-    name:"DaVinci Resolve",
-    url:"https://www.blackmagicdesign.com/products/davinciresolve",
-    category:"video",
-    description:"تحرير فيديو احترافي."
-},
-{
-    name:"OBS Studio",
-    url:"https://obsproject.com/",
-    category:"video",
-    description:"تسجيل الشاشة والبث."
-},
-{
-    name:"HandBrake",
-    url:"https://handbrake.fr/",
-    category:"video",
-    description:"تحويل وضغط الفيديو."
-},
-{
-    name:"VLC",
-    url:"https://www.videolan.org/vlc/",
-    category:"video",
-    description:"مشغل وسائط."
-},
-{
-    name:"Pexels Videos",
-    url:"https://www.pexels.com/videos/",
-    category:"video",
-    description:"فيديوهات مجانية."
-},
-{
-    name:"Pixabay Videos",
-    url:"https://pixabay.com/videos/",
-    category:"video",
-    description:"مقاطع فيديو مجانية."
-},
-{
-    name:"Mixkit",
-    url:"https://mixkit.co/",
-    category:"video",
-    description:"فيديوهات ومؤثرات."
-},
-{
-    name:"Coverr",
-    url:"https://coverr.co/",
-    category:"video",
-    description:"فيديوهات مجانية."
-},
-{
-    name:"Videvo",
-    url:"https://www.videvo.net/",
-    category:"video",
-    description:"فيديوهات وموارد مرئية."
-},
-{
-    name:"Loom",
-    url:"https://www.loom.com/",
-    category:"video",
-    description:"تسجيل الشاشة ومشاركة الفيديو."
-},
+    {
+        name: "ChatGPT",
+        url: "https://chatgpt.com/",
+        description: "مساعد ذكاء اصطناعي من OpenAI.",
+        category: "ai",
+        icon: "🤖",
+        visits: 0
+    },
+    {
+        name: "Google Gemini",
+        url: "https://gemini.google.com/",
+        description: "مساعد الذكاء الاصطناعي من Google.",
+        category: "ai",
+        icon: "✨",
+        visits: 0
+    },
+    {
+        name: "Microsoft Copilot",
+        url: "https://copilot.microsoft.com/",
+        description: "مساعد ذكاء اصطناعي من Microsoft.",
+        category: "ai",
+        icon: "🤖",
+        visits: 0
+    },
+    {
+        name: "Claude",
+        url: "https://claude.ai/",
+        description: "مساعد ذكاء اصطناعي من Anthropic.",
+        category: "ai",
+        icon: "🧠",
+        visits: 0
+    },
+    {
+        name: "Perplexity",
+        url: "https://www.perplexity.ai/",
+        description: "محرك بحث يعتمد على الذكاء الاصطناعي.",
+        category: "ai",
+        icon: "🔎",
+        visits: 0
+    },
+    {
+        name: "Hugging Face",
+        url: "https://huggingface.co/",
+        description: "منصة لنماذج وأدوات الذكاء الاصطناعي.",
+        category: "ai",
+        icon: "🤗",
+        visits: 0
+    },
+    {
+        name: "DeepL",
+        url: "https://www.deepl.com/",
+        description: "ترجمة ذكية بالذكاء الاصطناعي.",
+        category: "ai",
+        icon: "🌐",
+        visits: 0
+    },
+    {
+        name: "Grammarly",
+        url: "https://www.grammarly.com/",
+        description: "مساعدة في الكتابة والتدقيق.",
+        category: "ai",
+        icon: "✍️",
+        visits: 0
+    },
+    {
+        name: "QuillBot",
+        url: "https://quillbot.com/",
+        description: "أدوات للكتابة وإعادة الصياغة.",
+        category: "ai",
+        icon: "📝",
+        visits: 0
+    },
+    {
+        name: "Poe",
+        url: "https://poe.com/",
+        description: "منصة للتفاعل مع نماذج ذكاء اصطناعي مختلفة.",
+        category: "ai",
+        icon: "💬",
+        visits: 0
+    },
+    {
+        name: "Character.AI",
+        url: "https://character.ai/",
+        description: "تجارب محادثة مع شخصيات افتراضية.",
+        category: "ai",
+        icon: "🤖",
+        visits: 0
+    },
+    {
+        name: "Leonardo AI",
+        url: "https://leonardo.ai/",
+        description: "إنشاء صور باستخدام الذكاء الاصطناعي.",
+        category: "ai",
+        icon: "🎨",
+        visits: 0
+    },
+    {
+        name: "Adobe Firefly",
+        url: "https://firefly.adobe.com/",
+        description: "أدوات إبداعية بالذكاء الاصطناعي.",
+        category: "ai",
+        icon: "🔥",
+        visits: 0
+    },
+    {
+        name: "Canva AI",
+        url: "https://www.canva.com/ai-image-generator/",
+        description: "أدوات تصميم مدعومة بالذكاء الاصطناعي.",
+        category: "ai",
+        icon: "🎨",
+        visits: 0
+    },
+    {
+        name: "Gamma",
+        url: "https://gamma.app/",
+        description: "إنشاء عروض ومحتوى باستخدام AI.",
+        category: "ai",
+        icon: "📊",
+        visits: 0
+    },
+    {
+        name: "NotebookLM",
+        url: "https://notebooklm.google/",
+        description: "أداة بحث ودراسة تعتمد على الذكاء الاصطناعي.",
+        category: "ai",
+        icon: "📓",
+        visits: 0
+    },
+    {
+        name: "Consensus",
+        url: "https://consensus.app/",
+        description: "البحث في الأوراق العلمية باستخدام AI.",
+        category: "ai",
+        icon: "🔬",
+        visits: 0
+    },
+    {
+        name: "Elicit",
+        url: "https://elicit.com/",
+        description: "مساعدة في البحث وتحليل الأوراق العلمية.",
+        category: "ai",
+        icon: "🔬",
+        visits: 0
+    },
+    {
+        name: "Phind",
+        url: "https://www.phind.com/",
+        description: "مساعد بحث وبرمجة بالذكاء الاصطناعي.",
+        category: "ai",
+        icon: "💻",
+        visits: 0
+    },
+    {
+        name: "Blackbox AI",
+        url: "https://www.blackbox.ai/",
+        description: "مساعد للبرمجة يعتمد على الذكاء الاصطناعي.",
+        category: "ai",
+        icon: "💻",
+        visits: 0
+    },
 
-/* ==================== MUSIC 20 ==================== */
 
-{
-    name:"Spotify",
-    url:"https://open.spotify.com/",
-    category:"music",
-    description:"استمع إلى الموسيقى والبودكاست."
-},
-{
-    name:"SoundCloud",
-    url:"https://soundcloud.com/",
-    category:"music",
-    description:"اكتشف الموسيقى."
-},
-{
-    name:"YouTube Music",
-    url:"https://music.youtube.com/",
-    category:"music",
-    description:"خدمة الموسيقى من YouTube."
-},
-{
-    name:"Bandcamp",
-    url:"https://bandcamp.com/",
-    category:"music",
-    description:"اكتشف الفنانين المستقلين."
-},
-{
-    name:"Audiomack",
-    url:"https://audiomack.com/",
-    category:"music",
-    description:"الاستماع واكتشاف الموسيقى."
-},
-{
-    name:"Deezer",
-    url:"https://www.deezer.com/",
-    category:"music",
-    description:"خدمة بث موسيقى."
-},
-{
-    name:"TIDAL",
-    url:"https://tidal.com/",
-    category:"music",
-    description:"منصة موسيقى."
-},
-{
-    name:"Mixcloud",
-    url:"https://www.mixcloud.com/",
-    category:"music",
-    description:"برامج ومزج موسيقي."
-},
-{
-    name:"Last.fm",
-    url:"https://www.last.fm/",
-    category:"music",
-    description:"تتبع اكتشافاتك الموسيقية."
-},
-{
-    name:"Musixmatch",
-    url:"https://www.musixmatch.com/",
-    category:"music",
-    description:"معلومات عن الأغاني."
-},
-{
-    name:"Genius",
-    url:"https://genius.com/",
-    category:"music",
-    description:"معلومات وتحليلات موسيقية."
-},
-{
-    name:"WhoSampled",
-    url:"https://www.whosampled.com/",
-    category:"music",
-    description:"اكتشف العينات الموسيقية."
-},
-{
-    name:"Internet Archive Audio",
-    url:"https://archive.org/details/audio",
-    category:"music",
-    description:"أرشيف صوتي."
-},
-{
-    name:"Free Music Archive",
-    url:"https://freemusicarchive.org/",
-    category:"music",
-    description:"موسيقى مجانية."
-},
-{
-    name:"Jamendo",
-    url:"https://www.jamendo.com/",
-    category:"music",
-    description:"موسيقى مستقلة."
-},
-{
-    name:"Pixabay Music",
-    url:"https://pixabay.com/music/",
-    category:"music",
-    description:"موسيقى ومؤثرات مجانية."
-},
-{
-    name:"Epidemic Sound",
-    url:"https://www.epidemicsound.com/",
-    category:"music",
-    description:"مكتبة موسيقى."
-},
-{
-    name:"HookSounds",
-    url:"https://www.hooksounds.com/",
-    category:"music",
-    description:"موسيقى ومؤثرات."
-},
-{
-    name:"Soundtrap",
-    url:"https://www.soundtrap.com/",
-    category:"music",
-    description:"إنشاء الموسيقى."
-},
-{
-    name:"Audiotool",
-    url:"https://www.audiotool.com/",
-    category:"music",
-    description:"استوديو موسيقى من المتصفح."
-},
+    /* =========================
+       DESIGN - 20
+       ========================= */
 
-/* ==================== PROGRAMMING 20 ==================== */
+    {
+        name: "Canva",
+        url: "https://www.canva.com/",
+        description: "تصميم الصور والعروض والمنشورات بسهولة.",
+        category: "design",
+        icon: "🎨",
+        visits: 0
+    },
+    {
+        name: "Figma",
+        url: "https://www.figma.com/",
+        description: "تصميم واجهات وتجارب المستخدم.",
+        category: "design",
+        icon: "🖌️",
+        visits: 0
+    },
+    {
+        name: "Photopea",
+        url: "https://www.photopea.com/",
+        description: "محرر صور متقدم يعمل في المتصفح.",
+        category: "design",
+        icon: "🖼️",
+        visits: 0
+    },
+    {
+        name: "Remove.bg",
+        url: "https://www.remove.bg/",
+        description: "إزالة خلفية الصور.",
+        category: "design",
+        icon: "✂️",
+        visits: 0
+    },
+    {
+        name: "Pixlr",
+        url: "https://pixlr.com/",
+        description: "تحرير الصور عبر الإنترنت.",
+        category: "design",
+        icon: "🖼️",
+        visits: 0
+    },
+    {
+        name: "Adobe Express",
+        url: "https://www.adobe.com/express/",
+        description: "أدوات تصميم سريعة.",
+        category: "design",
+        icon: "🎨",
+        visits: 0
+    },
+    {
+        name: "Unsplash",
+        url: "https://unsplash.com/",
+        description: "صور مجانية عالية الجودة.",
+        category: "design",
+        icon: "📷",
+        visits: 0
+    },
+    {
+        name: "Pexels",
+        url: "https://www.pexels.com/",
+        description: "صور وفيديوهات مجانية.",
+        category: "design",
+        icon: "📸",
+        visits: 0
+    },
+    {
+        name: "Pixabay",
+        url: "https://pixabay.com/",
+        description: "صور وفيديوهات ومواد مجانية.",
+        category: "design",
+        icon: "🌄",
+        visits: 0
+    },
+    {
+        name: "Coolors",
+        url: "https://coolors.co/",
+        description: "إنشاء واكتشاف لوحات الألوان.",
+        category: "design",
+        icon: "🌈",
+        visits: 0
+    },
+    {
+        name: "Color Hunt",
+        url: "https://colorhunt.co/",
+        description: "لوحات ألوان جاهزة.",
+        category: "design",
+        icon: "🎨",
+        visits: 0
+    },
+    {
+        name: "Google Fonts",
+        url: "https://fonts.google.com/",
+        description: "مكتبة خطوط مجانية.",
+        category: "design",
+        icon: "🔤",
+        visits: 0
+    },
+    {
+        name: "Font Awesome",
+        url: "https://fontawesome.com/",
+        description: "مكتبة أيقونات للويب.",
+        category: "design",
+        icon: "⭐",
+        visits: 0
+    },
+    {
+        name: "Flaticon",
+        url: "https://www.flaticon.com/",
+        description: "مكتبة أيقونات ورسومات.",
+        category: "design",
+        icon: "🔷",
+        visits: 0
+    },
+    {
+        name: "Freepik",
+        url: "https://www.freepik.com/",
+        description: "موارد ورسومات للتصميم.",
+        category: "design",
+        icon: "🎨",
+        visits: 0
+    },
+    {
+        name: "Vecteezy",
+        url: "https://www.vecteezy.com/",
+        description: "رسومات وصور متجهة.",
+        category: "design",
+        icon: "✏️",
+        visits: 0
+    },
+    {
+        name: "Icons8",
+        url: "https://icons8.com/",
+        description: "أيقونات ورسومات وأدوات تصميم.",
+        category: "design",
+        icon: "🔳",
+        visits: 0
+    },
+    {
+        name: "Dribbble",
+        url: "https://dribbble.com/",
+        description: "استكشاف أعمال المصممين.",
+        category: "design",
+        icon: "🏀",
+        visits: 0
+    },
+    {
+        name: "Behance",
+        url: "https://www.behance.net/",
+        description: "منصة لعرض الأعمال الإبداعية.",
+        category: "design",
+        icon: "🎨",
+        visits: 0
+    },
+    {
+        name: "Unsplash Source",
+        url: "https://source.unsplash.com/",
+        description: "مصادر صور من Unsplash.",
+        category: "design",
+        icon: "📷",
+        visits: 0
+    },
 
-{
-    name:"GitHub",
-    url:"https://github.com/",
-    category:"programming",
-    description:"استضافة المشاريع البرمجية."
-},
-{
-    name:"GitLab",
-    url:"https://gitlab.com/",
-    category:"programming",
-    description:"منصة DevOps."
-},
-{
-    name:"Bitbucket",
-    url:"https://bitbucket.org/",
-    category:"programming",
-    description:"استضافة مستودعات Git."
-},
-{
-    name:"CodePen",
-    url:"https://codepen.io/",
-    category:"programming",
-    description:"جرب HTML وCSS وJavaScript."
-},
-{
-    name:"JSFiddle",
-    url:"https://jsfiddle.net/",
-    category:"programming",
-    description:"تجربة JavaScript والويب."
-},
-{
-    name:"W3Schools",
-    url:"https://www.w3schools.com/",
-    category:"programming",
-    description:"دروس وأمثلة برمجية."
-},
-{
-    name:"MDN Web Docs",
-    url:"https://developer.mozilla.org/",
-    category:"programming",
-    description:"توثيق تقنيات الويب."
-},
-{
-    name:"Replit",
-    url:"https://replit.com/",
-    category:"programming",
-    description:"برمجة وتشغيل المشاريع."
-},
-{
-    name:"Stack Overflow",
-    url:"https://stackoverflow.com/",
-    category:"programming",
-    description:"أسئلة وأجوبة للمبرمجين."
-},
-{
-    name:"npm",
-    url:"https://www.npmjs.com/",
-    category:"programming",
-    description:"سجل حزم JavaScript."
-},
-{
-    name:"PyPI",
-    url:"https://pypi.org/",
-    category:"programming",
-    description:"مستودع حزم Python."
-},
-{
-    name:"Docker Hub",
-    url:"https://hub.docker.com/",
-    category:"programming",
-    description:"مستودع صور Docker."
-},
-{
-    name:"Vercel",
-    url:"https://vercel.com/",
-    category:"programming",
-    description:"نشر تطبيقات الويب."
-},
-{
-    name:"Netlify",
-    url:"https://www.netlify.com/",
-    category:"programming",
-    description:"استضافة مواقع الويب."
-},
-{
-    name:"Glitch",
-    url:"https://glitch.com/",
-    category:"programming",
-    description:"إنشاء مشاريع الويب."
-},
-{
-    name:"CodeSandbox",
-    url:"https://codesandbox.io/",
-    category:"programming",
-    description:"بيئة تطوير للمشاريع."
-},
-{
-    name:"JS Bin",
-    url:"https://jsbin.com/",
-    category:"programming",
-    description:"تجربة HTML وCSS وJavaScript."
-},
-{
-    name:"DevDocs",
-    url:"https://devdocs.io/",
-    category:"programming",
-    description:"توثيق برمجي."
-},
-{
-    name:"Exercism",
-    url:"https://exercism.org/",
-    category:"programming",
-    description:"تمارين لتعلم البرمجة."
-},
-{
-    name:"HackerRank",
-    url:"https://www.hackerrank.com/",
-    category:"programming",
-    description:"تحديات برمجية."
-},
 
-/* ==================== TOOLS 20 ==================== */
+    /* =========================
+       VIDEO - 20
+       ========================= */
 
-{
-    name:"Google Translate",
-    url:"https://translate.google.com/",
-    category:"tools",
-    description:"ترجمة النصوص."
-},
-{
-    name:"TinyWow",
-    url:"https://tinywow.com/",
-    category:"tools",
-    description:"أدوات مجانية للملفات."
-},
-{
-    name:"iLovePDF",
-    url:"https://www.ilovepdf.com/",
-    category:"tools",
-    description:"أدوات PDF."
-},
-{
-    name:"QR Code Generator",
-    url:"https://www.qr-code-generator.com/",
-    category:"tools",
-    description:"إنشاء رموز QR."
-},
-{
-    name:"Speedtest",
-    url:"https://www.speedtest.net/",
-    category:"tools",
-    description:"اختبار سرعة الإنترنت."
-},
-{
-    name:"Google Drive",
-    url:"https://drive.google.com/",
-    category:"tools",
-    description:"تخزين الملفات."
-},
-{
-    name:"Google Docs",
-    url:"https://docs.google.com/",
-    category:"tools",
-    description:"إنشاء المستندات."
-},
-{
-    name:"Google Sheets",
-    url:"https://sheets.google.com/",
-    category:"tools",
-    description:"جداول البيانات."
-},
-{
-    name:"Google Forms",
-    url:"https://forms.google.com/",
-    category:"tools",
-    description:"إنشاء النماذج."
-},
-{
-    name:"Google Keep",
-    url:"https://keep.google.com/",
-    category:"tools",
-    description:"ملاحظات وقوائم."
-},
-{
-    name:"Trello",
-    url:"https://trello.com/",
-    category:"tools",
-    description:"تنظيم المهام."
-},
-{
-    name:"Notion",
-    url:"https://www.notion.so/",
-    category:"tools",
-    description:"تنظيم الملاحظات والمشاريع."
-},
-{
-    name:"Dropbox",
-    url:"https://www.dropbox.com/",
-    category:"tools",
-    description:"تخزين ومشاركة الملفات."
-},
-{
-    name:"WeTransfer",
-    url:"https://wetransfer.com/",
-    category:"tools",
-    description:"إرسال الملفات."
-},
-{
-    name:"Wayback Machine",
-    url:"https://web.archive.org/",
-    category:"tools",
-    description:"مشاهدة نسخ قديمة من المواقع."
-},
-{
-    name:"VirusTotal",
-    url:"https://www.virustotal.com/",
-    category:"tools",
-    description:"فحص الملفات والروابط."
-},
-{
-    name:"Have I Been Pwned",
-    url:"https://haveibeenpwned.com/",
-    category:"tools",
-    description:"فحص البريد ضمن التسريبات المعروفة."
-},
-{
-    name:"URLVoid",
-    url:"https://www.urlvoid.com/",
-    category:"tools",
-    description:"فحص سمعة المواقع."
-},
-{
-    name:"Can I Use",
-    url:"https://caniuse.com/",
-    category:"tools",
-    description:"معرفة دعم تقنيات الويب."
-},
-{
-    name:"Smallpdf",
-    url:"https://smallpdf.com/",
-    category:"tools",
-    description:"أدوات PDF."
-}
+    {
+        name: "YouTube",
+        url: "https://www.youtube.com/",
+        description: "منصة الفيديو الأشهر على الإنترنت.",
+        category: "video",
+        icon: "▶️",
+        visits: 0
+    },
+    {
+        name: "CapCut",
+        url: "https://www.capcut.com/",
+        description: "محرر فيديو سهل ومليء بالأدوات.",
+        category: "video",
+        icon: "🎬",
+        visits: 0
+    },
+    {
+        name: "VEED",
+        url: "https://www.veed.io/",
+        description: "تحرير الفيديو عبر المتصفح.",
+        category: "video",
+        icon: "🎥",
+        visits: 0
+    },
+    {
+        name: "Clipchamp",
+        url: "https://clipchamp.com/",
+        description: "محرر فيديو من Microsoft.",
+        category: "video",
+        icon: "🎞️",
+        visits: 0
+    },
+    {
+        name: "Vimeo",
+        url: "https://vimeo.com/",
+        description: "منصة فيديو للمبدعين.",
+        category: "video",
+        icon: "🎥",
+        visits: 0
+    },
+    {
+        name: "Dailymotion",
+        url: "https://www.dailymotion.com/",
+        description: "منصة لمشاهدة ومشاركة الفيديوهات.",
+        category: "video",
+        icon: "▶️",
+        visits: 0
+    },
+    {
+        name: "Twitch",
+        url: "https://www.twitch.tv/",
+        description: "بث مباشر ومحتوى ألعاب.",
+        category: "video",
+        icon: "🎮",
+        visits: 0
+    },
+    {
+        name: "TED",
+        url: "https://www.ted.com/",
+        description: "محادثات وأفكار تعليمية وإبداعية.",
+        category: "video",
+        icon: "🎤",
+        visits: 0
+    },
+    {
+        name: "Netflix",
+        url: "https://www.netflix.com/",
+        description: "منصة مشاهدة الأفلام والمسلسلات.",
+        category: "video",
+        icon: "🎬",
+        visits: 0
+    },
+    {
+        name: "Internet Archive Video",
+        url: "https://archive.org/details/movies",
+        description: "أرشيف كبير لمقاطع الفيديو.",
+        category: "video",
+        icon: "📼",
+        visits: 0
+    },
+    {
+        name: "Mixkit",
+        url: "https://mixkit.co/",
+        description: "موارد فيديو وصوت مجانية.",
+        category: "video",
+        icon: "🎞️",
+        visits: 0
+    },
+    {
+        name: "Coverr",
+        url: "https://coverr.co/",
+        description: "فيديوهات مجانية للمشاريع.",
+        category: "video",
+        icon: "🎥",
+        visits: 0
+    },
+    {
+        name: "Videvo",
+        url: "https://www.videvo.net/",
+        description: "فيديوهات ومؤثرات مرئية.",
+        category: "video",
+        icon: "🎬",
+        visits: 0
+    },
+    {
+        name: "Storyblocks",
+        url: "https://www.storyblocks.com/",
+        description: "مكتبة محتوى إبداعي.",
+        category: "video",
+        icon: "🎞️",
+        visits: 0
+    },
+    {
+        name: "Loom",
+        url: "https://www.loom.com/",
+        description: "تسجيل ومشاركة الفيديوهات.",
+        category: "video",
+        icon: "📹",
+        visits: 0
+    },
+    {
+        name: "Streamable",
+        url: "https://streamable.com/",
+        description: "رفع ومشاركة مقاطع الفيديو.",
+        category: "video",
+        icon: "📤",
+        visits: 0
+    },
+    {
+        name: "Kapwing",
+        url: "https://www.kapwing.com/",
+        description: "أدوات تحرير الفيديو والمحتوى.",
+        category: "video",
+        icon: "🎬",
+        visits: 0
+    },
+    {
+        name: "InVideo",
+        url: "https://invideo.io/",
+        description: "إنشاء وتحرير الفيديو.",
+        category: "video",
+        icon: "🎥",
+        visits: 0
+    },
+    {
+        name: "Descript",
+        url: "https://www.descript.com/",
+        description: "تحرير الفيديو والصوت.",
+        category: "video",
+        icon: "🎙️",
+        visits: 0
+    },
+    {
+        name: "DaVinci Resolve",
+        url: "https://www.blackmagicdesign.com/products/davinciresolve",
+        description: "برنامج احترافي لتحرير الفيديو.",
+        category: "video",
+        icon: "🎞️",
+        visits: 0
+    },
+
+
+    /* =========================
+       MUSIC - 20
+       ========================= */
+
+    {
+        name: "Spotify",
+        url: "https://open.spotify.com/",
+        description: "استماع إلى الموسيقى والبودكاست.",
+        category: "music",
+        icon: "🎵",
+        visits: 0
+    },
+    {
+        name: "SoundCloud",
+        url: "https://soundcloud.com/",
+        description: "منصة للموسيقى والصوتيات.",
+        category: "music",
+        icon: "🎧",
+        visits: 0
+    },
+    {
+        name: "YouTube Music",
+        url: "https://music.youtube.com/",
+        description: "استماع إلى الموسيقى عبر YouTube.",
+        category: "music",
+        icon: "🎵",
+        visits: 0
+    },
+    {
+        name: "Bandcamp",
+        url: "https://bandcamp.com/",
+        description: "اكتشاف الموسيقى ودعم الفنانين.",
+        category: "music",
+        icon: "🎶",
+        visits: 0
+    },
+    {
+        name: "Deezer",
+        url: "https://www.deezer.com/",
+        description: "خدمة استماع للموسيقى.",
+        category: "music",
+        icon: "🎧",
+        visits: 0
+    },
+    {
+        name: "Tidal",
+        url: "https://tidal.com/",
+        description: "خدمة بث موسيقى.",
+        category: "music",
+        icon: "🎵",
+        visits: 0
+    },
+    {
+        name: "Apple Music",
+        url: "https://music.apple.com/",
+        description: "خدمة الموسيقى من Apple.",
+        category: "music",
+        icon: "🍎",
+        visits: 0
+    },
+    {
+        name: "Genius",
+        url: "https://genius.com/",
+        description: "معلومات وكلمات الأغاني.",
+        category: "music",
+        icon: "💡",
+        visits: 0
+    },
+    {
+        name: "Musixmatch",
+        url: "https://www.musixmatch.com/",
+        description: "منصة لمعلومات وكلمات الأغاني.",
+        category: "music",
+        icon: "🎤",
+        visits: 0
+    },
+    {
+        name: "Last.fm",
+        url: "https://www.last.fm/",
+        description: "تتبع الاستماع واكتشاف الموسيقى.",
+        category: "music",
+        icon: "🎶",
+        visits: 0
+    },
+    {
+        name: "Audiomack",
+        url: "https://audiomack.com/",
+        description: "اكتشاف والاستماع إلى الموسيقى.",
+        category: "music",
+        icon: "🎧",
+        visits: 0
+    },
+    {
+        name: "Mixcloud",
+        url: "https://www.mixcloud.com/",
+        description: "مزيج موسيقي وبرامج صوتية.",
+        category: "music",
+        icon: "🎚️",
+        visits: 0
+    },
+    {
+        name: "Jamendo",
+        url: "https://www.jamendo.com/",
+        description: "اكتشاف موسيقى مستقلة.",
+        category: "music",
+        icon: "🎼",
+        visits: 0
+    },
+    {
+        name: "Free Music Archive",
+        url: "https://freemusicarchive.org/",
+        description: "مكتبة موسيقى مفتوحة.",
+        category: "music",
+        icon: "🎵",
+        visits: 0
+    },
+    {
+        name: "Musopen",
+        url: "https://musopen.org/",
+        description: "موسيقى كلاسيكية وموارد موسيقية.",
+        category: "music",
+        icon: "🎻",
+        visits: 0
+    },
+    {
+        name: "Radio Garden",
+        url: "https://radio.garden/",
+        description: "استمع إلى الراديو حول العالم.",
+        category: "music",
+        icon: "📻",
+        visits: 0
+    },
+    {
+        name: "iHeart",
+        url: "https://www.iheart.com/",
+        description: "راديو وموسيقى وبودكاست.",
+        category: "music",
+        icon: "❤️",
+        visits: 0
+    },
+    {
+        name: "TuneIn",
+        url: "https://tunein.com/",
+        description: "محطات راديو وبودكاست.",
+        category: "music",
+        icon: "📻",
+        visits: 0
+    },
+    {
+        name: "Songsterr",
+        url: "https://www.songsterr.com/",
+        description: "تبويبات موسيقية وتعلم العزف.",
+        category: "music",
+        icon: "🎸",
+        visits: 0
+    },
+    {
+        name: "Ultimate Guitar",
+        url: "https://www.ultimate-guitar.com/",
+        description: "تبويبات وأكوردات للغيتار.",
+        category: "music",
+        icon: "🎸",
+        visits: 0
+    },
+
+
+    /* =========================
+       PROGRAMMING - 20
+       ========================= */
+
+    {
+        name: "GitHub",
+        url: "https://github.com/",
+        description: "استضافة المشاريع البرمجية والتعاون.",
+        category: "programming",
+        icon: "💻",
+        visits: 0
+    },
+    {
+        name: "CodePen",
+        url: "https://codepen.io/",
+        description: "تجربة HTML وCSS وJavaScript.",
+        category: "programming",
+        icon: "🖊️",
+        visits: 0
+    },
+    {
+        name: "JSFiddle",
+        url: "https://jsfiddle.net/",
+        description: "اختبار أكواد JavaScript وHTML وCSS.",
+        category: "programming",
+        icon: "🧪",
+        visits: 0
+    },
+    {
+        name: "W3Schools",
+        url: "https://www.w3schools.com/",
+        description: "دروس وأمثلة برمجية.",
+        category: "programming",
+        icon: "🌐",
+        visits: 0
+    },
+    {
+        name: "MDN Web Docs",
+        url: "https://developer.mozilla.org/",
+        description: "مرجع شامل لتطوير الويب.",
+        category: "programming",
+        icon: "📘",
+        visits: 0
+    },
+    {
+        name: "Replit",
+        url: "https://replit.com/",
+        description: "برمجة وتشغيل المشاريع عبر المتصفح.",
+        category: "programming",
+        icon: "💻",
+        visits: 0
+    },
+    {
+        name: "Stack Overflow",
+        url: "https://stackoverflow.com/",
+        description: "أسئلة وأجوبة للمبرمجين.",
+        category: "programming",
+        icon: "💬",
+        visits: 0
+    },
+    {
+        name: "Dev.to",
+        url: "https://dev.to/",
+        description: "مجتمع ومقالات للمطورين.",
+        category: "programming",
+        icon: "👨‍💻",
+        visits: 0
+    },
+    {
+        name: "freeCodeCamp",
+        url: "https://www.freecodecamp.org/",
+        description: "تعلم البرمجة وتطوير الويب مجانًا.",
+        category: "programming",
+        icon: "🔥",
+        visits: 0
+    },
+    {
+        name: "The Odin Project",
+        url: "https://www.theodinproject.com/",
+        description: "منهج مجاني لتعلم تطوير الويب.",
+        category: "programming",
+        icon: "⚔️",
+        visits: 0
+    },
+    {
+        name: "Exercism",
+        url: "https://exercism.org/",
+        description: "تمارين برمجية بلغات مختلفة.",
+        category: "programming",
+        icon: "💻",
+        visits: 0
+    },
+    {
+        name: "HackerRank",
+        url: "https://www.hackerrank.com/",
+        description: "تمارين وتحديات برمجية.",
+        category: "programming",
+        icon: "👨‍💻",
+        visits: 0
+    },
+    {
+        name: "LeetCode",
+        url: "https://leetcode.com/",
+        description: "تحديات وخوارزميات برمجية.",
+        category: "programming",
+        icon: "🧩",
+        visits: 0
+    },
+    {
+        name: "GitLab",
+        url: "https://gitlab.com/",
+        description: "منصة DevOps وإدارة المشاريع البرمجية.",
+        category: "programming",
+        icon: "🦊",
+        visits: 0
+    },
+    {
+        name: "Bitbucket",
+        url: "https://bitbucket.org/",
+        description: "استضافة مستودعات Git.",
+        category: "programming",
+        icon: "🪣",
+        visits: 0
+    },
+    {
+        name: "npm",
+        url: "https://www.npmjs.com/",
+        description: "مكتبة حزم JavaScript.",
+        category: "programming",
+        icon: "📦",
+        visits: 0
+    },
+    {
+        name: "CodeSandbox",
+        url: "https://codesandbox.io/",
+        description: "بيئة تطوير تعمل عبر المتصفح.",
+        category: "programming",
+        icon: "📦",
+        visits: 0
+    },
+    {
+        name: "StackBlitz",
+        url: "https://stackblitz.com/",
+        description: "بيئة تطوير ويب مباشرة.",
+        category: "programming",
+        icon: "⚡",
+        visits: 0
+    },
+    {
+        name: "Godot",
+        url: "https://godotengine.org/",
+        description: "محرك ألعاب مجاني ومفتوح المصدر.",
+        category: "programming",
+        icon: "🎮",
+        visits: 0
+    },
+    {
+        name: "Unity",
+        url: "https://unity.com/",
+        description: "محرك وأدوات لتطوير الألعاب.",
+        category: "programming",
+        icon: "🎮",
+        visits: 0
+    },
+
+
+    /* =========================
+       TOOLS - 20
+       ========================= */
+
+    {
+        name: "Google Translate",
+        url: "https://translate.google.com/",
+        description: "ترجمة النصوص واللغات.",
+        category: "tools",
+        icon: "🌐",
+        visits: 0
+    },
+    {
+        name: "TinyWow",
+        url: "https://tinywow.com/",
+        description: "مجموعة أدوات مجانية للملفات والمستندات.",
+        category: "tools",
+        icon: "🛠️",
+        visits: 0
+    },
+    {
+        name: "iLovePDF",
+        url: "https://www.ilovepdf.com/",
+        description: "أدوات للتعامل مع ملفات PDF.",
+        category: "tools",
+        icon: "📄",
+        visits: 0
+    },
+    {
+        name: "QR Code Generator",
+        url: "https://www.qr-code-generator.com/",
+        description: "إنشاء رموز QR.",
+        category: "tools",
+        icon: "▦",
+        visits: 0
+    },
+    {
+        name: "Speedtest",
+        url: "https://www.speedtest.net/",
+        description: "اختبار سرعة الإنترنت.",
+        category: "tools",
+        icon: "⚡",
+        visits: 0
+    },
+    {
+        name: "Google Drive",
+        url: "https://drive.google.com/",
+        description: "تخزين الملفات سحابيًا.",
+        category: "tools",
+        icon: "☁️",
+        visits: 0
+    },
+    {
+        name: "Dropbox",
+        url: "https://www.dropbox.com/",
+        description: "تخزين ومشاركة الملفات.",
+        category: "tools",
+        icon: "📦",
+        visits: 0
+    },
+    {
+        name: "WeTransfer",
+        url: "https://wetransfer.com/",
+        description: "إرسال ملفات كبيرة.",
+        category: "tools",
+        icon: "📤",
+        visits: 0
+    },
+    {
+        name: "TinyPNG",
+        url: "https://tinypng.com/",
+        description: "ضغط الصور وتقليل حجمها.",
+        category: "tools",
+        icon: "🖼️",
+        visits: 0
+    },
+    {
+        name: "CloudConvert",
+        url: "https://cloudconvert.com/",
+        description: "تحويل الملفات بين الصيغ.",
+        category: "tools",
+        icon: "🔄",
+        visits: 0
+    },
+    {
+        name: "Convertio",
+        url: "https://convertio.co/",
+        description: "تحويل الملفات عبر الإنترنت.",
+        category: "tools",
+        icon: "🔄",
+        visits: 0
+    },
+    {
+        name: "Canva PDF",
+        url: "https://www.canva.com/pdf-editor/",
+        description: "أدوات للعمل مع ملفات PDF.",
+        category: "tools",
+        icon: "📄",
+        visits: 0
+    },
+    {
+        name: "Google Docs",
+        url: "https://docs.google.com/",
+        description: "إنشاء وتحرير المستندات.",
+        category: "tools",
+        icon: "📝",
+        visits: 0
+    },
+    {
+        name: "Google Sheets",
+        url: "https://sheets.google.com/",
+        description: "جداول بيانات عبر الإنترنت.",
+        category: "tools",
+        icon: "📊",
+        visits: 0
+    },
+    {
+        name: "Google Slides",
+        url: "https://slides.google.com/",
+        description: "إنشاء العروض التقديمية.",
+        category: "tools",
+        icon: "📽️",
+        visits: 0
+    },
+    {
+        name: "Notion",
+        url: "https://www.notion.so/",
+        description: "تنظيم الملاحظات والمشاريع.",
+        category: "tools",
+        icon: "📓",
+        visits: 0
+    },
+    {
+        name: "Trello",
+        url: "https://trello.com/",
+        description: "تنظيم المشاريع والمهام.",
+        category: "tools",
+        icon: "📋",
+        visits: 0
+    },
+    {
+        name: "Timer",
+        url: "https://timer.onlineclock.net/",
+        description: "مؤقت بسيط عبر الإنترنت.",
+        category: "tools",
+        icon: "⏱️",
+        visits: 0
+    },
+    {
+        name: "Online Stopwatch",
+        url: "https://www.online-stopwatch.com/",
+        description: "ساعة توقيت ومؤقتات.",
+        category: "tools",
+        icon: "⏱️",
+        visits: 0
+    },
+    {
+        name: "What Is My IP",
+        url: "https://www.whatismyip.com/",
+        description: "معرفة معلومات عنوان IP.",
+        category: "tools",
+        icon: "🌐",
+        visits: 0
+    }
 
 ];
 
 
 /* =========================================================
-   CATEGORIES
+   2. CATEGORIES
    ========================================================= */
 
 const categoryNames = {
-    games:"الألعاب",
-    fun:"مسلية",
-    education:"التعليم",
-    books:"الكتب",
-    ai:"الذكاء الاصطناعي",
-    design:"التصميم",
-    video:"الفيديو",
-    music:"الموسيقى",
-    programming:"البرمجة",
-    tools:"الأدوات"
+    games: "الألعاب",
+    fun: "مسلية",
+    education: "التعليم",
+    books: "الكتب",
+    ai: "الذكاء الاصطناعي",
+    design: "التصميم",
+    video: "الفيديو",
+    music: "الموسيقى",
+    programming: "البرمجة",
+    tools: "الأدوات"
 };
 
 const categoryIcons = {
-    games:"🎮",
-    fun:"🎉",
-    education:"📚",
-    books:"📖",
-    ai:"🤖",
-    design:"🎨",
-    video:"🎬",
-    music:"🎵",
-    programming:"💻",
-    tools:"🛠️"
+    games: "🎮",
+    fun: "🎉",
+    education: "📚",
+    books: "📖",
+    ai: "🤖",
+    design: "🎨",
+    video: "🎬",
+    music: "🎵",
+    programming: "💻",
+    tools: "🛠️"
 };
 
 
 /* =========================================================
-   FAVORITES
+   3. STATE
    ========================================================= */
 
 let favorites = [];
+let recentSites = [];
+let currentCategory = "all";
+let currentSearch = "";
+let currentView = "grid";
+let currentModalSite = null;
 
-try {
-    favorites =
-        JSON.parse(
-            localStorage.getItem("webboxFavorites") || "[]"
-        );
-} catch {
-    favorites = [];
+
+/* =========================================================
+   4. STORAGE
+   ========================================================= */
+
+function loadStorage() {
+
+    try {
+
+        favorites =
+            JSON.parse(localStorage.getItem("webboxFavorites")) || [];
+
+    } catch {
+
+        favorites = [];
+
+    }
+
+
+    try {
+
+        recentSites =
+            JSON.parse(localStorage.getItem("webboxRecent")) || [];
+
+    } catch {
+
+        recentSites = [];
+
+    }
+
+
+    const savedVisits =
+        localStorage.getItem("webboxVisits");
+
+    if (savedVisits) {
+
+        try {
+
+            const visits = JSON.parse(savedVisits);
+
+            sites.forEach(site => {
+
+                if (visits[site.name]) {
+
+                    site.visits = visits[site.name];
+
+                }
+
+            });
+
+        } catch {}
+
+    }
+
+}
+
+
+function saveFavorites() {
+
+    localStorage.setItem(
+        "webboxFavorites",
+        JSON.stringify(favorites)
+    );
+
+}
+
+
+function saveRecent() {
+
+    localStorage.setItem(
+        "webboxRecent",
+        JSON.stringify(recentSites)
+    );
+
+}
+
+
+function saveVisits() {
+
+    const visits = {};
+
+    sites.forEach(site => {
+
+        visits[site.name] = site.visits || 0;
+
+    });
+
+    localStorage.setItem(
+        "webboxVisits",
+        JSON.stringify(visits)
+    );
+
 }
 
 
 /* =========================================================
-   THEME
+   5. THEME
    ========================================================= */
 
-function installThemeCSS() {
+function toggleDarkMode() {
 
-    if (document.getElementById("webbox-theme-css")) {
-        return;
-    }
+    const body = document.body;
 
-    const style = document.createElement("style");
+    body.classList.toggle("dark");
 
-    style.id = "webbox-theme-css";
+    const isDark =
+        body.classList.contains("dark");
 
-    style.textContent = `
+    localStorage.setItem(
+        "webboxTheme",
+        isDark ? "dark" : "light"
+    );
 
-    body.light-mode {
-        background:
-            linear-gradient(
-                135deg,
-                #eef4ff 0%,
-                #f8faff 45%,
-                #eeeaff 100%
-            ) !important;
+    updateDarkModeButton();
 
-        color:#172033 !important;
-    }
-
-    body.light-mode .glass,
-    body.light-mode header,
-    body.light-mode .header,
-    body.light-mode .site-card,
-    body.light-mode .category-card,
-    body.light-mode .stat-card,
-    body.light-mode .hero,
-    body.light-mode .search-box {
-        background:rgba(255,255,255,.78) !important;
-        color:#172033 !important;
-        border-color:rgba(80,100,180,.18) !important;
-    }
-
-    body.light-mode h1,
-    body.light-mode h2,
-    body.light-mode h3,
-    body.light-mode h4,
-    body.light-mode p,
-    body.light-mode span {
-        color:inherit;
-    }
-
-    body.light-mode .site-card p,
-    body.light-mode .category-card p {
-        color:#586174 !important;
-    }
-
-    body.light-mode input,
-    body.light-mode select {
-        background:rgba(255,255,255,.9) !important;
-        color:#172033 !important;
-        border-color:#d8def0 !important;
-    }
-
-    body.light-mode .nav-btn {
-        color:#29334d !important;
-        background:rgba(255,255,255,.65) !important;
-    }
-
-    body.light-mode .nav-btn.active {
-        color:white !important;
-    }
-
-    .webbox-generated-grid {
-        display:grid;
-        grid-template-columns:
-            repeat(auto-fit,minmax(240px,1fr));
-        gap:20px;
-        width:100%;
-        margin-top:25px;
-    }
-
-    .webbox-site-card {
-        background:rgba(255,255,255,.07);
-        border:1px solid rgba(255,255,255,.12);
-        border-radius:22px;
-        padding:20px;
-        transition:.25s ease;
-        backdrop-filter:blur(12px);
-    }
-
-    .webbox-site-card:hover {
-        transform:translateY(-5px);
-        border-color:rgba(120,130,255,.5);
-        box-shadow:0 15px 35px rgba(0,0,0,.15);
-    }
-
-    .light-mode .webbox-site-card {
-        background:rgba(255,255,255,.85);
-        color:#172033;
-    }
-
-    .webbox-site-top {
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:10px;
-    }
-
-    .webbox-site-icon {
-        width:50px;
-        height:50px;
-        border-radius:15px;
-        display:grid;
-        place-items:center;
-        font-size:25px;
-        background:rgba(120,130,255,.16);
-    }
-
-    .webbox-favorite {
-        border:0;
-        background:transparent;
-        cursor:pointer;
-        font-size:25px;
-    }
-
-    .webbox-site-card h3 {
-        margin:15px 0 8px;
-    }
-
-    .webbox-site-card p {
-        opacity:.75;
-        line-height:1.6;
-        min-height:50px;
-    }
-
-    .webbox-category-label {
-        display:inline-block;
-        margin-top:8px;
-        padding:5px 10px;
-        border-radius:20px;
-        font-size:12px;
-        background:rgba(120,130,255,.15);
-    }
-
-    .webbox-open {
-        display:block;
-        width:100%;
-        margin-top:15px;
-        border:0;
-        border-radius:13px;
-        padding:11px;
-        cursor:pointer;
-        font-weight:bold;
-        background:linear-gradient(135deg,#6366f1,#8b5cf6);
-        color:white;
-    }
-
-    .webbox-empty {
-        text-align:center;
-        padding:50px 20px;
-        opacity:.7;
-    }
-
-    .webbox-category-card {
-        cursor:pointer;
-        text-align:center;
-        padding:25px;
-        border-radius:22px;
-        background:rgba(255,255,255,.07);
-        border:1px solid rgba(255,255,255,.12);
-        transition:.25s;
-    }
-
-    .webbox-category-card:hover {
-        transform:translateY(-5px);
-    }
-
-    .webbox-category-icon {
-        font-size:40px;
-        margin-bottom:10px;
-    }
-
-    `;
-
-    document.head.appendChild(style);
 }
 
 
-function applyTheme() {
+function applySavedTheme() {
 
     const saved =
         localStorage.getItem("webboxTheme");
 
-    if (saved === "light") {
-        document.body.classList.add("light-mode");
+    if (saved === "dark") {
+
+        document.body.classList.add("dark");
+
     } else {
-        document.body.classList.remove("light-mode");
+
+        document.body.classList.remove("dark");
+
     }
 
-    updateThemeButton();
+    updateDarkModeButton();
+
 }
 
 
-function toggleTheme() {
+function updateDarkModeButton() {
 
-    document.body.classList.toggle("light-mode");
+    const button =
+        document.getElementById("darkModeBtn");
 
-    const light =
-        document.body.classList.contains("light-mode");
+    if (!button) return;
 
-    localStorage.setItem(
-        "webboxTheme",
-        light ? "light" : "dark"
-    );
+    const isDark =
+        document.body.classList.contains("dark");
 
-    updateThemeButton();
-}
+    button.textContent =
+        isDark ? "☀️" : "🌙";
 
+    button.title =
+        isDark
+            ? "الوضع النهاري"
+            : "الوضع الليلي";
 
-function updateThemeButton() {
-
-    const buttons = document.querySelectorAll(
-        "#themeBtn, .theme-btn"
-    );
-
-    buttons.forEach(button => {
-
-        button.innerHTML =
-            document.body.classList.contains("light-mode")
-            ? "☀️"
-            : "🌙";
-
-        button.title =
-            document.body.classList.contains("light-mode")
-            ? "الوضع الداكن"
-            : "الوضع الفاتح";
-    });
 }
 
 
 /* =========================================================
-   FIND CONTAINER
-   ========================================================= */
-
-function findContainer(ids, sectionId) {
-
-    for (const id of ids) {
-
-        const element =
-            document.getElementById(id);
-
-        if (element) {
-            return element;
-        }
-    }
-
-    const section =
-        document.getElementById(sectionId);
-
-    if (!section) {
-        return null;
-    }
-
-    let grid =
-        section.querySelector(".webbox-generated-grid");
-
-    if (!grid) {
-
-        grid =
-            document.createElement("div");
-
-        grid.className =
-            "webbox-generated-grid";
-
-        section.appendChild(grid);
-    }
-
-    return grid;
-}
-
-
-/* =========================================================
-   CARD
-   ========================================================= */
-
-function createSiteCard(site) {
-
-    const card =
-        document.createElement("article");
-
-    card.className =
-        "webbox-site-card site-card";
-
-    const favorite =
-        favorites.includes(site.name);
-
-    card.innerHTML = `
-
-        <div class="webbox-site-top">
-
-            <div class="webbox-site-icon">
-                ${categoryIcons[site.category] || "🌐"}
-            </div>
-
-            <button
-                class="webbox-favorite"
-                onclick="toggleFavorite('${escapeJS(site.name)}')"
-                aria-label="المفضلة"
-            >
-                ${favorite ? "⭐" : "☆"}
-            </button>
-
-        </div>
-
-        <span class="webbox-category-label">
-            ${categoryNames[site.category]}
-        </span>
-
-        <h3>${site.name}</h3>
-
-        <p>
-            ${site.description}
-        </p>
-
-        <button
-            class="webbox-open"
-            onclick="openSite('${escapeJS(site.url)}')"
-        >
-            فتح الموقع ↗
-        </button>
-
-    `;
-
-    return card;
-}
-
-
-/* =========================================================
-   RENDER SITES
-   ========================================================= */
-
-function renderSites(
-    searchText = "",
-    category = "all"
-) {
-
-    const container =
-        findContainer(
-            [
-                "sitesGrid",
-                "sitesContainer",
-                "sitesList"
-            ],
-            "sites"
-        );
-
-    if (!container) {
-        return;
-    }
-
-    const text =
-        searchText.toLowerCase().trim();
-
-    const filtered =
-        sites.filter(site => {
-
-            const searchMatch =
-                !text ||
-                site.name.toLowerCase().includes(text) ||
-                site.description.toLowerCase().includes(text) ||
-                categoryNames[site.category]
-                    .toLowerCase()
-                    .includes(text);
-
-            const categoryMatch =
-                category === "all" ||
-                !category ||
-                site.category === category;
-
-            return searchMatch && categoryMatch;
-        });
-
-    container.innerHTML = "";
-
-    if (!filtered.length) {
-
-        container.innerHTML = `
-            <div class="webbox-empty">
-                <div style="font-size:45px">🔎</div>
-                <h3>لم نجد أي موقع</h3>
-                <p>جرّب كلمة بحث أخرى.</p>
-            </div>
-        `;
-
-        return;
-    }
-
-    filtered.forEach(site => {
-        container.appendChild(
-            createSiteCard(site)
-        );
-    });
-
-    updateCounts(filtered.length);
-}
-
-
-/* =========================================================
-   CATEGORY PAGE
-   ========================================================= */
-
-function renderCategories() {
-
-    const container =
-        findContainer(
-            [
-                "categoriesGrid",
-                "categoryGrid",
-                "categoriesContainer"
-            ],
-            "categories"
-        );
-
-    if (!container) {
-        return;
-    }
-
-    container.innerHTML = "";
-
-    Object.keys(categoryNames)
-        .forEach(category => {
-
-            const count =
-                sites.filter(
-                    site =>
-                        site.category === category
-                ).length;
-
-            const card =
-                document.createElement("div");
-
-            card.className =
-                "webbox-category-card category-card";
-
-            card.onclick =
-                () => filterCategory(category);
-
-            card.innerHTML = `
-
-                <div class="webbox-category-icon">
-                    ${categoryIcons[category]}
-                </div>
-
-                <h3>
-                    ${categoryNames[category]}
-                </h3>
-
-                <p>
-                    ${count} موقع
-                </p>
-
-            `;
-
-            container.appendChild(card);
-        });
-}
-
-
-/* =========================================================
-   FUN PAGE
-   ========================================================= */
-
-function renderFun() {
-
-    const container =
-        findContainer(
-            [
-                "funGrid",
-                "funContainer",
-                "funSites",
-                "funList"
-            ],
-            "fun"
-        );
-
-    if (!container) {
-        return;
-    }
-
-    container.innerHTML = "";
-
-    sites
-        .filter(site => site.category === "fun")
-        .forEach(site => {
-
-            container.appendChild(
-                createSiteCard(site)
-            );
-
-        });
-}
-
-
-/* =========================================================
-   GAMING PAGE
-   ========================================================= */
-
-function renderGaming() {
-
-    const container =
-        findContainer(
-            [
-                "gamingGrid",
-                "gamingContainer",
-                "gamingSites",
-                "gamingList"
-            ],
-            "gaming"
-        );
-
-    if (!container) {
-        return;
-    }
-
-    container.innerHTML = "";
-
-    sites
-        .filter(site => site.category === "games")
-        .forEach(site => {
-
-            container.appendChild(
-                createSiteCard(site)
-            );
-
-        });
-}
-
-
-/* =========================================================
-   FAVORITES PAGE
-   ========================================================= */
-
-function renderFavorites() {
-
-    const container =
-        findContainer(
-            [
-                "favoritesGrid",
-                "favoritesContainer",
-                "favoritesList"
-            ],
-            "favorites"
-        );
-
-    if (!container) {
-        return;
-    }
-
-    container.innerHTML = "";
-
-    const favoriteSites =
-        sites.filter(site =>
-            favorites.includes(site.name)
-        );
-
-    if (!favoriteSites.length) {
-
-        container.innerHTML = `
-            <div class="webbox-empty">
-                <div style="font-size:45px">⭐</div>
-                <h3>لا توجد مواقع مفضلة</h3>
-                <p>
-                    اضغط ⭐ بجانب أي موقع لإضافته.
-                </p>
-            </div>
-        `;
-
-        return;
-    }
-
-    favoriteSites.forEach(site => {
-
-        container.appendChild(
-            createSiteCard(site)
-        );
-
-    });
-}
-
-
-/* =========================================================
-   NAVIGATION
+   6. NAVIGATION
    ========================================================= */
 
 function showSection(sectionId) {
 
     const sections =
-        document.querySelectorAll(
-            ".page-section, section"
-        );
+        document.querySelectorAll(".page-section");
 
     sections.forEach(section => {
 
         section.classList.remove("active");
 
-        if (section.id) {
-            section.style.display = "none";
-        }
-
     });
+
 
     const target =
         document.getElementById(sectionId);
 
     if (!target) {
-        console.warn(
-            "Section not found:",
+
+        console.error(
+            "القسم غير موجود:",
             sectionId
         );
+
         return;
+
     }
 
-    target.style.display = "block";
+
     target.classList.add("active");
+
 
     updateNavigation(sectionId);
 
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    if (sectionId === "sites") {
+
+        renderSites();
+
+    }
+
     if (sectionId === "categories") {
+
         renderCategories();
+
     }
 
     if (sectionId === "fun") {
+
         renderFun();
+
     }
 
     if (sectionId === "gaming") {
+
         renderGaming();
+
     }
 
     if (sectionId === "favorites") {
+
         renderFavorites();
+
     }
 
-    if (sectionId === "sites") {
-        renderSitesFromCurrentState();
+    if (sectionId === "recent") {
+
+        renderRecent();
+
     }
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+
+    closeMobileMenu();
+
 }
 
 
 function showHome() {
+
     showSection("home");
+
 }
 
 
 function showCategories() {
+
     showSection("categories");
+
 }
 
 
 function showFun() {
+
     showSection("fun");
+
 }
 
 
 function showGaming() {
+
     showSection("gaming");
+
 }
 
 
 function showFavorites() {
+
     showSection("favorites");
+
+}
+
+
+function showRecent() {
+
+    showSection("recent");
+
 }
 
 
@@ -1976,159 +2010,672 @@ function updateNavigation(sectionId) {
 
             button.classList.remove("active");
 
-            const code =
-                button.getAttribute("onclick") || "";
-
             if (
-                code.includes(sectionId) ||
-                (
-                    sectionId === "home" &&
-                    code.includes("showHome")
-                ) ||
-                (
-                    sectionId === "categories" &&
-                    code.includes("showCategories")
-                )
+                button.dataset.section === sectionId
             ) {
+
                 button.classList.add("active");
+
             }
 
         });
+
 }
 
 
 /* =========================================================
-   CATEGORY FILTER
+   7. CATEGORY FILTER
    ========================================================= */
 
 function filterCategory(category) {
 
-    const select =
-        document.getElementById(
-            "categorySelect"
-        );
-
-    if (select) {
-        select.value = category;
-    }
+    currentCategory = category;
+    currentSearch = "";
 
     const search =
-        document.getElementById(
-            "siteSearch"
-        );
+        document.getElementById("siteSearch");
 
     if (search) {
+
         search.value = "";
+
     }
+
+
+    const select =
+        document.getElementById("categorySelect");
+
+    if (select) {
+
+        select.value = category;
+
+    }
+
 
     showSection("sites");
 
-    renderSites("", category);
+    renderSites();
+
 }
 
 
 /* =========================================================
-   SEARCH
+   8. SITE CARD
+   ========================================================= */
+
+function createSiteCard(site) {
+
+    const isFavorite =
+        favorites.includes(site.name);
+
+    const card =
+        document.createElement("article");
+
+    card.className = "site-card";
+
+
+    card.innerHTML = `
+
+        <div class="site-icon">
+            ${site.icon || "🌐"}
+        </div>
+
+        <div class="site-content">
+
+            <h3>${escapeHTML(site.name)}</h3>
+
+            <p>
+                ${escapeHTML(site.description)}
+            </p>
+
+            <span class="site-category">
+                ${categoryIcons[site.category] || "🌐"}
+                ${categoryNames[site.category] || site.category}
+            </span>
+
+        </div>
+
+        <div class="site-actions">
+
+            <button
+                class="open-site-btn"
+                onclick="openSite('${escapeAttribute(site.name)}')">
+                🚀 فتح الموقع
+            </button>
+
+            <button
+                class="favorite-btn ${isFavorite ? "favorite-active" : ""}"
+                onclick="toggleFavorite('${escapeAttribute(site.name)}')"
+                title="إضافة للمفضلة">
+                ${isFavorite ? "❤️" : "🤍"}
+            </button>
+
+        </div>
+
+    `;
+
+
+    card.addEventListener(
+        "dblclick",
+        () => openSiteDetails(site.name)
+    );
+
+
+    return card;
+
+}
+
+
+/* =========================================================
+   9. RENDER SITES
+   ========================================================= */
+
+function renderSites(
+    searchText = currentSearch,
+    category = currentCategory
+) {
+
+    const container =
+        document.getElementById("sitesContainer");
+
+    if (!container) return;
+
+
+    currentSearch =
+        String(searchText || "").trim();
+
+    currentCategory =
+        category || "all";
+
+
+    let filtered =
+        sites.filter(site => {
+
+            const matchesCategory =
+                currentCategory === "all" ||
+                site.category === currentCategory;
+
+
+            const text =
+                currentSearch.toLowerCase();
+
+            const matchesSearch =
+                !text ||
+                site.name.toLowerCase().includes(text) ||
+                site.description.toLowerCase().includes(text) ||
+                categoryNames[site.category]
+                    ?.toLowerCase()
+                    .includes(text);
+
+
+            return (
+                matchesCategory &&
+                matchesSearch
+            );
+
+        });
+
+
+    const sort =
+        document.getElementById("sortSelect");
+
+
+    const sortValue =
+        sort ? sort.value : "default";
+
+
+    if (sortValue === "name") {
+
+        filtered.sort((a, b) =>
+            a.name.localeCompare(
+                b.name,
+                "ar"
+            )
+        );
+
+    }
+
+
+    if (sortValue === "popular") {
+
+        filtered.sort(
+            (a, b) =>
+                (b.visits || 0) -
+                (a.visits || 0)
+        );
+
+    }
+
+
+    if (sortValue === "favorites") {
+
+        filtered.sort(
+            (a, b) =>
+                Number(
+                    favorites.includes(b.name)
+                ) -
+                Number(
+                    favorites.includes(a.name)
+                )
+        );
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (currentView === "list") {
+
+        container.classList.add("list-view");
+
+    } else {
+
+        container.classList.remove("list-view");
+
+    }
+
+
+    if (!filtered.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🔎
+                </div>
+
+                <h3>
+                    لم نجد أي موقع
+                </h3>
+
+                <p>
+                    جرّب كلمة بحث أخرى أو غيّر التصنيف.
+                </p>
+
+            </div>
+
+        `;
+
+    } else {
+
+        filtered.forEach(site => {
+
+            container.appendChild(
+                createSiteCard(site)
+            );
+
+        });
+
+    }
+
+
+    updateResultText(filtered.length);
+
+}
+
+
+/* =========================================================
+   10. FILTER SITE LIST
    ========================================================= */
 
 function filterSiteList() {
 
     const search =
-        document.getElementById(
-            "siteSearch"
-        );
+        document.getElementById("siteSearch");
 
     const select =
-        document.getElementById(
-            "categorySelect"
-        );
+        document.getElementById("categorySelect");
 
-    const text =
-        search
-            ? search.value
-            : "";
 
-    const category =
-        select
-            ? select.value
-            : "all";
+    currentSearch =
+        search ? search.value : "";
+
+    currentCategory =
+        select ? select.value : "all";
+
 
     renderSites(
-        text,
-        category
+        currentSearch,
+        currentCategory
     );
+
+}
+
+
+/* =========================================================
+   11. MAIN SEARCH
+   ========================================================= */
+
+function performMainSearch() {
+
+    const input =
+        document.getElementById("searchInput");
+
+    if (!input) return;
+
+
+    const query =
+        input.value.trim();
+
+
+    if (!query) {
+
+        showSection("sites");
+
+        return;
+
+    }
+
+
+    showSection("sites");
+
+
+    const siteSearch =
+        document.getElementById("siteSearch");
+
+    if (siteSearch) {
+
+        siteSearch.value = query;
+
+    }
+
+
+    const category =
+        document.getElementById("categorySelect");
+
+    if (category) {
+
+        category.value = "all";
+
+    }
+
+
+    currentSearch = query;
+    currentCategory = "all";
+
+    renderSites();
+
 }
 
 
 function searchSites() {
 
-    showSection("sites");
+    performMainSearch();
 
-    filterSiteList();
 }
 
 
-function quickSearch(text) {
+function useExample(text) {
 
-    const search =
-        document.getElementById(
-            "siteSearch"
-        );
+    const input =
+        document.getElementById("searchInput");
 
-    if (search) {
-        search.value = text;
-    }
+    if (!input) return;
 
-    showSection("sites");
 
-    renderSites(text, "all");
+    input.value = text;
+
+    performMainSearch();
+
 }
 
 
 /* =========================================================
-   RANDOM SITE
+   12. SMART SEARCH
+   ========================================================= */
+
+function updateSmartResults() {
+
+    const input =
+        document.getElementById("searchInput");
+
+    const results =
+        document.getElementById("smartResults");
+
+    if (!input || !results) return;
+
+
+    const query =
+        input.value.trim().toLowerCase();
+
+
+    results.innerHTML = "";
+
+
+    if (!query) return;
+
+
+    const matches =
+        sites
+            .filter(site =>
+                site.name.toLowerCase().includes(query) ||
+                site.description.toLowerCase().includes(query) ||
+                categoryNames[site.category]
+                    ?.toLowerCase()
+                    .includes(query)
+            )
+            .slice(0, 6);
+
+
+    matches.forEach(site => {
+
+        const item =
+            document.createElement("button");
+
+        item.className =
+            "smart-result";
+
+        item.type = "button";
+
+
+        item.innerHTML = `
+
+            <span class="smart-result-icon">
+                ${site.icon || "🌐"}
+            </span>
+
+            <span>
+                <strong>
+                    ${escapeHTML(site.name)}
+                </strong>
+
+                <small>
+                    ${escapeHTML(
+                        categoryNames[site.category]
+                    )}
+                </small>
+            </span>
+
+        `;
+
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                input.value =
+                    site.name;
+
+                results.innerHTML = "";
+
+                openSiteDetails(
+                    site.name
+                );
+
+            }
+        );
+
+
+        results.appendChild(item);
+
+    });
+
+}
+
+
+/* =========================================================
+   13. RANDOM SITE
    ========================================================= */
 
 function randomSite() {
 
+    if (!sites.length) return;
+
+
     const site =
         sites[
             Math.floor(
-                Math.random() *
-                sites.length
+                Math.random() * sites.length
             )
         ];
 
-    if (!site) {
-        return;
-    }
 
-    showToast(
-        "🎲 " + site.name
-    );
+    openSiteDetails(site.name);
 
-    setTimeout(() => {
-        openSite(site.url);
-    }, 500);
 }
 
 
 /* =========================================================
-   OPEN SITE
+   14. OPEN SITE
    ========================================================= */
 
-function openSite(url) {
+function openSite(name) {
+
+    const site =
+        sites.find(
+            item => item.name === name
+        );
+
+
+    if (!site) return;
+
+
+    site.visits =
+        (site.visits || 0) + 1;
+
+
+    saveVisits();
+
+    addToRecent(site);
+
+    updateCounters();
+
 
     window.open(
-        url,
+        site.url,
         "_blank",
         "noopener,noreferrer"
     );
+
 }
 
 
 /* =========================================================
-   FAVORITES
+   15. SITE MODAL
+   ========================================================= */
+
+function openSiteDetails(name) {
+
+    const site =
+        sites.find(
+            item => item.name === name
+        );
+
+
+    if (!site) return;
+
+
+    currentModalSite = site;
+
+
+    const modal =
+        document.getElementById("siteModal");
+
+    if (!modal) return;
+
+
+    document.getElementById("modalIcon")
+        .textContent =
+        site.icon || "🌐";
+
+
+    document.getElementById("modalTitle")
+        .textContent =
+        site.name;
+
+
+    document.getElementById("modalDescription")
+        .textContent =
+        site.description;
+
+
+    document.getElementById("modalCategory")
+        .textContent =
+        `${categoryIcons[site.category] || "🌐"} ${
+            categoryNames[site.category] || site.category
+        }`;
+
+
+    document.getElementById("modalVisits")
+        .textContent =
+        site.visits || 0;
+
+
+    updateModalFavorite();
+
+
+    const openButton =
+        document.getElementById("modalOpenBtn");
+
+
+    const favoriteButton =
+        document.getElementById("modalFavoriteBtn");
+
+
+    if (openButton) {
+
+        openButton.onclick =
+            () => openSite(site.name);
+
+    }
+
+
+    if (favoriteButton) {
+
+        favoriteButton.onclick =
+            () => {
+
+                toggleFavorite(
+                    site.name
+                );
+
+                updateModalFavorite();
+
+            };
+
+    }
+
+
+    modal.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+function updateModalFavorite() {
+
+    const icon =
+        document.getElementById("modalFavorite");
+
+    if (!icon || !currentModalSite) return;
+
+
+    icon.textContent =
+        favorites.includes(
+            currentModalSite.name
+        )
+            ? "❤️"
+            : "🤍";
+
+}
+
+
+function closeSiteModal() {
+
+    const modal =
+        document.getElementById("siteModal");
+
+    if (!modal) return;
+
+
+    modal.classList.remove("show");
+
+    document.body.style.overflow = "";
+
+    currentModalSite = null;
+
+}
+
+
+function closeModal(event) {
+
+    if (
+        event.target &&
+        event.target.id === "siteModal"
+    ) {
+
+        closeSiteModal();
+
+    }
+
+}
+
+
+/* =========================================================
+   16. FAVORITES
    ========================================================= */
 
 function toggleFavorite(name) {
@@ -2136,12 +2683,13 @@ function toggleFavorite(name) {
     const index =
         favorites.indexOf(name);
 
+
     if (index === -1) {
 
         favorites.push(name);
 
         showToast(
-            "⭐ تمت الإضافة إلى المفضلة"
+            "❤️ تمت إضافة الموقع إلى المفضلة"
         );
 
     } else {
@@ -2149,325 +2697,942 @@ function toggleFavorite(name) {
         favorites.splice(index, 1);
 
         showToast(
-            "تمت الإزالة من المفضلة"
+            "🤍 تمت إزالة الموقع من المفضلة"
         );
+
     }
 
-    localStorage.setItem(
-        "webboxFavorites",
-        JSON.stringify(favorites)
-    );
 
-    renderSitesFromCurrentState();
+    saveFavorites();
 
-    renderFavorites();
+    updateCounters();
+
+    updateModalFavorite();
+
+
+    renderCurrentPage();
+
 }
 
 
-function renderSitesFromCurrentState() {
+function renderFavorites() {
 
-    const search =
+    const container =
         document.getElementById(
-            "siteSearch"
+            "favoritesContainer"
         );
 
-    const select =
-        document.getElementById(
-            "categorySelect"
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    const favoriteSites =
+        sites.filter(site =>
+            favorites.includes(site.name)
         );
 
-    renderSites(
-        search ? search.value : "",
-        select ? select.value : "all"
-    );
+
+    if (!favoriteSites.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ❤️
+                </div>
+
+                <h3>
+                    لا توجد مواقع مفضلة
+                </h3>
+
+                <p>
+                    اضغط على ❤️ بجانب أي موقع لإضافته هنا.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    favoriteSites.forEach(site => {
+
+        container.appendChild(
+            createSiteCard(site)
+        );
+
+    });
+
 }
 
 
 /* =========================================================
-   FEATURED
+   17. RECENT
+   ========================================================= */
+
+function addToRecent(site) {
+
+    recentSites =
+        recentSites.filter(
+            item => item !== site.name
+        );
+
+
+    recentSites.unshift(
+        site.name
+    );
+
+
+    recentSites =
+        recentSites.slice(0, 20);
+
+
+    saveRecent();
+
+}
+
+
+function renderRecent() {
+
+    const container =
+        document.getElementById(
+            "recentContainer"
+        );
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    const recent =
+        recentSites
+            .map(name =>
+                sites.find(
+                    site =>
+                        site.name === name
+                )
+            )
+            .filter(Boolean);
+
+
+    if (!recent.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🕘
+                </div>
+
+                <h3>
+                    لا يوجد سجل بعد
+                </h3>
+
+                <p>
+                    المواقع التي تفتحها ستظهر هنا.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    recent.forEach(site => {
+
+        container.appendChild(
+            createSiteCard(site)
+        );
+
+    });
+
+}
+
+
+function clearHistory() {
+
+    recentSites = [];
+
+    saveRecent();
+
+    renderRecent();
+
+    showToast(
+        "🗑️ تم مسح السجل"
+    );
+
+}
+
+
+/* =========================================================
+   18. CATEGORIES RENDER
+   ========================================================= */
+
+function createCategoryCard(
+    category
+) {
+
+    const count =
+        sites.filter(
+            site =>
+                site.category === category
+        ).length;
+
+
+    const card =
+        document.createElement("button");
+
+    card.className =
+        "category-card";
+
+
+    card.type = "button";
+
+
+    card.innerHTML = `
+
+        <div class="category-icon">
+            ${categoryIcons[category] || "🌐"}
+        </div>
+
+        <h3>
+            ${escapeHTML(
+                categoryNames[category]
+            )}
+        </h3>
+
+        <p>
+            ${count} موقع
+        </p>
+
+    `;
+
+
+    card.addEventListener(
+        "click",
+        () => filterCategory(category)
+    );
+
+
+    return card;
+
+}
+
+
+function renderCategories() {
+
+    const containers = [
+        document.getElementById(
+            "categoriesContainer"
+        ),
+        document.getElementById(
+            "homeCategories"
+        )
+    ];
+
+
+    containers.forEach(container => {
+
+        if (!container) return;
+
+
+        container.innerHTML = "";
+
+
+        Object.keys(categoryNames)
+            .forEach(category => {
+
+                container.appendChild(
+                    createCategoryCard(
+                        category
+                    )
+                );
+
+            });
+
+    });
+
+}
+
+
+/* =========================================================
+   19. FUN
+   ========================================================= */
+
+function renderFun() {
+
+    const container =
+        document.getElementById(
+            "funContainer"
+        );
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    sites
+        .filter(site =>
+            site.category === "fun"
+        )
+        .forEach(site => {
+
+            container.appendChild(
+                createSiteCard(site)
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   20. GAMING
+   ========================================================= */
+
+function renderGaming() {
+
+    const container =
+        document.getElementById(
+            "gamingContainer"
+        );
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    sites
+        .filter(site =>
+            site.category === "games"
+        )
+        .forEach(site => {
+
+            container.appendChild(
+                createSiteCard(site)
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   21. FEATURED
    ========================================================= */
 
 function renderFeatured() {
 
     const container =
         document.getElementById(
-            "featuredGrid"
-        ) ||
-        document.getElementById(
-            "featuredSites"
+            "featuredContainer"
         );
 
-    if (!container) {
-        return;
-    }
+    if (!container) return;
 
-    const names = [
-        "ChatGPT",
-        "Minecraft",
-        "YouTube",
-        "Canva",
-        "GitHub",
-        "Khan Academy",
-        "Spotify",
-        "Photopea"
-    ];
 
     container.innerHTML = "";
 
-    names.forEach(name => {
+
+    const featuredNames = [
+        "Minecraft",
+        "ChatGPT",
+        "YouTube",
+        "Canva",
+        "GitHub",
+        "Spotify"
+    ];
+
+
+    featuredNames.forEach(name => {
 
         const site =
             sites.find(
-                item => item.name === name
+                item =>
+                    item.name === name
             );
 
+
         if (site) {
+
             container.appendChild(
                 createSiteCard(site)
             );
+
         }
 
     });
+
 }
 
 
 /* =========================================================
-   COUNTERS
+   22. COUNTERS
    ========================================================= */
 
-function updateCounts(count) {
+function updateCounters() {
 
-    [
-        "siteCount",
-        "sitesCount",
-        "resultsCount"
-    ].forEach(id => {
+    const totalSites =
+        document.getElementById(
+            "totalSites"
+        );
 
-        const element =
-            document.getElementById(id);
+    const totalCategories =
+        document.getElementById(
+            "totalCategories"
+        );
 
-        if (element) {
-            element.textContent =
-                count;
-        }
+    const totalFavorites =
+        document.getElementById(
+            "totalFavorites"
+        );
 
-    });
+    const totalVisits =
+        document.getElementById(
+            "totalVisits"
+        );
+
+
+    if (totalSites) {
+
+        totalSites.textContent =
+            sites.length;
+
+    }
+
+
+    if (totalCategories) {
+
+        totalCategories.textContent =
+            Object.keys(
+                categoryNames
+            ).length;
+
+    }
+
+
+    if (totalFavorites) {
+
+        totalFavorites.textContent =
+            favorites.length;
+
+    }
+
+
+    if (totalVisits) {
+
+        const visits =
+            sites.reduce(
+                (total, site) =>
+                    total +
+                    (site.visits || 0),
+                0
+            );
+
+        totalVisits.textContent =
+            visits;
+
+    }
+
 }
 
 
-function updateStats() {
+function updateResultText(count) {
 
-    const elements = {
+    const result =
+        document.getElementById(
+            "resultText"
+        );
 
-        totalSites: sites.length,
+    if (!result) return;
 
-        totalCategories:
-            Object.keys(categoryNames).length,
 
-        totalFavorites:
-            favorites.length
+    result.textContent =
+        `${count} موقع`;
+
+}
+
+
+/* =========================================================
+   23. VIEW MODE
+   ========================================================= */
+
+function setViewMode(mode) {
+
+    currentView = mode;
+
+
+    const gridButton =
+        document.getElementById(
+            "gridViewBtn"
+        );
+
+    const listButton =
+        document.getElementById(
+            "listViewBtn"
+        );
+
+
+    if (gridButton) {
+
+        gridButton.classList.toggle(
+            "active",
+            mode === "grid"
+        );
+
+    }
+
+
+    if (listButton) {
+
+        listButton.classList.toggle(
+            "active",
+            mode === "list"
+        );
+
+    }
+
+
+    const container =
+        document.getElementById(
+            "sitesContainer"
+        );
+
+
+    if (container) {
+
+        container.classList.toggle(
+            "list-view",
+            mode === "list"
+        );
+
+    }
+
+
+    renderSites();
+
+}
+
+
+/* =========================================================
+   24. CLEAR FILTERS
+   ========================================================= */
+
+function clearFilters() {
+
+    currentSearch = "";
+
+    currentCategory = "all";
+
+
+    const search =
+        document.getElementById(
+            "siteSearch"
+        );
+
+    const category =
+        document.getElementById(
+            "categorySelect"
+        );
+
+    const sort =
+        document.getElementById(
+            "sortSelect"
+        );
+
+
+    if (search) {
+
+        search.value = "";
+
+    }
+
+
+    if (category) {
+
+        category.value = "all";
+
+    }
+
+
+    if (sort) {
+
+        sort.value = "default";
+
+    }
+
+
+    renderSites();
+
+    showToast(
+        "🔄 تمت إعادة ضبط الفلاتر"
+    );
+
+}
+
+
+/* =========================================================
+   25. CATEGORY SELECT
+   ========================================================= */
+
+function populateCategorySelect() {
+
+    const select =
+        document.getElementById(
+            "categorySelect"
+        );
+
+    if (!select) return;
+
+
+    select.innerHTML = `
+
+        <option value="all">
+            كل التصنيفات
+        </option>
+
+    `;
+
+
+    Object.keys(categoryNames)
+        .forEach(category => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                category;
+
+            option.textContent =
+                categoryNames[category];
+
+            select.appendChild(
+                option
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   26. MOBILE MENU
+   ========================================================= */
+
+function toggleMobileMenu() {
+
+    const menu =
+        document.getElementById(
+            "mobileNav"
+        );
+
+    if (!menu) return;
+
+
+    menu.classList.toggle(
+        "show"
+    );
+
+}
+
+
+function closeMobileMenu() {
+
+    const menu =
+        document.getElementById(
+            "mobileNav"
+        );
+
+    if (!menu) return;
+
+
+    menu.classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   27. VOICE SEARCH
+   ========================================================= */
+
+function startVoiceSearch() {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    if (!SpeechRecognition) {
+
+        showToast(
+            "🎤 البحث الصوتي غير مدعوم في هذا المتصفح"
+        );
+
+        return;
+
+    }
+
+
+    const recognition =
+        new SpeechRecognition();
+
+
+    recognition.lang =
+        "ar-DZ";
+
+
+    recognition.interimResults =
+        false;
+
+
+    recognition.maxAlternatives =
+        1;
+
+
+    recognition.onstart = () => {
+
+        showToast(
+            "🎤 تحدث الآن..."
+        );
 
     };
 
-    Object.entries(elements)
-        .forEach(([id,value]) => {
 
-            const element =
-                document.getElementById(id);
+    recognition.onresult =
+        event => {
 
-            if (element) {
-                element.textContent =
-                    value;
+            const text =
+                event.results[0][0].transcript;
+
+
+            const input =
+                document.getElementById(
+                    "searchInput"
+                );
+
+
+            if (input) {
+
+                input.value = text;
+
             }
 
-        });
+
+            performMainSearch();
+
+        };
+
+
+    recognition.onerror = () => {
+
+        showToast(
+            "❌ تعذر تنفيذ البحث الصوتي"
+        );
+
+    };
+
+
+    recognition.start();
+
 }
 
 
 /* =========================================================
-   TOAST
+   28. TOAST
    ========================================================= */
+
+let toastTimer = null;
+
 
 function showToast(message) {
 
-    let toast =
+    const toast =
         document.getElementById(
             "toast"
         );
 
-    if (!toast) {
+    if (!toast) return;
 
-        toast =
-            document.createElement(
-                "div"
-            );
-
-        toast.id = "toast";
-
-        toast.className = "toast";
-
-        document.body.appendChild(
-            toast
-        );
-    }
 
     toast.textContent =
         message;
 
-    toast.classList.add("show");
 
-    clearTimeout(
-        window.webboxToastTimer
+    toast.classList.add(
+        "show"
     );
 
-    window.webboxToastTimer =
-        setTimeout(() => {
 
-            toast.classList.remove(
-                "show"
-            );
-
-        }, 2200);
-}
+    clearTimeout(
+        toastTimer
+    );
 
 
-/* =========================================================
-   SAFE STRING
-   ========================================================= */
+    toastTimer =
+        setTimeout(
+            () => {
 
-function escapeJS(text) {
-
-    return String(text)
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'");
-}
-
-
-/* =========================================================
-   INITIALIZATION
-   ========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        installThemeCSS();
-
-        applyTheme();
-
-        updateStats();
-
-        renderFeatured();
-
-        renderCategories();
-
-        renderFun();
-
-        renderGaming();
-
-        renderFavorites();
-
-        renderSites();
-
-        const sections =
-            document.querySelectorAll(
-                ".page-section, section"
-            );
-
-        sections.forEach(section => {
-
-            if (section.id === "home") {
-
-                section.style.display =
-                    "block";
-
-                section.classList.add(
-                    "active"
+                toast.classList.remove(
+                    "show"
                 );
 
-            } else if (section.id) {
-
-                section.style.display =
-                    "none";
-
-            }
-
-        });
-
-        console.log(
-            "================================"
+            },
+            2500
         );
 
-        console.log(
-            "🌐 WebBox"
-        );
-
-        console.log(
-            "عدد المواقع:",
-            sites.length
-        );
-
-        console.log(
-            "================================"
-        );
-
-        if (sites.length === 200) {
-
-            console.log(
-                "✅ تم تحميل 200 موقع بنجاح"
-            );
-
-        } else {
-
-            console.warn(
-                "⚠️ العدد الحالي:",
-                sites.length
-            );
-
-        }
-
-    }
-);
+}
 
 
 /* =========================================================
-   LIVE SEARCH
+   29. ESCAPE HTML
    ========================================================= */
 
-document.addEventListener(
-    "input",
-    event => {
+function escapeHTML(value) {
 
-        if (
-            event.target &&
-            event.target.id ===
-            "siteSearch"
-        ) {
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
-            filterSiteList();
+}
 
-        }
 
-    }
-);
+function escapeAttribute(value) {
+
+    return String(value)
+        .replaceAll("\\", "\\\\")
+        .replaceAll("'", "\\'")
+        .replaceAll('"', "&quot;");
+
+}
 
 
 /* =========================================================
-   ENTER SEARCH
+   30. CURRENT PAGE REFRESH
+   ========================================================= */
+
+function renderCurrentPage() {
+
+    const active =
+        document.querySelector(
+            ".page-section.active"
+        );
+
+
+    if (!active) return;
+
+
+    switch (active.id) {
+
+        case "home":
+            renderFeatured();
+            renderCategories();
+            break;
+
+        case "categories":
+            renderCategories();
+            break;
+
+        case "sites":
+            renderSites();
+            break;
+
+        case "fun":
+            renderFun();
+            break;
+
+        case "gaming":
+            renderGaming();
+            break;
+
+        case "favorites":
+            renderFavorites();
+            break;
+
+        case "recent":
+            renderRecent();
+            break;
+
+    }
+
+}
+
+
+/* =========================================================
+   31. KEYBOARD SHORTCUTS
    ========================================================= */
 
 document.addEventListener(
     "keydown",
     event => {
 
+        /* Ctrl + K */
+
         if (
-            event.key === "Enter" &&
-            event.target &&
-            event.target.id ===
-            "siteSearch"
+            (event.ctrlKey ||
+                event.metaKey) &&
+            event.key.toLowerCase() === "k"
         ) {
 
-            showSection("sites");
+            event.preventDefault();
+
+
+            const input =
+                document.getElementById(
+                    "searchInput"
+                );
+
+
+            if (input) {
+
+                input.focus();
+
+                input.select();
+
+            }
+
+        }
+
+
+        /* Enter in main search */
+
+        if (
+            event.key === "Enter" &&
+            document.activeElement?.id ===
+                "searchInput"
+        ) {
+
+            performMainSearch();
+
+        }
+
+
+        /* Escape */
+
+        if (event.key === "Escape") {
+
+            closeSiteModal();
+
+            closeMobileMenu();
 
         }
 
@@ -2476,17 +3641,181 @@ document.addEventListener(
 
 
 /* =========================================================
-   GLOBAL
+   32. EVENTS
    ========================================================= */
 
-window.webboxSites =
-    sites;
+function setupEvents() {
 
-window.webboxCategories =
-    categoryNames;
+    const mainSearch =
+        document.getElementById(
+            "searchInput"
+        );
 
-window.toggleTheme =
-    toggleTheme;
+
+    if (mainSearch) {
+
+        mainSearch.addEventListener(
+            "input",
+            updateSmartResults
+        );
+
+    }
+
+
+    const siteSearch =
+        document.getElementById(
+            "siteSearch"
+        );
+
+
+    if (siteSearch) {
+
+        siteSearch.addEventListener(
+            "input",
+            filterSiteList
+        );
+
+    }
+
+
+    const category =
+        document.getElementById(
+            "categorySelect"
+        );
+
+
+    if (category) {
+
+        category.addEventListener(
+            "change",
+            filterSiteList
+        );
+
+    }
+
+
+    const sort =
+        document.getElementById(
+            "sortSelect"
+        );
+
+
+    if (sort) {
+
+        sort.addEventListener(
+            "change",
+            filterSiteList
+        );
+
+    }
+
+
+    /* إخفاء نتائج البحث الذكية عند الضغط خارجها */
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            const results =
+                document.getElementById(
+                    "smartResults"
+                );
+
+            const search =
+                document.querySelector(
+                    ".main-search"
+                );
+
+
+            if (
+                results &&
+                search &&
+                !search.contains(event.target)
+            ) {
+
+                results.innerHTML = "";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   33. STORAGE SYNC
+   ========================================================= */
+
+window.addEventListener(
+    "storage",
+    event => {
+
+        if (
+            event.key ===
+            "webboxTheme"
+        ) {
+
+            applySavedTheme();
+
+        }
+
+
+        if (
+            event.key ===
+            "webboxFavorites"
+        ) {
+
+            loadStorage();
+
+            updateCounters();
+
+            renderCurrentPage();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   34. INITIALIZATION
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadStorage();
+
+        applySavedTheme();
+
+        populateCategorySelect();
+
+        renderFeatured();
+
+        renderCategories();
+
+        renderSites();
+
+        updateCounters();
+
+        setupEvents();
+
+        console.log(
+            `WebBox loaded: ${sites.length} sites`
+        );
+
+    }
+);
+
+
+/* =========================================================
+   35. GLOBAL FUNCTIONS
+   ========================================================= */
+
+window.showSection =
+    showSection;
 
 window.showHome =
     showHome;
@@ -2503,8 +3832,8 @@ window.showGaming =
 window.showFavorites =
     showFavorites;
 
-window.showSection =
-    showSection;
+window.showRecent =
+    showRecent;
 
 window.filterCategory =
     filterCategory;
@@ -2515,8 +3844,11 @@ window.filterSiteList =
 window.searchSites =
     searchSites;
 
-window.quickSearch =
-    quickSearch;
+window.performMainSearch =
+    performMainSearch;
+
+window.useExample =
+    useExample;
 
 window.randomSite =
     randomSite;
@@ -2524,11 +3856,32 @@ window.randomSite =
 window.openSite =
     openSite;
 
+window.openSiteDetails =
+    openSiteDetails;
+
+window.closeSiteModal =
+    closeSiteModal;
+
+window.closeModal =
+    closeModal;
+
 window.toggleFavorite =
     toggleFavorite;
 
-console.log(
-    "WebBox loaded:",
-    sites.length,
-    "sites"
-);
+window.clearHistory =
+    clearHistory;
+
+window.setViewMode =
+    setViewMode;
+
+window.clearFilters =
+    clearFilters;
+
+window.toggleDarkMode =
+    toggleDarkMode;
+
+window.toggleMobileMenu =
+    toggleMobileMenu;
+
+window.startVoiceSearch =
+    startVoiceSearch;
