@@ -1,9 +1,10 @@
 // ==========================================
-// 🌐 WebBox - Complete JavaScript
+// 🌐 WebBox 4.0 - Complete JavaScript
 // ==========================================
 
+
 // ==========================================
-// 📚 مواقع WebBox
+// 📚 بيانات المواقع
 // ==========================================
 
 const siteData = {
@@ -473,18 +474,19 @@ const categoryIcons = {
 
 
 // ==========================================
-// 📦 تحويل جميع المواقع إلى قائمة واحدة
+// 📦 تحويل البيانات إلى قائمة واحدة
 // ==========================================
 
 let sites = [];
 
 Object.keys(siteData).forEach(category => {
 
-    siteData[category].forEach(site => {
+    siteData[category].forEach((site, index) => {
 
         sites.push({
             ...site,
-            category: category,
+            id: `${category}-${index}`,
+            category,
             categoryName: categoryNames[category]
         });
 
@@ -501,13 +503,40 @@ let favorites = JSON.parse(
     localStorage.getItem("webboxFavorites") || "[]"
 );
 
+if (!Array.isArray(favorites)) {
+    favorites = [];
+}
+
 
 // ==========================================
-// 🎨 نظام أغلفة المواقع الجديد
+// 👁️ الزيارات
 // ==========================================
 
-// تحويل النص إلى رقم ثابت
-// حتى يحصل كل موقع على تصميم مختلف دائماً.
+let visits = JSON.parse(
+    localStorage.getItem("webboxVisits") || "{}"
+);
+
+if (!visits || typeof visits !== "object") {
+    visits = {};
+}
+
+
+// ==========================================
+// 🕘 المواقع الأخيرة
+// ==========================================
+
+let recentSites = JSON.parse(
+    localStorage.getItem("webboxRecent") || "[]"
+);
+
+if (!Array.isArray(recentSites)) {
+    recentSites = [];
+}
+
+
+// ==========================================
+// 🎨 أغلفة المواقع
+// ==========================================
 
 function hashString(text) {
 
@@ -526,8 +555,6 @@ function hashString(text) {
 }
 
 
-// الحصول على اسم النطاق
-
 function getDomain(url) {
 
     try {
@@ -545,8 +572,6 @@ function getDomain(url) {
 }
 
 
-// مجموعة ألوان الأغلفة
-
 const coverPalettes = [
 
     ["#6d5dfc", "#00d4ff", "#ff4ecd"],
@@ -561,15 +586,14 @@ const coverPalettes = [
     ["#ee0979", "#ff6a00", "#ffd200"],
     ["#1d976c", "#93f9b9", "#00c6ff"],
     ["#654ea3", "#eaafc8", "#00d4ff"]
+
 ];
 
-
-// إنشاء بيانات الغلاف
 
 function getCoverTheme(site) {
 
     const seed =
-        `${site.id || ""}-${site.name}-${site.url}-${site.category}`;
+        `${site.id}-${site.name}-${site.url}-${site.category}`;
 
     const hash = hashString(seed);
 
@@ -578,22 +602,23 @@ function getCoverTheme(site) {
             hash % coverPalettes.length
         ];
 
-    const angle =
-        105 + (hash % 70);
-
     return {
 
         color1: palette[0],
         color2: palette[1],
         color3: palette[2],
-        angle: angle
+
+        angle:
+            105 + (hash % 70)
 
     };
 
 }
 
 
-// حماية النصوص
+// ==========================================
+// 🛡️ حماية HTML
+// ==========================================
 
 function escapeHTML(value) {
 
@@ -607,26 +632,14 @@ function escapeHTML(value) {
 }
 
 
-// إنشاء الغلاف
+// ==========================================
+// 🖼️ غلاف الموقع
+// ==========================================
 
 function getSiteCover(site) {
 
     const theme =
         getCoverTheme(site);
-
-    const name =
-        escapeHTML(site.name || "WebBox");
-
-    const icon =
-        escapeHTML(site.icon || "🌐");
-
-    const domain =
-        escapeHTML(getDomain(site.url));
-
-    const category =
-        escapeHTML(
-            site.categoryName || "موقع"
-        );
 
     return `
 
@@ -652,32 +665,29 @@ function getSiteCover(site) {
 
             <div class="webbox-cover-shine"></div>
 
-
             <div class="webbox-cover-top">
 
                 <span class="webbox-cover-category">
-                    ${category}
+                    ${escapeHTML(site.categoryName)}
                 </span>
 
                 <span class="webbox-cover-domain">
-                    ${domain}
+                    ${escapeHTML(getDomain(site.url))}
                 </span>
 
             </div>
-
 
             <div class="webbox-cover-center">
 
                 <div class="webbox-cover-icon">
-                    ${icon}
+                    ${escapeHTML(site.icon || "🌐")}
                 </div>
 
                 <div class="webbox-cover-title">
-                    ${name}
+                    ${escapeHTML(site.name)}
                 </div>
 
             </div>
-
 
             <div class="webbox-cover-bottom">
 
@@ -695,7 +705,7 @@ function getSiteCover(site) {
 
 
 // ==========================================
-// 🧩 CSS خاص بالأغلفة
+// 🎨 CSS للأغلفة
 // ==========================================
 
 function injectCoverStyles() {
@@ -708,34 +718,23 @@ function injectCoverStyles() {
         return;
     }
 
-
     const style =
         document.createElement("style");
 
     style.id =
         "webbox-generated-cover-styles";
 
-
     style.textContent = `
 
-        /* =====================================
-           WebBox Generated Covers
-           ===================================== */
-
         .webbox-generated-cover {
-
             --cover-1: #6d5dfc;
             --cover-2: #00d4ff;
             --cover-3: #ff4ecd;
 
             position: relative;
-
             width: 100%;
-
             height: 190px;
-
             overflow: hidden;
-
             isolation: isolate;
 
             background:
@@ -746,72 +745,56 @@ function injectCoverStyles() {
                     var(--cover-3)
                 );
 
-            border-radius:
-                22px 22px 0 0;
-
+            border-radius: 22px 22px 0 0;
             color: white;
 
             box-shadow:
                 inset 0 -45px 80px rgba(0,0,0,.22);
 
             transition:
-                transform .45s ease,
                 filter .45s ease;
-
         }
 
 
         .site-card:hover
         .webbox-generated-cover {
-
             filter:
                 saturate(1.18)
                 brightness(1.08);
-
         }
 
 
         .webbox-cover-grid {
-
             position: absolute;
-
             inset: 0;
-
             opacity: .22;
 
             background-image:
-
                 linear-gradient(
                     rgba(255,255,255,.16) 1px,
                     transparent 1px
                 ),
-
                 linear-gradient(
                     90deg,
                     rgba(255,255,255,.16) 1px,
                     transparent 1px
                 );
 
-            background-size:
-                25px 25px;
+            background-size: 25px 25px;
 
             transform:
                 perspective(500px)
                 rotateX(55deg)
                 scale(1.5);
 
-            transform-origin:
-                center bottom;
-
+            transform-origin: center bottom;
         }
 
 
         .webbox-cover-glow {
-
             position: absolute;
 
             width: 180px;
-
             height: 180px;
 
             border-radius: 50%;
@@ -821,36 +804,24 @@ function injectCoverStyles() {
             opacity: .45;
 
             pointer-events: none;
-
         }
 
 
         .webbox-cover-glow.glow-one {
-
             top: -80px;
-
             right: -40px;
-
-            background:
-                var(--cover-3);
-
+            background: var(--cover-3);
         }
 
 
         .webbox-cover-glow.glow-two {
-
             bottom: -100px;
-
             left: -50px;
-
-            background:
-                var(--cover-2);
-
+            background: var(--cover-2);
         }
 
 
         .webbox-cover-orbit {
-
             position: absolute;
 
             border:
@@ -859,101 +830,75 @@ function injectCoverStyles() {
 
             border-radius: 50%;
 
-            transform:
-                rotate(-20deg);
+            transform: rotate(-20deg);
 
             opacity: .7;
-
         }
 
 
         .webbox-cover-orbit.orbit-one {
-
             width: 310px;
-
             height: 130px;
-
             right: -70px;
-
             top: 15px;
-
         }
 
 
         .webbox-cover-orbit.orbit-two {
-
             width: 230px;
-
             height: 100px;
-
             left: -80px;
-
             bottom: 5px;
-
         }
 
 
         .webbox-cover-shine {
-
             position: absolute;
 
             width: 80px;
-
             height: 320px;
 
             top: -60px;
-
             left: -130px;
 
             background:
                 rgba(255,255,255,.22);
 
-            transform:
-                rotate(25deg);
+            transform: rotate(25deg);
 
             filter: blur(8px);
 
             transition:
                 left .7s ease;
-
         }
 
 
         .site-card:hover
         .webbox-cover-shine {
-
             left: 110%;
-
         }
 
 
         .webbox-cover-top {
-
             position: absolute;
 
             top: 15px;
-
             left: 17px;
-
             right: 17px;
 
             display: flex;
 
             justify-content: space-between;
-
             align-items: center;
 
             gap: 10px;
 
             z-index: 5;
-
         }
 
 
         .webbox-cover-category {
-
-            padding:
-                6px 10px;
+            padding: 6px 10px;
 
             border-radius: 999px;
 
@@ -964,20 +909,16 @@ function injectCoverStyles() {
                 1px solid
                 rgba(255,255,255,.22);
 
-            backdrop-filter:
-                blur(10px);
+            backdrop-filter: blur(10px);
 
             font-size: 11px;
-
             font-weight: 800;
 
             white-space: nowrap;
-
         }
 
 
         .webbox-cover-domain {
-
             max-width: 150px;
 
             overflow: hidden;
@@ -987,16 +928,13 @@ function injectCoverStyles() {
             white-space: nowrap;
 
             font-size: 10px;
-
             font-weight: 700;
 
             opacity: .8;
-
         }
 
 
         .webbox-cover-center {
-
             position: absolute;
 
             inset: 45px 15px 25px;
@@ -1012,20 +950,16 @@ function injectCoverStyles() {
             text-align: center;
 
             z-index: 5;
-
         }
 
 
         .webbox-cover-icon {
-
             display: flex;
 
             align-items: center;
-
             justify-content: center;
 
             width: 66px;
-
             height: 66px;
 
             border-radius: 20px;
@@ -1053,23 +987,19 @@ function injectCoverStyles() {
 
             transition:
                 transform .4s ease;
-
         }
 
 
         .site-card:hover
         .webbox-cover-icon {
-
             transform:
                 translateY(-5px)
                 rotate(-4deg)
                 scale(1.08);
-
         }
 
 
         .webbox-cover-title {
-
             max-width: 92%;
 
             font-size: 20px;
@@ -1087,18 +1017,14 @@ function injectCoverStyles() {
             text-overflow: ellipsis;
 
             white-space: nowrap;
-
         }
 
 
         .webbox-cover-bottom {
-
             position: absolute;
 
             left: 17px;
-
             right: 17px;
-
             bottom: 12px;
 
             display: flex;
@@ -1116,77 +1042,45 @@ function injectCoverStyles() {
             opacity: .7;
 
             z-index: 5;
-
-        }
-
-
-        /* =====================================
-           تحسين البطاقة
-           ===================================== */
-
-        .site-card {
-
-            overflow: hidden;
-
-        }
-
-
-        .site-card
-        .webbox-generated-cover {
-
-            margin: 0;
-
         }
 
 
         @media (max-width: 600px) {
 
             .webbox-generated-cover {
-
                 height: 175px;
-
             }
 
             .webbox-cover-title {
-
                 font-size: 17px;
-
             }
 
             .webbox-cover-icon {
-
                 width: 58px;
-
                 height: 58px;
-
                 font-size: 29px;
-
             }
 
         }
 
     `;
 
-
     document.head.appendChild(style);
-
 }
 
 
 // ==========================================
-// 🌙 الوضع الليلي
+// 🌙 الوضع الليلي / الفاتح
 // ==========================================
 
 function toggleDarkMode() {
 
-    document.body.classList.toggle("dark");
-
-    const enabled =
-        document.body.classList.contains("dark");
+    const isLight =
+        document.body.classList.toggle("light-mode");
 
     localStorage.setItem(
-        "webboxDarkMode",
-        enabled ? "true" : "false"
+        "webboxLightMode",
+        isLight ? "true" : "false"
     );
 
     updateThemeButton();
@@ -1196,41 +1090,39 @@ function toggleDarkMode() {
 function updateThemeButton() {
 
     const button =
-        document.getElementById("darkModeBtn");
+        document.getElementById("themeBtn");
 
     if (!button) return;
 
-    if (
-        document.body.classList.contains("dark")
-    ) {
+    const icon =
+        button.querySelector(".theme-icon");
 
-        button.innerHTML =
-            "☀️ الوضع الفاتح";
+    const isLight =
+        document.body.classList.contains("light-mode");
 
-    } else {
+    if (icon) {
 
-        button.innerHTML =
-            "🌙 الوضع الليلي";
+        icon.textContent =
+            isLight ? "🌙" : "☀️";
 
     }
 
+    button.title =
+        isLight
+            ? "تفعيل الوضع الليلي"
+            : "تفعيل الوضع الفاتح";
 }
 
 
 // ==========================================
-// 🧭 التنقل بين الصفحات
+// 🧭 التنقل
 // ==========================================
 
 function showSection(sectionId) {
 
-    console.log(
-        "Opening section:",
-        sectionId
-    );
-
     const sections =
         document.querySelectorAll(
-            ".page-section, section"
+            "main > .page-section"
         );
 
     sections.forEach(section => {
@@ -1248,18 +1140,22 @@ function showSection(sectionId) {
     if (!target) {
 
         console.error(
-            "❌ القسم غير موجود في HTML:",
+            "WebBox: القسم غير موجود:",
             sectionId
         );
 
         return;
-
     }
 
 
     target.classList.add("active");
 
     target.style.display = "block";
+
+
+    updateNavigation(sectionId);
+
+    closeMobileMenu();
 
 
     window.scrollTo({
@@ -1269,32 +1165,28 @@ function showSection(sectionId) {
 
 
     if (sectionId === "sites") {
-
         filterSiteList();
-
     }
 
-
-    if (sectionId === "favorites") {
-
-        renderFavorites();
-
+    if (sectionId === "categories") {
+        renderCategories();
     }
-
 
     if (sectionId === "fun") {
-
         renderFun();
-
     }
-
 
     if (sectionId === "gaming") {
-
         renderGaming();
-
     }
 
+    if (sectionId === "favorites") {
+        renderFavorites();
+    }
+
+    if (sectionId === "recent") {
+        renderRecent();
+    }
 }
 
 
@@ -1310,7 +1202,7 @@ function showHome() {
 
 
 // ==========================================
-// 📂 التصنيفات
+// 📁 التصنيفات
 // ==========================================
 
 function showCategories() {
@@ -1321,7 +1213,7 @@ function showCategories() {
 
 
 // ==========================================
-// 🎉 قسم مسلية
+// 🎉 مسلية
 // ==========================================
 
 function showFun() {
@@ -1332,7 +1224,7 @@ function showFun() {
 
 
 // ==========================================
-// 🎮 قسم الألعاب
+// 🎮 الألعاب
 // ==========================================
 
 function showGaming() {
@@ -1343,50 +1235,104 @@ function showGaming() {
 
 
 // ==========================================
-// ⭐ المفضلة
+// ❤️ المفضلة
 // ==========================================
 
 function showFavorites() {
 
     showSection("favorites");
 
-    renderFavorites();
-
 }
 
 
 // ==========================================
-// 📌 فلترة حسب تصنيف
+// 🧭 تحديث الزر النشط
+// ==========================================
+
+function updateNavigation(sectionId) {
+
+    const buttons =
+        document.querySelectorAll(
+            ".nav-btn"
+        );
+
+    buttons.forEach(button => {
+
+        button.classList.remove("active");
+
+    });
+
+
+    const map = {
+        home: "الرئيسية",
+        categories: "التصنيفات",
+        sites: "المواقع",
+        fun: "مسلية",
+        gaming: "الألعاب",
+        favorites: "المفضلة"
+    };
+
+
+    const targetText =
+        map[sectionId];
+
+    if (!targetText) return;
+
+
+    buttons.forEach(button => {
+
+        if (
+            button.textContent
+                .replace(/\s+/g, " ")
+                .trim()
+                .includes(targetText)
+        ) {
+
+            button.classList.add("active");
+
+        }
+
+    });
+}
+
+
+// ==========================================
+// 📱 القائمة للموبايل
+// ==========================================
+
+function toggleMobileMenu() {
+
+    const menu =
+        document.getElementById(
+            "mobileNav"
+        );
+
+    if (!menu) return;
+
+    menu.classList.toggle("active");
+}
+
+
+function closeMobileMenu() {
+
+    const menu =
+        document.getElementById(
+            "mobileNav"
+        );
+
+    if (!menu) return;
+
+    menu.classList.remove("active");
+}
+
+
+// ==========================================
+// 📌 فلترة التصنيف
 // ==========================================
 
 function filterCategory(category) {
 
-    console.log(
-        "Filtering category:",
-        category
-    );
-
-
-    if (category === "categories") {
-
-        showCategories();
-
-        return;
-
-    }
-
-
-    if (!siteData[category]) {
-
-        console.error(
-            "❌ التصنيف غير موجود:",
-            category
-        );
-
-        return;
-
-    }
-
+    if (!siteData[category]) return;
 
     showSection("sites");
 
@@ -1397,9 +1343,7 @@ function filterCategory(category) {
         );
 
     if (select) {
-
         select.value = category;
-
     }
 
 
@@ -1409,19 +1353,16 @@ function filterCategory(category) {
         );
 
     if (search) {
-
         search.value = "";
-
     }
 
 
     filterSiteList();
-
 }
 
 
 // ==========================================
-// 🧱 إنشاء بطاقة موقع
+// 🃏 إنشاء بطاقة موقع
 // ==========================================
 
 function createSiteCard(site) {
@@ -1429,20 +1370,27 @@ function createSiteCard(site) {
     const isFavorite =
         favorites.includes(site.name);
 
+    const visitCount =
+        visits[site.name] || 0;
+
 
     return `
 
-        <div class="site-card">
+        <article class="site-card">
 
             ${getSiteCover(site)}
 
+            <div class="site-card-body">
 
-            <div class="site-content">
+                <div
+                    class="site-category"
+                >
+                    ${
+                        categoryIcons[site.category]
+                        || "🌐"
+                    }
 
-                <div class="site-icon">
-                    ${escapeHTML(
-                        site.icon || "🌐"
-                    )}
+                    ${escapeHTML(site.categoryName)}
                 </div>
 
 
@@ -1452,66 +1400,55 @@ function createSiteCard(site) {
 
 
                 <p>
-                    ${escapeHTML(
-                        site.description
-                    )}
+                    ${escapeHTML(site.description)}
                 </p>
 
 
-                <span class="site-category">
+                <div class="site-card-footer">
 
-                    ${
-                        categoryIcons[
-                            site.category
-                        ] || "🌐"
-                    }
-
-                    ${escapeHTML(
-                        site.categoryName || "موقع"
-                    )}
-
-                </span>
-
-            </div>
+                    <span class="visit-count">
+                        👁️ ${visitCount} زيارة
+                    </span>
 
 
-            <div class="site-actions">
+                    <div class="site-actions">
 
-                <button
-                    class="open-site-btn"
-                    onclick="openSite('${escapeHTML(site.url)}')"
-                >
-                    فتح الموقع 🚀
-                </button>
+                        <button
+                            class="details-btn"
+                            onclick="openModal('${escapeHTML(site.name)}')"
+                        >
+                            التفاصيل
+                        </button>
 
 
-                <button
-                    class="
-                        favorite-btn
-                        ${
-                            isFavorite
-                                ? "favorite-active"
-                                : ""
-                        }
-                    "
-                    onclick="toggleFavorite('${escapeHTML(site.name)}')"
-                    title="المفضلة"
-                >
+                        <button
+                            class="open-btn"
+                            onclick="openSiteByName('${escapeHTML(site.name)}')"
+                        >
+                            فتح ↗
+                        </button>
 
-                    ${
-                        isFavorite
-                            ? "❤️"
-                            : "🤍"
-                    }
 
-                </button>
+                        <button
+                            class="
+                                favorite-btn
+                                ${isFavorite ? "active" : ""}
+                            "
+                            onclick="toggleFavorite('${escapeHTML(site.name)}')"
+                            title="المفضلة"
+                        >
+                            ${isFavorite ? "❤️" : "🤍"}
+                        </button>
+
+                    </div>
+
+                </div>
 
             </div>
 
-        </div>
+        </article>
 
     `;
-
 }
 
 
@@ -1529,7 +1466,7 @@ function displaySites(list) {
     if (!container) return;
 
 
-    if (list.length === 0) {
+    if (!list.length) {
 
         container.innerHTML = `
 
@@ -1572,12 +1509,11 @@ function displaySites(list) {
             `${list.length} موقع`;
 
     }
-
 }
 
 
 // ==========================================
-// 🔎 البحث وفلترة المواقع
+// 🔎 فلترة المواقع
 // ==========================================
 
 function filterSiteList() {
@@ -1592,12 +1528,15 @@ function filterSiteList() {
             "categorySelect"
         );
 
+    const sortSelect =
+        document.getElementById(
+            "sortSelect"
+        );
+
 
     const searchText =
         searchInput
-            ? searchInput.value
-                .trim()
-                .toLowerCase()
+            ? searchInput.value.trim().toLowerCase()
             : "";
 
 
@@ -1607,7 +1546,7 @@ function filterSiteList() {
             : "all";
 
 
-    const filteredSites =
+    let filtered =
         sites.filter(site => {
 
             const matchesCategory =
@@ -1627,10 +1566,8 @@ function filterSiteList() {
 
 
             const matchesSearch =
-                searchText === "" ||
-                searchableText.includes(
-                    searchText
-                );
+                !searchText ||
+                searchableText.includes(searchText);
 
 
             return (
@@ -1641,13 +1578,179 @@ function filterSiteList() {
         });
 
 
-    displaySites(filteredSites);
+    const sortMode =
+        sortSelect
+            ? sortSelect.value
+            : "default";
 
+
+    if (sortMode === "name") {
+
+        filtered.sort((a, b) =>
+            a.name.localeCompare(
+                b.name,
+                "en"
+            )
+        );
+
+    }
+
+
+    if (sortMode === "popular") {
+
+        filtered.sort(
+            (a, b) =>
+                (visits[b.name] || 0) -
+                (visits[a.name] || 0)
+        );
+
+    }
+
+
+    if (sortMode === "favorites") {
+
+        filtered.sort(
+            (a, b) =>
+                Number(
+                    favorites.includes(b.name)
+                ) -
+                Number(
+                    favorites.includes(a.name)
+                )
+        );
+
+    }
+
+
+    displaySites(filtered);
 }
 
 
 // ==========================================
-// 🔍 البحث الذكي من الرئيسية
+// 🧹 مسح الفلاتر
+// ==========================================
+
+function clearFilters() {
+
+    const search =
+        document.getElementById(
+            "siteSearch"
+        );
+
+    const category =
+        document.getElementById(
+            "categorySelect"
+        );
+
+    const sort =
+        document.getElementById(
+            "sortSelect"
+        );
+
+
+    if (search) {
+        search.value = "";
+    }
+
+    if (category) {
+        category.value = "all";
+    }
+
+    if (sort) {
+        sort.value = "default";
+    }
+
+
+    filterSiteList();
+}
+
+
+// ==========================================
+// 🔍 البحث من الرئيسية
+// ==========================================
+
+function handleMainSearch(event) {
+
+    if (event) {
+        event.preventDefault();
+    }
+
+
+    const input =
+        document.getElementById(
+            "searchInput"
+        );
+
+    if (!input) return;
+
+
+    const query =
+        input.value.trim();
+
+
+    if (!query) {
+
+        showSection("sites");
+
+        return;
+    }
+
+
+    showSection("sites");
+
+
+    const siteSearch =
+        document.getElementById(
+            "siteSearch"
+        );
+
+    if (siteSearch) {
+
+        siteSearch.value =
+            query;
+
+    }
+
+
+    const categorySelect =
+        document.getElementById(
+            "categorySelect"
+        );
+
+    if (categorySelect) {
+
+        categorySelect.value =
+            "all";
+
+    }
+
+
+    filterSiteList();
+}
+
+
+// ==========================================
+// 🔎 البحث السريع
+// ==========================================
+
+function quickSearch(text) {
+
+    const input =
+        document.getElementById(
+            "searchInput"
+        );
+
+    if (!input) return;
+
+
+    input.value = text;
+
+    handleMainSearch();
+}
+
+
+// ==========================================
+// 🔎 البحث الذكي
 // ==========================================
 
 function smartSearch() {
@@ -1657,13 +1760,7 @@ function smartSearch() {
             "searchInput"
         );
 
-    const results =
-        document.getElementById(
-            "smartResults"
-        );
-
-
-    if (!input || !results) return;
+    if (!input) return;
 
 
     const query =
@@ -1672,81 +1769,35 @@ function smartSearch() {
             .toLowerCase();
 
 
-    if (!query) {
-
-        results.innerHTML = "";
-
-        return;
-
-    }
+    if (!query) return;
 
 
-    const matched =
-        sites
-            .filter(site => {
+    const found =
+        sites.filter(site => {
 
-                const text = (
+            const text = (
 
-                    site.name +
-                    " " +
-                    site.description +
-                    " " +
-                    site.categoryName
+                site.name +
+                " " +
+                site.description +
+                " " +
+                site.categoryName
 
-                ).toLowerCase();
-
-
-                return text.includes(query);
-
-            })
-            .slice(0, 6);
+            ).toLowerCase();
 
 
-    if (matched.length === 0) {
+            return text.includes(query);
 
-        results.innerHTML = `
+        });
 
-            <div class="search-no-results">
-                🔍 لا توجد نتائج
-            </div>
 
-        `;
+    if (found.length === 1) {
 
-        return;
+        showToast(
+            `🌐 ${found[0].name}`
+        );
 
     }
-
-
-    results.innerHTML =
-        matched
-            .map(site => `
-
-                <div
-                    class="smart-result"
-                    onclick="openSite('${escapeHTML(site.url)}')"
-                >
-
-                    <span class="smart-result-icon">
-                        ${escapeHTML(site.icon)}
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            ${escapeHTML(site.name)}
-                        </strong>
-
-                        <small>
-                            ${escapeHTML(site.categoryName)}
-                        </small>
-
-                    </div>
-
-                </div>
-
-            `)
-            .join("");
-
 }
 
 
@@ -1758,67 +1809,12 @@ function handleSearchKey(event) {
 
     if (event.key !== "Enter") return;
 
-
-    const input =
-        document.getElementById(
-            "searchInput"
-        );
-
-
-    if (!input) return;
-
-
-    const query =
-        input.value.trim();
-
-
-    if (!query) return;
-
-
-    const found =
-        sites.find(site => {
-
-            return site.name
-                .toLowerCase()
-                .includes(
-                    query.toLowerCase()
-                );
-
-        });
-
-
-    if (found) {
-
-        openSite(found.url);
-
-    } else {
-
-        showSection("sites");
-
-
-        const siteSearch =
-            document.getElementById(
-                "siteSearch"
-            );
-
-
-        if (siteSearch) {
-
-            siteSearch.value =
-                query;
-
-        }
-
-
-        filterSiteList();
-
-    }
-
+    handleMainSearch(event);
 }
 
 
 // ==========================================
-// 📝 أمثلة البحث
+// 📝 مثال بحث
 // ==========================================
 
 function useExample(text) {
@@ -1828,33 +1824,73 @@ function useExample(text) {
             "searchInput"
         );
 
-
     if (!input) return;
-
 
     input.value = text;
 
-
-    smartSearch();
-
-
     input.focus();
-
 }
 
 
 // ==========================================
-// 🚀 فتح موقع
+// 🚀 فتح الموقع
 // ==========================================
 
 function openSite(url) {
+
+    if (!url) return;
 
     window.open(
         url,
         "_blank",
         "noopener,noreferrer"
     );
+}
 
+
+// ==========================================
+// 🚀 فتح موقع بالاسم
+// ==========================================
+
+function openSiteByName(name) {
+
+    const site =
+        sites.find(
+            item =>
+                item.name === name
+        );
+
+    if (!site) return;
+
+
+    visits[site.name] =
+        (visits[site.name] || 0) + 1;
+
+
+    localStorage.setItem(
+        "webboxVisits",
+        JSON.stringify(visits)
+    );
+
+
+    recentSites =
+        [
+            site.name,
+            ...recentSites.filter(
+                name => name !== site.name
+            )
+        ].slice(0, 10);
+
+
+    localStorage.setItem(
+        "webboxRecent",
+        JSON.stringify(recentSites)
+    );
+
+
+    updateStats();
+
+    openSite(site.url);
 }
 
 
@@ -1867,33 +1903,32 @@ function randomSite() {
     if (!sites.length) return;
 
 
-    const randomIndex =
-        Math.floor(
-            Math.random() *
-            sites.length
-        );
-
-
     const random =
-        sites[randomIndex];
+        sites[
+            Math.floor(
+                Math.random() *
+                sites.length
+            )
+        ];
 
 
     showToast(
-        `🎲 الموقع العشوائي: ${random.name}`
+        `🎲 ${random.name}`
     );
 
 
     setTimeout(() => {
 
-        openSite(random.url);
+        openSiteByName(
+            random.name
+        );
 
     }, 500);
-
 }
 
 
 // ==========================================
-// ⭐ تبديل المفضلة
+// ❤️ المفضلة
 // ==========================================
 
 function toggleFavorite(siteName) {
@@ -1930,21 +1965,35 @@ function toggleFavorite(siteName) {
     );
 
 
-    displaySites(
-        getCurrentFilteredSites()
-    );
-
-
-    renderFavorites();
-
-
     updateStats();
 
+
+    const currentSection =
+        document.querySelector(
+            ".page-section.active"
+        );
+
+
+    if (
+        currentSection &&
+        currentSection.id === "favorites"
+    ) {
+
+        renderFavorites();
+
+    } else if (
+        currentSection &&
+        currentSection.id === "sites"
+    ) {
+
+        filterSiteList();
+
+    }
 }
 
 
 // ==========================================
-// 🔎 الحصول على المواقع المفلترة حالياً
+// 🔎 المواقع الحالية
 // ==========================================
 
 function getCurrentFilteredSites() {
@@ -1962,9 +2011,7 @@ function getCurrentFilteredSites() {
 
     const searchText =
         searchInput
-            ? searchInput.value
-                .trim()
-                .toLowerCase()
+            ? searchInput.value.trim().toLowerCase()
             : "";
 
 
@@ -1992,18 +2039,15 @@ function getCurrentFilteredSites() {
         ).toLowerCase();
 
 
-        const matchesSearch =
-            searchText === "" ||
-            text.includes(searchText);
-
-
         return (
             matchesCategory &&
-            matchesSearch
+            (
+                !searchText ||
+                text.includes(searchText)
+            )
         );
 
     });
-
 }
 
 
@@ -2018,19 +2062,16 @@ function renderFavorites() {
             "favoritesContainer"
         );
 
-
     if (!container) return;
 
 
     const favoriteSites =
         sites.filter(site =>
-            favorites.includes(
-                site.name
-            )
+            favorites.includes(site.name)
         );
 
 
-    if (favoriteSites.length === 0) {
+    if (!favoriteSites.length) {
 
         container.innerHTML = `
 
@@ -2053,7 +2094,6 @@ function renderFavorites() {
         `;
 
         return;
-
     }
 
 
@@ -2061,12 +2101,11 @@ function renderFavorites() {
         favoriteSites
             .map(createSiteCard)
             .join("");
-
 }
 
 
 // ==========================================
-// 🎉 عرض قسم مسلية
+// 🎉 مسلية
 // ==========================================
 
 function renderFun() {
@@ -2076,37 +2115,25 @@ function renderFun() {
             "funContainer"
         );
 
-
     if (!container) return;
 
 
-    const funSites =
-        siteData.fun || [];
-
-
     container.innerHTML =
-        funSites
-            .map(site => {
-
-                return createSiteCard({
-
+        (siteData.fun || [])
+            .map(site =>
+                createSiteCard({
                     ...site,
-
+                    id: `fun-${site.name}`,
                     category: "fun",
-
-                    categoryName:
-                        categoryNames.fun
-
-                });
-
-            })
+                    categoryName: categoryNames.fun
+                })
+            )
             .join("");
-
 }
 
 
 // ==========================================
-// 🎮 عرض قسم الألعاب
+// 🎮 الألعاب
 // ==========================================
 
 function renderGaming() {
@@ -2116,37 +2143,25 @@ function renderGaming() {
             "gamingContainer"
         );
 
-
     if (!container) return;
 
 
-    const gamingSites =
-        siteData.games || [];
-
-
     container.innerHTML =
-        gamingSites
-            .map(site => {
-
-                return createSiteCard({
-
+        (siteData.games || [])
+            .map(site =>
+                createSiteCard({
                     ...site,
-
+                    id: `games-${site.name}`,
                     category: "games",
-
-                    categoryName:
-                        categoryNames.games
-
-                });
-
-            })
+                    categoryName: categoryNames.games
+                })
+            )
             .join("");
-
 }
 
 
 // ==========================================
-// ⭐ المواقع المميزة
+// ⭐ مواقع مميزة
 // ==========================================
 
 function renderFeatured() {
@@ -2156,19 +2171,16 @@ function renderFeatured() {
             "featuredContainer"
         );
 
-
     if (!container) return;
 
 
     const featuredNames = [
-
         "Minecraft",
         "Eaglercraft",
         "Neal.fun",
         "ChatGPT",
         "YouTube",
         "Canva"
-
     ];
 
 
@@ -2187,7 +2199,141 @@ function renderFeatured() {
         featured
             .map(createSiteCard)
             .join("");
+}
 
+
+// ==========================================
+// 📁 التصنيفات
+// ==========================================
+
+function renderCategories() {
+
+    const containers = [
+
+        document.getElementById(
+            "categoriesContainer"
+        ),
+
+        document.getElementById(
+            "homeCategories"
+        )
+
+    ].filter(Boolean);
+
+
+    containers.forEach(container => {
+
+        container.innerHTML = "";
+
+
+        Object.keys(siteData).forEach(category => {
+
+            const count =
+                siteData[category].length;
+
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "category-card";
+
+
+            card.innerHTML = `
+
+                <div class="category-icon">
+                    ${categoryIcons[category] || "🌐"}
+                </div>
+
+                <h3>
+                    ${escapeHTML(
+                        categoryNames[category]
+                    )}
+                </h3>
+
+                <p>
+                    اكتشف أفضل المواقع في قسم
+                    ${escapeHTML(
+                        categoryNames[category]
+                    )}.
+                </p>
+
+                <span class="category-count">
+                    ${count} موقع
+                </span>
+
+            `;
+
+
+            card.addEventListener(
+                "click",
+                () => filterCategory(category)
+            );
+
+
+            container.appendChild(card);
+
+        });
+
+    });
+}
+
+
+// ==========================================
+// 🕘 المواقع الأخيرة
+// ==========================================
+
+function renderRecent() {
+
+    const container =
+        document.getElementById(
+            "recentContainer"
+        );
+
+    if (!container) return;
+
+
+    const recent =
+        recentSites
+            .map(name =>
+                sites.find(
+                    site =>
+                        site.name === name
+                )
+            )
+            .filter(Boolean);
+
+
+    if (!recent.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🕘
+                </div>
+
+                <h3>
+                    لا توجد زيارات حديثة
+                </h3>
+
+                <p>
+                    المواقع التي تفتحها ستظهر هنا.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML =
+        recent
+            .map(createSiteCard)
+            .join("");
 }
 
 
@@ -2202,16 +2348,19 @@ function updateStats() {
             "totalSites"
         );
 
-
     const totalCategories =
         document.getElementById(
             "totalCategories"
         );
 
-
     const totalFavorites =
         document.getElementById(
             "totalFavorites"
+        );
+
+    const totalVisits =
+        document.getElementById(
+            "totalVisits"
         );
 
 
@@ -2238,7 +2387,282 @@ function updateStats() {
 
     }
 
+
+    if (totalVisits) {
+
+        const count =
+            Object.values(visits)
+                .reduce(
+                    (sum, value) =>
+                        sum + Number(value || 0),
+                    0
+                );
+
+        totalVisits.textContent =
+            count;
+
+    }
 }
+
+
+// ==========================================
+// 📐 عرض Grid / List
+// ==========================================
+
+function setViewMode(mode) {
+
+    const container =
+        document.getElementById(
+            "sitesContainer"
+        );
+
+    const gridButton =
+        document.getElementById(
+            "gridViewBtn"
+        );
+
+    const listButton =
+        document.getElementById(
+            "listViewBtn"
+        );
+
+
+    if (!container) return;
+
+
+    if (mode === "list") {
+
+        container.classList.remove(
+            "grid-view"
+        );
+
+        container.classList.add(
+            "list-view"
+        );
+
+        if (listButton) {
+            listButton.classList.add("active");
+        }
+
+        if (gridButton) {
+            gridButton.classList.remove("active");
+        }
+
+    } else {
+
+        container.classList.remove(
+            "list-view"
+        );
+
+        container.classList.add(
+            "grid-view"
+        );
+
+        if (gridButton) {
+            gridButton.classList.add("active");
+        }
+
+        if (listButton) {
+            listButton.classList.remove("active");
+        }
+
+    }
+}
+
+
+// ==========================================
+// 📋 MODAL
+// ==========================================
+
+let currentModalSite = null;
+
+
+function openModal(siteName) {
+
+    const site =
+        sites.find(
+            item =>
+                item.name === siteName
+        );
+
+    if (!site) return;
+
+
+    currentModalSite =
+        site;
+
+
+    const modal =
+        document.getElementById(
+            "siteModal"
+        );
+
+    const icon =
+        document.getElementById(
+            "modalIcon"
+        );
+
+    const title =
+        document.getElementById(
+            "modalTitle"
+        );
+
+    const category =
+        document.getElementById(
+            "modalCategory"
+        );
+
+    const description =
+        document.getElementById(
+            "modalDescription"
+        );
+
+    const visit =
+        document.getElementById(
+            "modalVisits"
+        );
+
+    const favorite =
+        document.getElementById(
+            "modalFavorite"
+        );
+
+
+    if (icon) {
+        icon.textContent =
+            site.icon || "🌐";
+    }
+
+    if (title) {
+        title.textContent =
+            site.name;
+    }
+
+    if (category) {
+        category.textContent =
+            `${categoryIcons[site.category] || "🌐"} ${site.categoryName}`;
+    }
+
+    if (description) {
+        description.textContent =
+            site.description;
+    }
+
+    if (visit) {
+        visit.textContent =
+            `👁️ ${visits[site.name] || 0}`;
+    }
+
+    if (favorite) {
+
+        favorite.textContent =
+            favorites.includes(site.name)
+                ? "❤️ إزالة من المفضلة"
+                : "☆ أضف للمفضلة";
+
+    }
+
+
+    const openButton =
+        document.getElementById(
+            "modalOpenBtn"
+        );
+
+    if (openButton) {
+
+        openButton.onclick =
+            () => openSiteByName(site.name);
+
+    }
+
+
+    const favoriteButton =
+        document.getElementById(
+            "modalFavoriteBtn"
+        );
+
+    if (favoriteButton) {
+
+        favoriteButton.onclick =
+            () => {
+
+                toggleFavorite(site.name);
+
+                openModal(site.name);
+
+            };
+
+    }
+
+
+    if (modal) {
+
+        modal.classList.add("active");
+
+    }
+}
+
+
+function closeModal() {
+
+    const modal =
+        document.getElementById(
+            "siteModal"
+        );
+
+    if (modal) {
+
+        modal.classList.remove(
+            "active"
+        );
+
+    }
+
+    currentModalSite =
+        null;
+}
+
+
+// إغلاق النافذة عند الضغط خارجها
+
+document.addEventListener(
+    "click",
+    event => {
+
+        const modal =
+            document.getElementById(
+                "siteModal"
+            );
+
+        if (
+            modal &&
+            event.target === modal
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+// إغلاق النافذة بـ Escape
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
 
 
 // ==========================================
@@ -2252,7 +2676,6 @@ function showToast(message) {
             "toast"
         );
 
-
     if (!toast) return;
 
 
@@ -2260,7 +2683,9 @@ function showToast(message) {
         message;
 
 
-    toast.classList.add("show");
+    toast.classList.add(
+        "show"
+    );
 
 
     clearTimeout(
@@ -2276,32 +2701,84 @@ function showToast(message) {
             );
 
         }, 2500);
-
 }
 
 
 // ==========================================
-// 🚀 تشغيل الموقع
+// ⚙️ ملء قائمة التصنيفات
+// ==========================================
+
+function populateCategorySelect() {
+
+    const select =
+        document.getElementById(
+            "categorySelect"
+        );
+
+    if (!select) return;
+
+
+    select.innerHTML = `
+
+        <option value="all">
+            كل التصنيفات
+        </option>
+
+    `;
+
+
+    Object.keys(siteData).forEach(
+        category => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                category;
+
+            option.textContent =
+                categoryNames[category];
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+}
+
+
+// ==========================================
+// 🚀 تشغيل WebBox
 // ==========================================
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        // تشغيل نظام الأغلفة
+        // الأغلفة
         injectCoverStyles();
 
 
-        // الوضع الليلي
-
-        if (
+        // الوضع المحفوظ
+        const savedLightMode =
             localStorage.getItem(
-                "webboxDarkMode"
-            ) === "true"
-        ) {
+                "webboxLightMode"
+            ) === "true";
+
+
+        if (savedLightMode) {
 
             document.body.classList.add(
-                "dark"
+                "light-mode"
+            );
+
+        } else {
+
+            document.body.classList.remove(
+                "light-mode"
             );
 
         }
@@ -2310,32 +2787,38 @@ document.addEventListener(
         updateThemeButton();
 
 
-        // الإحصائيات
+        // قائمة التصنيفات
+        populateCategorySelect();
 
+
+        // الإحصائيات
         updateStats();
 
 
-        // المحتوى
-
+        // الصفحة الرئيسية
         renderFeatured();
 
+        renderCategories();
+
+
+        // الأقسام
         renderFun();
 
         renderGaming();
 
         renderFavorites();
 
+        renderRecent();
 
-        // عرض المواقع
 
+        // المواقع
         displaySites(sites);
 
 
-        // إظهار الرئيسية فقط
-
+        // الرئيسية فقط
         const sections =
             document.querySelectorAll(
-                ".page-section, section"
+                "main > .page-section"
             );
 
 
@@ -2369,8 +2852,10 @@ document.addEventListener(
         }
 
 
-        // البحث في الصفحة الرئيسية
+        updateNavigation("home");
 
+
+        // بحث الرئيسية
         const searchInput =
             document.getElementById(
                 "searchInput"
@@ -2392,8 +2877,7 @@ document.addEventListener(
         }
 
 
-        // البحث في صفحة المواقع
-
+        // بحث المواقع
         const siteSearch =
             document.getElementById(
                 "siteSearch"
@@ -2410,8 +2894,7 @@ document.addEventListener(
         }
 
 
-        // تغيير التصنيف
-
+        // التصنيف
         const categorySelect =
             document.getElementById(
                 "categorySelect"
@@ -2421,6 +2904,23 @@ document.addEventListener(
         if (categorySelect) {
 
             categorySelect.addEventListener(
+                "change",
+                filterSiteList
+            );
+
+        }
+
+
+        // الترتيب
+        const sortSelect =
+            document.getElementById(
+                "sortSelect"
+            );
+
+
+        if (sortSelect) {
+
+            sortSelect.addEventListener(
                 "change",
                 filterSiteList
             );
