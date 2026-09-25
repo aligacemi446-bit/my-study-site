@@ -43,7 +43,7 @@
 
             <button
                 class="nav-btn active"
-                onclick="showSection('home')"
+                onclick="webboxNavigate('home', this)"
             >
                 <span>🏠</span>
                 الرئيسية
@@ -51,7 +51,7 @@
 
             <button
                 class="nav-btn"
-                onclick="showSection('categories')"
+                onclick="webboxNavigate('categories', this)"
             >
                 <span>📁</span>
                 التصنيفات
@@ -59,7 +59,7 @@
 
             <button
                 class="nav-btn"
-                onclick="showSection('sites')"
+                onclick="webboxNavigate('sites', this)"
             >
                 <span>🌐</span>
                 المواقع
@@ -67,7 +67,7 @@
 
             <button
                 class="nav-btn"
-                onclick="showSection('fun')"
+                onclick="webboxNavigate('fun', this)"
             >
                 <span>🎉</span>
                 مسلية
@@ -75,7 +75,7 @@
 
             <button
                 class="nav-btn"
-                onclick="showSection('gaming')"
+                onclick="webboxNavigate('gaming', this)"
             >
                 <span>🎮</span>
                 الألعاب
@@ -83,7 +83,7 @@
 
             <button
                 class="nav-btn"
-                onclick="showSection('favorites')"
+                onclick="webboxNavigate('favorites', this)"
             >
                 <span>❤️</span>
                 المفضلة
@@ -124,27 +124,27 @@
     class="mobile-nav"
 >
 
-    <button onclick="showSection('home')">
+    <button onclick="webboxNavigate('home', this)">
         🏠 الرئيسية
     </button>
 
-    <button onclick="showSection('categories')">
+    <button onclick="webboxNavigate('categories', this)">
         📁 التصنيفات
     </button>
 
-    <button onclick="showSection('sites')">
+    <button onclick="webboxNavigate('sites', this)">
         🌐 المواقع
     </button>
 
-    <button onclick="showSection('fun')">
+    <button onclick="webboxNavigate('fun', this)">
         🎉 مسلية
     </button>
 
-    <button onclick="showSection('gaming')">
+    <button onclick="webboxNavigate('gaming', this)">
         🎮 الألعاب
     </button>
 
-    <button onclick="showSection('favorites')">
+    <button onclick="webboxNavigate('favorites', this)">
         ❤️ المفضلة
     </button>
 
@@ -167,7 +167,6 @@
     class="page-section active"
 >
 
-
     <!-- HERO -->
 
     <section class="hero">
@@ -189,7 +188,6 @@
 
 
         <div class="hero-content">
-
 
             <div class="hero-badge">
                 🚀 WebBox 4.0
@@ -279,7 +277,7 @@
 
                 <button
                     class="primary-btn"
-                    onclick="showSection('sites')"
+                    onclick="webboxNavigate('sites')"
                 >
                     🌐 استكشف المواقع
                     <span>↗</span>
@@ -479,7 +477,7 @@
 
             <button
                 class="see-all-btn"
-                onclick="showSection('sites')"
+                onclick="webboxNavigate('sites')"
             >
                 مشاهدة الكل ←
             </button>
@@ -517,7 +515,7 @@
 
             <button
                 class="see-all-btn"
-                onclick="showSection('categories')"
+                onclick="webboxNavigate('categories')"
             >
                 جميع التصنيفات ←
             </button>
@@ -597,7 +595,6 @@
 
 
     <div class="filters-panel">
-
 
         <div class="filter-search">
 
@@ -934,6 +931,248 @@
 
 </footer>
 
+
+<!-- =====================================================
+     🚀 WEBBOX NAVIGATION FIX
+===================================================== -->
+
+<script>
+
+function webboxNavigate(pageId, clickedButton = null) {
+
+    console.log("WebBox →", pageId);
+
+
+    /*
+     * مهم جدًا:
+     * نخفي فقط الصفحات الرئيسية الموجودة مباشرة داخل main
+     *
+     * لا نستخدم:
+     * document.querySelectorAll("section")
+     *
+     * لأن الصفحة الرئيسية تحتوي بداخلها
+     * على Hero وStats وغيرها من عناصر section.
+     */
+
+    const pages = document.querySelectorAll(
+        "main > .page-section"
+    );
+
+
+    pages.forEach(function(page) {
+
+        page.classList.remove("active");
+
+        page.style.display = "none";
+
+    });
+
+
+    const target = document.getElementById(pageId);
+
+
+    if (!target) {
+
+        console.error(
+            "WebBox: الصفحة غير موجودة:",
+            pageId
+        );
+
+        return;
+
+    }
+
+
+    target.classList.add("active");
+
+    target.style.display = "block";
+
+
+    /*
+     * تحديث زر القائمة
+     */
+
+    document
+        .querySelectorAll(".main-nav .nav-btn")
+        .forEach(function(button) {
+
+            button.classList.remove("active");
+
+        });
+
+
+    if (clickedButton) {
+
+        clickedButton.classList.add("active");
+
+    } else {
+
+        /*
+         * عندما يتم الانتقال من زر داخل الصفحة
+         * نبحث عن زر القائمة المناسب.
+         */
+
+        const navButtons =
+            document.querySelectorAll(
+                ".main-nav .nav-btn"
+            );
+
+
+        navButtons.forEach(function(button) {
+
+            const text =
+                button.textContent.trim();
+
+
+            const mapping = {
+
+                "الرئيسية": "home",
+
+                "التصنيفات": "categories",
+
+                "المواقع": "sites",
+
+                "مسلية": "fun",
+
+                "الألعاب": "gaming",
+
+                "المفضلة": "favorites"
+
+            };
+
+
+            if (mapping[text] === pageId) {
+
+                button.classList.add("active");
+
+            }
+
+        });
+
+    }
+
+
+    /*
+     * إغلاق قائمة الهاتف
+     */
+
+    const mobileNav =
+        document.getElementById("mobileNav");
+
+
+    if (mobileNav) {
+
+        mobileNav.classList.remove("active");
+
+        mobileNav.classList.remove("open");
+
+    }
+
+
+    /*
+     * تحديث محتوى الصفحة
+     */
+
+    if (
+        pageId === "sites" &&
+        typeof filterSiteList === "function"
+    ) {
+
+        filterSiteList();
+
+    }
+
+
+    if (
+        pageId === "categories" &&
+        typeof renderCategories === "function"
+    ) {
+
+        renderCategories();
+
+    }
+
+
+    if (
+        pageId === "fun" &&
+        typeof renderFun === "function"
+    ) {
+
+        renderFun();
+
+    }
+
+
+    if (
+        pageId === "gaming" &&
+        typeof renderGaming === "function"
+    ) {
+
+        renderGaming();
+
+    }
+
+
+    if (
+        pageId === "favorites" &&
+        typeof renderFavorites === "function"
+    ) {
+
+        renderFavorites();
+
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/*
+ * تشغيل الصفحة الرئيسية عند فتح الموقع
+ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const pages =
+            document.querySelectorAll(
+                "main > .page-section"
+            );
+
+
+        pages.forEach(function(page) {
+
+            page.style.display = "none";
+
+        });
+
+
+        const home =
+            document.getElementById("home");
+
+
+        if (home) {
+
+            home.style.display = "block";
+
+            home.classList.add("active");
+
+        }
+
+    }
+);
+
+</script>
+
+
+<!-- =====================================================
+     📜 SCRIPT الرئيسي
+===================================================== -->
 
 <script src="script.js"></script>
 
