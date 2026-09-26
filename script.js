@@ -1,482 +1,1658 @@
 /* =========================================================
-   WEBBOX 5.0
-   Navigation-fixed version
+   WEBBOX — SCRIPT.JS
+   نسخة منظمة للمواقع والتصنيفات
    ========================================================= */
-
-"use strict";
-
-/* =========================================================
-   CONFIG
-   ========================================================= */
-
-const STORAGE_KEYS = {
-    favorites: "webboxFavorites",
-    visits: "webboxVisits",
-    recent: "webboxRecent",
-    theme: "webboxTheme",
-    view: "webboxView"
-};
 
 const CATEGORY_INFO = {
     games: {
         name: "الألعاب",
         icon: "🎮",
-        description: "مواقع ومنصات وأدوات عالم الألعاب"
-    },
-    fun: {
-        name: "مسلية",
-        icon: "🎉",
-        description: "مواقع للترفيه والتسلية والاستكشاف"
+        description: "مواقع ومنصات الألعاب"
     },
     education: {
         name: "التعليم",
         icon: "📚",
-        description: "التعلم والدراسة والدورات التعليمية"
-    },
-    books: {
-        name: "الكتب",
-        icon: "📖",
-        description: "كتب ومكتبات ومصادر للقراءة"
+        description: "التعلم والدراسة"
     },
     ai: {
         name: "الذكاء الاصطناعي",
         icon: "🤖",
-        description: "أدوات الذكاء الاصطناعي والإنتاجية"
+        description: "أدوات الذكاء الاصطناعي"
     },
     design: {
         name: "التصميم",
         icon: "🎨",
-        description: "التصميم والصور والألوان والرسومات"
+        description: "التصميم والصور"
     },
     video: {
         name: "الفيديو",
         icon: "🎬",
-        description: "مشاهدة وتحميل وتحرير الفيديو"
+        description: "مشاهدة وصناعة الفيديو"
     },
     music: {
         name: "الموسيقى",
         icon: "🎵",
-        description: "الموسيقى والصوت والبودكاست"
+        description: "الموسيقى والصوت"
     },
     programming: {
         name: "البرمجة",
         icon: "💻",
-        description: "البرمجة والتطوير وأدوات المطورين"
+        description: "البرمجة وتطوير المواقع"
+    },
+    books: {
+        name: "الكتب",
+        icon: "📖",
+        description: "الكتب والقراءة"
     },
     tools: {
         name: "الأدوات",
         icon: "🛠️",
-        description: "أدوات مفيدة لكل الاستخدامات"
+        description: "أدوات مفيدة على الإنترنت"
+    },
+    fun: {
+        name: "الترفيه",
+        icon: "😂",
+        description: "مواقع ترفيهية ومسلية"
     }
 };
 
+
 /* =========================================================
-   SITE DATABASE
-   =========================================================
-   مهم:
-   ضع هنا rawSites الموجود عندك كما هو بالكامل.
-   لا تحذف أي موقع من الـ510.
+   المواقع
    ========================================================= */
 
-const rawSites = {
+const rawSites = [
 
-    games: [
-        ["Roblox", "https://www.roblox.com", "منصة ألعاب وإنشاء تجارب ثلاثية الأبعاد", "🎮"],
-        ["Minecraft", "https://www.minecraft.net", "الموقع الرسمي للعبة Minecraft", "⛏️"],
-        ["Steam", "https://store.steampowered.com", "منصة ألعاب ومتجر رقمي", "🎮"],
-        ["Epic Games", "https://store.epicgames.com", "متجر ألعاب Epic Games", "🕹️"],
-        ["GOG", "https://www.gog.com", "متجر ألعاب رقمية بدون DRM", "🎲"],
-        ["itch.io", "https://itch.io", "منصة للألعاب المستقلة", "👾"],
-        ["Game Jolt", "https://gamejolt.com", "مجتمع وألعاب مستقلة", "🕹️"],
-        ["Kongregate", "https://www.kongregate.com", "ألعاب متصفح ومجتمع ألعاب", "🎮"],
-        ["Newgrounds", "https://www.newgrounds.com", "ألعاب ورسوم ومحتوى إبداعي", "🟢"],
-        ["CrazyGames", "https://www.crazygames.com", "ألعاب متصفح مجانية", "🤪"],
-        ["Poki", "https://poki.com", "مجموعة كبيرة من ألعاب المتصفح", "🎯"],
-        ["Miniclip", "https://www.miniclip.com", "ألعاب متصفح وموبايل", "🎮"],
-        ["Armor Games", "https://armorgames.com", "ألعاب متصفح متنوعة", "🛡️"],
-        ["Addicting Games", "https://www.addictinggames.com", "ألعاب متصفح", "🎲"],
-        ["Newgrounds Games", "https://www.newgrounds.com/games", "قسم الألعاب في Newgrounds", "🎮"],
-        ["GameBanana", "https://gamebanana.com", "مودات وملفات للألعاب", "🍌"],
-        ["Mod DB", "https://www.moddb.com", "قاعدة بيانات للمودات والألعاب", "🧩"],
-        ["Nexus Mods", "https://www.nexusmods.com", "منصة مودات الألعاب", "🛠️"],
-        ["CurseForge", "https://www.curseforge.com", "مودات وإضافات للألعاب", "🔥"],
-        ["Overwolf", "https://www.overwolf.com", "تطبيقات وأدوات للألعاب", "🐺"],
-        ["Riot Games", "https://www.riotgames.com", "مطور ألعاب Riot", "⚔️"],
-        ["League of Legends", "https://www.leagueoflegends.com", "الموقع الرسمي للعبة League of Legends", "⚔️"],
-        ["VALORANT", "https://playvalorant.com", "الموقع الرسمي للعبة Valorant", "🔫"],
-        ["Fortnite", "https://www.fortnite.com", "الموقع الرسمي للعبة Fortnite", "🏗️"],
-        ["Rocket League", "https://www.rocketleague.com", "كرة قدم بالسيارات", "🚗"],
-        ["Fall Guys", "https://www.fallguys.com", "لعبة منافسات جماعية", "🏃"],
-        ["EA Games", "https://www.ea.com", "ألعاب ومنتجات Electronic Arts", "🎮"],
-        ["Ubisoft", "https://www.ubisoft.com", "ألعاب Ubisoft", "🎮"],
-        ["PlayStation", "https://www.playstation.com", "منصة PlayStation الرسمية", "🎮"],
-        ["Xbox", "https://www.xbox.com", "منصة Xbox الرسمية", "🟢"],
-        ["Nintendo", "https://www.nintendo.com", "منصة Nintendo الرسمية", "🔴"],
-        ["Battle.net", "https://www.battle.net", "منصة ألعاب Blizzard", "⚔️"],
-        ["Blizzard", "https://www.blizzard.com", "ألعاب Blizzard", "❄️"],
-        ["Rockstar Games", "https://www.rockstargames.com", "ألعاب Rockstar", "⭐"],
-        ["CD Projekt", "https://www.cdprojekt.com", "مطور ألعاب CD Projekt", "🎮"],
-        ["Valve", "https://www.valvesoftware.com", "شركة تطوير ألعاب وتقنيات", "🔧"],
-        ["Unity", "https://unity.com", "محرك تطوير الألعاب Unity", "🔷"],
-        ["Godot", "https://godotengine.org", "محرك ألعاب مفتوح المصدر", "🤖"],
-        ["Unreal Engine", "https://www.unrealengine.com", "محرك ألعاب Unreal Engine", "🌀"],
-        ["GameMaker", "https://gamemaker.io", "محرك تطوير الألعاب GameMaker", "🎮"],
-        ["Construct", "https://www.construct.net", "أداة إنشاء الألعاب", "🧱"],
-        ["GDevelop", "https://gdevelop.io", "محرك ألعاب بدون برمجة", "🎮"],
-        ["Core Games", "https://www.coregames.com", "منصة لإنشاء ولعب الألعاب", "🌐"],
-        ["Rec Room", "https://recroom.com", "منصة اجتماعية وألعاب", "🕶️"],
-        ["VRChat", "https://hello.vrchat.com", "منصة اجتماعية افتراضية", "🥽"],
-        ["Board Game Arena", "https://boardgamearena.com", "ألعاب الطاولة عبر الإنترنت", "♟️"],
-        ["Chess.com", "https://www.chess.com", "لعب الشطرنج والتعلم", "♟️"],
-        ["Lichess", "https://lichess.org", "منصة شطرنج مجانية", "♞"],
-        ["Geoguessr", "https://www.geoguessr.com", "لعبة تخمين المواقع الجغرافية", "🌍"],
-        ["Pokémon", "https://www.pokemon.com", "عالم Pokémon الرسمي", "⚡"],
-        ["Twitch Games", "https://www.twitch.tv/directory/category/games", "محتوى الألعاب والبث المباشر", "📺"]
-    ]
+    /* ==================== الألعاب ==================== */
 
-    /*
-      ⚠️ أكمل هنا بقية rawSites:
-      fun
-      education
-      books
-      ai
-      design
-      video
-      music
-      programming
-      tools
+    ["Roblox", "https://www.roblox.com", "games", "منصة ألعاب ضخمة لإنشاء ولعب الألعاب."],
+    ["Minecraft", "https://www.minecraft.net", "games", "لعبة البناء والاستكشاف الشهيرة."],
+    ["CrazyGames", "https://www.crazygames.com", "games", "آلاف الألعاب المجانية على المتصفح."],
+    ["Poki", "https://poki.com", "games", "ألعاب مجانية مباشرة في المتصفح."],
+    ["Kongregate", "https://www.kongregate.com", "games", "منصة ألعاب متصفح متنوعة."],
+    ["itch.io", "https://itch.io", "games", "منصة للألعاب المستقلة."],
+    ["Game Jolt", "https://gamejolt.com", "games", "مجتمع وألعاب مستقلة."],
+    ["Armor Games", "https://armorgames.com", "games", "ألعاب متصفح متنوعة."],
+    ["Miniclip", "https://www.miniclip.com", "games", "ألعاب متصفح وموبايل."],
+    ["Newgrounds", "https://www.newgrounds.com", "games", "ألعاب ورسوم ومحتوى إبداعي."],
+    ["Addicting Games", "https://www.addictinggames.com", "games", "ألعاب متصفح مجانية."],
+    ["Y8", "https://www.y8.com", "games", "مجموعة كبيرة من ألعاب المتصفح."],
+    ["Friv", "https://www.friv.com", "games", "ألعاب متصفح بسيطة ومتنوعة."],
+    ["Coolmath Games", "https://www.coolmathgames.com", "games", "ألعاب ألغاز ومنطق."],
+    ["Gameflare", "https://www.gameflare.com", "games", "ألعاب متصفح مجانية."],
+    ["Silvergames", "https://www.silvergames.com", "games", "ألعاب أونلاين متنوعة."],
+    ["Kizi", "https://kizi.com", "games", "ألعاب مجانية للمتصفح."],
+    ["Lagged", "https://lagged.com", "games", "ألعاب قصيرة وسريعة."],
+    ["CrazyGames FPS", "https://www.crazygames.com/t/fps", "games", "ألعاب تصويب على المتصفح."],
+    ["Steam", "https://store.steampowered.com", "games", "متجر ومنصة ألعاب الكمبيوتر."],
+    ["Epic Games", "https://store.epicgames.com", "games", "متجر ألعاب ومنصة رقمية."],
+    ["GOG", "https://www.gog.com", "games", "متجر ألعاب للكمبيوتر."],
+    ["Xbox", "https://www.xbox.com", "games", "منصة ألعاب Xbox."],
+    ["PlayStation", "https://www.playstation.com", "games", "منصة PlayStation."],
+    ["Nintendo", "https://www.nintendo.com", "games", "موقع Nintendo الرسمي."],
+    ["EA", "https://www.ea.com", "games", "ألعاب Electronic Arts."],
+    ["Ubisoft", "https://www.ubisoft.com", "games", "ألعاب Ubisoft."],
+    ["Epic Games Fortnite", "https://www.fortnite.com", "games", "موقع Fortnite الرسمي."],
+    ["League of Legends", "https://www.leagueoflegends.com", "games", "موقع League of Legends."],
+    ["Valorant", "https://playvalorant.com", "games", "لعبة التصويب Valorant."],
+    ["Counter-Strike", "https://www.counter-strike.net", "games", "موقع Counter-Strike."],
+    ["Dota 2", "https://www.dota2.com", "games", "لعبة MOBA من Valve."],
+    ["Apex Legends", "https://www.ea.com/games/apex-legends", "games", "لعبة Battle Royale."],
+    ["Fall Guys", "https://www.fallguys.com", "games", "لعبة تنافسية مرحة."],
+    ["Rocket League", "https://www.rocketleague.com", "games", "كرة قدم بالسيارات."],
+    ["Among Us", "https://www.innersloth.com/games/among-us", "games", "لعبة اجتماعية شهيرة."],
+    ["Brawlhalla", "https://www.brawlhalla.com", "games", "لعبة قتال مجانية."],
+    ["Gartic Phone", "https://garticphone.com", "games", "لعبة رسم وتخمين جماعية."],
+    ["Skribbl", "https://skribbl.io", "games", "لعبة رسم وتخمين."],
+    ["Chess.com", "https://www.chess.com", "games", "لعب الشطرنج أونلاين."],
+    ["Lichess", "https://lichess.org", "games", "شطرنج مجاني ومفتوح المصدر."],
+    ["GeoGuessr", "https://www.geoguessr.com", "games", "لعبة تخمين المواقع الجغرافية."],
+    ["Slither.io", "https://slither.io", "games", "لعبة الثعبان الجماعية."],
+    ["Agar.io", "https://agar.io", "games", "لعبة البقاء والنمو."],
+    ["Shell Shockers", "https://shellshock.io", "games", "لعبة تصويب في المتصفح."],
+    ["Krunker", "https://krunker.io", "games", "لعبة FPS في المتصفح."],
+    ["Diep.io", "https://diep.io", "games", "لعبة دبابات متعددة اللاعبين."],
+    ["Zombs Royale", "https://zombsroyale.io", "games", "Battle Royale في المتصفح."],
+    ["Surviv.io", "https://surviv.io", "games", "لعبة بقاء متعددة اللاعبين."],
+    ["Tetr.io", "https://tetr.io", "games", "لعبة Tetris تنافسية."],
+    ["ChessKid", "https://www.chesskid.com", "games", "شطرنج مناسب للتعلم واللعب."],
 
-      باستعمال القوائم التي أرسلتها أنت سابقًا بدون تغيير.
-    */
-};
+
+    /* ==================== التعليم ==================== */
+
+    ["Khan Academy", "https://www.khanacademy.org", "education", "دروس مجانية في عدة مواد."],
+    ["Coursera", "https://www.coursera.org", "education", "دورات تعليمية من جامعات ومؤسسات."],
+    ["edX", "https://www.edx.org", "education", "دورات أكاديمية عبر الإنترنت."],
+    ["MIT OpenCourseWare", "https://ocw.mit.edu", "education", "مواد ودروس من MIT."],
+    ["Duolingo", "https://www.duolingo.com", "education", "تعلم اللغات بطريقة تفاعلية."],
+    ["Quizlet", "https://quizlet.com", "education", "بطاقات تعليمية واختبارات."],
+    ["Wolfram Alpha", "https://www.wolframalpha.com", "education", "محرك حساب ومعرفة."],
+    ["Desmos", "https://www.desmos.com", "education", "حاسبات ورسوم بيانية رياضية."],
+    ["GeoGebra", "https://www.geogebra.org", "education", "أدوات الرياضيات والهندسة."],
+    ["Brilliant", "https://brilliant.org", "education", "تعلم الرياضيات والعلوم بطريقة تفاعلية."],
+    ["BBC Learning", "https://www.bbc.co.uk/learning", "education", "مواد تعليمية متنوعة."],
+    ["TED-Ed", "https://ed.ted.com", "education", "دروس تعليمية مرئية."],
+    ["Google Scholar", "https://scholar.google.com", "education", "البحث عن الأبحاث العلمية."],
+    ["Wikipedia", "https://www.wikipedia.org", "education", "موسوعة معرفية ضخمة."],
+    ["OpenStax", "https://openstax.org", "education", "كتب تعليمية مجانية."],
+    ["Project Gutenberg", "https://www.gutenberg.org", "education", "كتب إلكترونية مجانية."],
+    ["CK-12", "https://www.ck12.org", "education", "مواد تعليمية للعلوم والرياضيات."],
+    ["PhET", "https://phet.colorado.edu", "education", "محاكاة تفاعلية للعلوم."],
+    ["Symbolab", "https://www.symbolab.com", "education", "حل مسائل رياضية خطوة بخطوة."],
+    ["Mathway", "https://www.mathway.com", "education", "حل مسائل رياضية."],
+
+
+    /* ==================== الذكاء الاصطناعي ==================== */
+
+    ["ChatGPT", "https://chatgpt.com", "ai", "مساعد ذكاء اصطناعي."],
+    ["Google Gemini", "https://gemini.google.com", "ai", "مساعد الذكاء الاصطناعي من Google."],
+    ["Microsoft Copilot", "https://copilot.microsoft.com", "ai", "مساعد ذكاء اصطناعي من Microsoft."],
+    ["Claude", "https://claude.ai", "ai", "مساعد ذكاء اصطناعي."],
+    ["Perplexity", "https://www.perplexity.ai", "ai", "محرك بحث يعتمد على الذكاء الاصطناعي."],
+    ["DeepSeek", "https://chat.deepseek.com", "ai", "مساعد ذكاء اصطناعي."],
+    ["Hugging Face", "https://huggingface.co", "ai", "منصة نماذج وأدوات الذكاء الاصطناعي."],
+    ["Character AI", "https://character.ai", "ai", "محادثات مع شخصيات ذكاء اصطناعي."],
+    ["Leonardo AI", "https://leonardo.ai", "ai", "إنشاء الصور بالذكاء الاصطناعي."],
+    ["Canva AI", "https://www.canva.com/ai-image-generator", "ai", "أدوات ذكاء اصطناعي للتصميم."],
+    ["Remove.bg", "https://www.remove.bg", "ai", "إزالة خلفيات الصور."],
+    ["ElevenLabs", "https://elevenlabs.io", "ai", "أدوات صوت بالذكاء الاصطناعي."],
+    ["Suno", "https://suno.com", "ai", "إنشاء الموسيقى بالذكاء الاصطناعي."],
+    ["Gamma", "https://gamma.app", "ai", "إنشاء عروض ومستندات بالذكاء الاصطناعي."],
+    ["Photoroom", "https://www.photoroom.com", "ai", "تحرير الصور بالذكاء الاصطناعي."],
+    ["Perchance AI", "https://perchance.org", "ai", "أدوات AI متنوعة."],
+    ["Ideogram", "https://ideogram.ai", "ai", "إنشاء الصور بالذكاء الاصطناعي."],
+    ["Krea", "https://www.krea.ai", "ai", "أدوات إنشاء وتصميم بالذكاء الاصطناعي."],
+    ["Playground AI", "https://playground.com", "ai", "إنشاء وتحرير الصور."],
+    ["Grammarly", "https://www.grammarly.com", "ai", "مساعدة في الكتابة."],
+
+
+    /* ==================== التصميم ==================== */
+
+    ["Canva", "https://www.canva.com", "design", "تصميم الصور والعروض والمنشورات."],
+    ["Figma", "https://www.figma.com", "design", "تصميم واجهات ومشاريع UI."],
+    ["Adobe", "https://www.adobe.com", "design", "مجموعة أدوات التصميم من Adobe."],
+    ["Photopea", "https://www.photopea.com", "design", "محرر صور يعمل في المتصفح."],
+    ["Pixlr", "https://pixlr.com", "design", "تحرير الصور أونلاين."],
+    ["Unsplash", "https://unsplash.com", "design", "صور مجانية عالية الجودة."],
+    ["Pexels", "https://www.pexels.com", "design", "صور وفيديوهات مجانية."],
+    ["Pixabay", "https://pixabay.com", "design", "صور وفيديوهات مجانية."],
+    ["Freepik", "https://www.freepik.com", "design", "موارد التصميم."],
+    ["Flaticon", "https://www.flaticon.com", "design", "أيقونات ورسومات."],
+    ["Coolors", "https://coolors.co", "design", "إنشاء مجموعات ألوان."],
+    ["Google Fonts", "https://fonts.google.com", "design", "خطوط مجانية."],
+    ["Font Awesome", "https://fontawesome.com", "design", "أيقونات للمواقع."],
+    ["Dribbble", "https://dribbble.com", "design", "مجتمع المصممين."],
+    ["Behance", "https://www.behance.net", "design", "عرض الأعمال الإبداعية."],
+
+
+    /* ==================== الفيديو ==================== */
+
+    ["YouTube", "https://www.youtube.com", "video", "منصة الفيديو الشهيرة."],
+    ["YouTube Studio", "https://studio.youtube.com", "video", "إدارة قناة YouTube."],
+    ["Twitch", "https://www.twitch.tv", "video", "البث المباشر."],
+    ["Vimeo", "https://vimeo.com", "video", "منصة فيديو احترافية."],
+    ["CapCut", "https://www.capcut.com", "video", "تحرير الفيديو."],
+    ["VEED", "https://www.veed.io", "video", "محرر فيديو أونلاين."],
+    ["Clipchamp", "https://clipchamp.com", "video", "تحرير الفيديو من Microsoft."],
+    ["InVideo", "https://invideo.io", "video", "صناعة الفيديو."],
+    ["Kapwing", "https://www.kapwing.com", "video", "تحرير الفيديو والصور."],
+    ["Dailymotion", "https://www.dailymotion.com", "video", "منصة فيديو."],
+    ["Internet Archive Video", "https://archive.org/details/movies", "video", "أرشيف فيديوهات."],
+    ["Mixkit", "https://mixkit.co", "video", "فيديوهات ومؤثرات مجانية."],
+    ["Motion Array", "https://motionarray.com", "video", "موارد لصناعة الفيديو."],
+    ["Storyblocks", "https://www.storyblocks.com", "video", "مكتبة فيديو ووسائط."],
+    ["LumaFusion", "https://luma-touch.com/lumafusion", "video", "تحرير الفيديو."],
+
+
+    /* ==================== الموسيقى ==================== */
+
+    ["Spotify", "https://open.spotify.com", "music", "الاستماع إلى الموسيقى."],
+    ["SoundCloud", "https://soundcloud.com", "music", "موسيقى ومقاطع صوتية."],
+    ["YouTube Music", "https://music.youtube.com", "music", "خدمة الموسيقى من YouTube."],
+    ["Bandcamp", "https://bandcamp.com", "music", "منصة للموسيقى والفنانين."],
+    ["Audiomack", "https://audiomack.com", "music", "الاستماع إلى الموسيقى."],
+    ["Deezer", "https://www.deezer.com", "music", "خدمة بث الموسيقى."],
+    ["Apple Music", "https://music.apple.com", "music", "خدمة الموسيقى من Apple."],
+    ["Last.fm", "https://www.last.fm", "music", "اكتشاف وتتبع الموسيقى."],
+    ["Musixmatch", "https://www.musixmatch.com", "music", "معلومات وكلمات الأغاني."],
+    ["TuneIn", "https://tunein.com", "music", "راديو وموسيقى عبر الإنترنت."],
+    ["Free Music Archive", "https://freemusicarchive.org", "music", "موسيقى مجانية."],
+    ["Freesound", "https://freesound.org", "music", "مؤثرات وأصوات."],
+    ["Audiotool", "https://www.audiotool.com", "music", "صناعة الموسيقى أونلاين."],
+    ["Soundtrap", "https://www.soundtrap.com", "music", "استوديو موسيقى أونلاين."],
+    ["BandLab", "https://www.bandlab.com", "music", "إنشاء وتسجيل الموسيقى."],
+
+
+    /* ==================== البرمجة ==================== */
+
+    ["GitHub", "https://github.com", "programming", "استضافة مشاريع البرمجة."],
+    ["GitLab", "https://gitlab.com", "programming", "منصة DevOps واستضافة المشاريع."],
+    ["CodePen", "https://codepen.io", "programming", "تجربة HTML وCSS وJavaScript."],
+    ["JSFiddle", "https://jsfiddle.net", "programming", "تجربة JavaScript مباشرة."],
+    ["Replit", "https://replit.com", "programming", "برمجة وتشغيل المشاريع أونلاين."],
+    ["Stack Overflow", "https://stackoverflow.com", "programming", "أسئلة وأجوبة للمبرمجين."],
+    ["MDN Web Docs", "https://developer.mozilla.org", "programming", "مرجع تطوير الويب."],
+    ["W3Schools", "https://www.w3schools.com", "programming", "تعلم تطوير المواقع."],
+    ["freeCodeCamp", "https://www.freecodecamp.org", "programming", "تعلم البرمجة مجانًا."],
+    ["The Odin Project", "https://www.theodinproject.com", "programming", "تعلم تطوير الويب."],
+    ["Frontend Mentor", "https://www.frontendmentor.io", "programming", "تمارين ومشاريع Frontend."],
+    ["Dev.to", "https://dev.to", "programming", "مجتمع للمطورين."],
+    ["npm", "https://www.npmjs.com", "programming", "مكتبات JavaScript."],
+    ["PyPI", "https://pypi.org", "programming", "حزم Python."],
+    ["Docker Hub", "https://hub.docker.com", "programming", "صور وحزم Docker."],
+    ["Godot Engine", "https://godotengine.org", "programming", "محرك ألعاب مفتوح المصدر."],
+    ["Unity", "https://unity.com", "programming", "محرك تطوير الألعاب."],
+    ["Unreal Engine", "https://www.unrealengine.com", "programming", "محرك ألعاب ثلاثي الأبعاد."],
+    ["Visual Studio Code", "https://code.visualstudio.com", "programming", "محرر أكواد."],
+    ["Codewars", "https://www.codewars.com", "programming", "تحديات برمجية."],
+
+
+    /* ==================== الكتب ==================== */
+
+    ["Project Gutenberg", "https://www.gutenberg.org", "books", "آلاف الكتب الإلكترونية المجانية."],
+    ["Internet Archive", "https://archive.org", "books", "أرشيف ضخم للكتب والوسائط."],
+    ["Open Library", "https://openlibrary.org", "books", "مكتبة كتب رقمية."],
+    ["Google Books", "https://books.google.com", "books", "البحث عن الكتب."],
+    ["Goodreads", "https://www.goodreads.com", "books", "اكتشاف الكتب ومراجعاتها."],
+    ["ManyBooks", "https://manybooks.net", "books", "كتب إلكترونية."],
+    ["Standard Ebooks", "https://standardebooks.org", "books", "كتب كلاسيكية مجانية."],
+    ["Wikisource", "https://wikisource.org", "books", "مكتبة نصوص مجانية."],
+    ["LibriVox", "https://librivox.org", "books", "كتب صوتية مجانية."],
+    ["WorldCat", "https://www.worldcat.org", "books", "البحث عن الكتب والمكتبات."],
+
+
+    /* ==================== الأدوات ==================== */
+
+    ["Google", "https://www.google.com", "tools", "محرك البحث Google."],
+    ["Google Drive", "https://drive.google.com", "tools", "تخزين الملفات سحابيًا."],
+    ["Google Translate", "https://translate.google.com", "tools", "ترجمة النصوص واللغات."],
+    ["Google Maps", "https://maps.google.com", "tools", "الخرائط والمواقع."],
+    ["TinyURL", "https://tinyurl.com", "tools", "اختصار الروابط."],
+    ["Bitly", "https://bitly.com", "tools", "اختصار وإدارة الروابط."],
+    ["QR Code Generator", "https://www.qr-code-generator.com", "tools", "إنشاء رموز QR."],
+    ["CloudConvert", "https://cloudconvert.com", "tools", "تحويل الملفات."],
+    ["ILovePDF", "https://www.ilovepdf.com", "tools", "أدوات PDF."],
+    ["Smallpdf", "https://smallpdf.com", "tools", "ضغط وتحويل ملفات PDF."],
+    ["WeTransfer", "https://wetransfer.com", "tools", "إرسال الملفات."],
+    ["Speedtest", "https://www.speedtest.net", "tools", "اختبار سرعة الإنترنت."],
+    ["Have I Been Pwned", "https://haveibeenpwned.com", "tools", "فحص تسريبات البريد الإلكتروني."],
+    ["Internet Speed Test", "https://fast.com", "tools", "اختبار سرعة الإنترنت."],
+    ["Time.is", "https://time.is", "tools", "معرفة الوقت."],
+    ["Calculator", "https://www.calculator.net", "tools", "حاسبات متنوعة."],
+    ["Excalidraw", "https://excalidraw.com", "tools", "الرسم وإنشاء المخططات."],
+    ["Notion", "https://www.notion.so", "tools", "تنظيم الملاحظات والمشاريع."],
+    ["Trello", "https://trello.com", "tools", "إدارة المشاريع والمهام."],
+    ["Dropbox", "https://www.dropbox.com", "tools", "تخزين الملفات."],
+
+
+    /* ==================== الترفيه ==================== */
+
+    ["Reddit", "https://www.reddit.com", "fun", "مجتمع ضخم للنقاش والمحتوى."],
+    ["9GAG", "https://9gag.com", "fun", "صور ومقاطع ترفيهية."],
+    ["Imgur", "https://imgur.com", "fun", "صور ومحتوى ترفيهي."],
+    ["GIPHY", "https://giphy.com", "fun", "صور GIF متحركة."],
+    ["Tenor", "https://tenor.com", "fun", "صور GIF وملصقات."],
+    ["Know Your Meme", "https://knowyourmeme.com", "fun", "قاعدة بيانات للميمز."],
+    ["Bored Panda", "https://www.boredpanda.com", "fun", "محتوى ترفيهي وإبداعي."],
+    ["The Useless Web", "https://theuselessweb.com", "fun", "مواقع عشوائية وغريبة."],
+    ["Neal.fun", "https://neal.fun", "fun", "تجارب ومواقع تفاعلية."],
+    ["Pointer Pointer", "https://pointerpointer.com", "fun", "موقع ترفيهي غريب."],
+    ["Radio Garden", "https://radio.garden", "fun", "استكشاف محطات الراديو حول العالم."],
+    ["A Soft Murmur", "https://asoftmurmur.com", "fun", "أصوات للاسترخاء والتركيز."],
+    ["WindowSwap", "https://www.window-swap.com", "fun", "مشاهدة مناظر من نوافذ حول العالم."],
+    ["EarthCam", "https://www.earthcam.com", "fun", "كاميرات مباشرة من أماكن مختلفة."],
+    ["Flightradar24", "https://www.flightradar24.com", "fun", "تتبع الطائرات."],
+    ["MarineTraffic", "https://www.marinetraffic.com", "fun", "تتبع السفن."],
+    ["Google Earth", "https://earth.google.com", "fun", "استكشاف الأرض."],
+    ["Zoomquilt", "https://zoomquilt.org", "fun", "تجربة بصرية لا نهائية."],
+    ["StumbleUpon", "https://www.stumbleupon.com", "fun", "اكتشاف محتوى عشوائي."],
+    ["FutureMe", "https://www.futureme.org", "fun", "إرسال رسالة إلى نفسك في المستقبل."]
+];
+
 
 /* =========================================================
-   BUILD SITE OBJECTS
+   إنشاء البيانات النهائية
    ========================================================= */
 
-let siteData = [];
+const siteData = rawSites.map((site, index) => ({
+    id: index + 1,
+    name: site[0],
+    url: site[1],
+    category: site[2],
+    description: site[3],
+    visits: 0
+}));
 
-Object.entries(rawSites).forEach(([category, sites]) => {
-    sites.forEach((item, index) => {
-        siteData.push({
-            id: `${category}-${index + 1}`,
-            name: item[0],
-            url: item[1],
-            description: item[2],
-            icon: item[3],
-            category
-        });
-    });
-});
 
 /* =========================================================
-   STATE
+   التخزين
    ========================================================= */
 
-let favorites = getStorageArray(STORAGE_KEYS.favorites);
-let recentSites = getStorageArray(STORAGE_KEYS.recent);
-let visits = getStorageObject(STORAGE_KEYS.visits);
+let favorites = JSON.parse(
+    localStorage.getItem("webboxFavorites") || "[]"
+);
 
-let currentSection = "home";
-let currentSite = null;
-let currentView =
-    localStorage.getItem(STORAGE_KEYS.view) || "grid";
+let visits = JSON.parse(
+    localStorage.getItem("webboxVisits") || "{}"
+);
 
-/* =========================================================
-   STORAGE
-   ========================================================= */
+let recentSites = JSON.parse(
+    localStorage.getItem("webboxRecent") || "[]"
+);
 
-function getStorageArray(key) {
-    try {
-        const value = localStorage.getItem(key);
-        return value ? JSON.parse(value) : [];
-    } catch {
-        return [];
-    }
-}
+let currentView = "grid";
+let currentModalSite = null;
 
-function getStorageObject(key) {
-    try {
-        const value = localStorage.getItem(key);
-        return value ? JSON.parse(value) : {};
-    } catch {
-        return {};
-    }
-}
-
-function saveStorage(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-}
 
 /* =========================================================
-   INITIALIZATION
+   عند تحميل الصفحة
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-    initializeTheme();
-    initializeView();
 
-    renderAll();
-    updateStats();
-    setupGlobalEvents();
-
-    /*
-       مهم جدًا:
-       نحدد الرئيسية فقط عند بداية الموقع.
-    */
-    showSection("home");
-});
-
-/* =========================================================
-   GLOBAL EVENTS
-   ========================================================= */
-
-function setupGlobalEvents() {
-
-    document.addEventListener("keydown", event => {
-
-        if (event.key === "Escape") {
-            closeModal();
-        }
-
-        if (
-            (event.ctrlKey || event.metaKey) &&
-            event.key.toLowerCase() === "k"
-        ) {
-            event.preventDefault();
-
-            const input =
-                document.getElementById("searchInput");
-
-            if (input) {
-                input.focus();
-            }
-        }
-    });
-
-    const siteSearch =
-        document.getElementById("siteSearch");
-
-    if (siteSearch) {
-        siteSearch.addEventListener(
-            "input",
-            filterSiteList
-        );
-    }
-
-    const categorySelect =
-        document.getElementById("categorySelect");
-
-    if (categorySelect) {
-        categorySelect.addEventListener(
-            "change",
-            filterSiteList
-        );
-    }
-
-    const sortSelect =
-        document.getElementById("sortSelect");
-
-    if (sortSelect) {
-        sortSelect.addEventListener(
-            "change",
-            filterSiteList
-        );
-    }
-}
-
-/* =========================================================
-   RENDER ALL
-   ========================================================= */
-
-function renderAll() {
-
-    renderCategories();
-    renderHomeCategories();
+    setupEvents();
 
     populateCategorySelect();
 
-    renderFeatured();
-    renderFun();
-    renderGaming();
-    renderFavorites();
-    renderRecent();
+    renderAll();
 
-    renderSites();
-}
+    showSection("home");
+
+});
+
 
 /* =========================================================
-   NAVIGATION
+   الأحداث
    ========================================================= */
 
-/*
-   هذه هي الدالة الأساسية.
-   كل صفحات الموقع تستخدمها.
-*/
+function setupEvents() {
 
-function showSection(sectionId) {
+    const searchInput = document.getElementById("siteSearch");
 
-    const target =
-        document.getElementById(sectionId);
+    if (searchInput) {
+        searchInput.addEventListener("input", filterSiteList);
+    }
+
+
+    const categorySelect = document.getElementById("categorySelect");
+
+    if (categorySelect) {
+        categorySelect.addEventListener("change", filterSiteList);
+    }
+
+
+    const sortSelect = document.getElementById("sortSelect");
+
+    if (sortSelect) {
+        sortSelect.addEventListener("change", filterSiteList);
+    }
+
+
+    const clearBtn = document.getElementById("clearFilters");
+
+    if (clearBtn) {
+        clearBtn.addEventListener("click", clearFilters);
+    }
+
+
+    const gridBtn = document.getElementById("gridViewBtn");
+
+    if (gridBtn) {
+        gridBtn.addEventListener("click", () => {
+            setViewMode("grid");
+        });
+    }
+
+
+    const listBtn = document.getElementById("listViewBtn");
+
+    if (listBtn) {
+        listBtn.addEventListener("click", () => {
+            setViewMode("list");
+        });
+    }
+
+
+    const modal = document.getElementById("siteModal");
+
+    if (modal) {
+
+        modal.addEventListener("click", event => {
+
+            if (event.target === modal) {
+                closeModal();
+            }
+
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   التنقل بين الصفحات
+   ========================================================= */
+
+function showSection(pageId) {
+
+    const sections = document.querySelectorAll(
+        "main > .page-section"
+    );
+
+    sections.forEach(section => {
+
+        section.classList.remove("active");
+        section.style.display = "none";
+
+    });
+
+
+    const target = document.getElementById(pageId);
 
     if (!target) {
-        console.warn(
-            `WEBBOX: القسم غير موجود: ${sectionId}`
-        );
+        console.error("WebBox: القسم غير موجود:", pageId);
         return;
     }
 
-    currentSection = sectionId;
-
-    /*
-       إخفاء جميع صفحات main
-    */
-
-    document
-        .querySelectorAll("main > .page-section")
-        .forEach(section => {
-
-            section.classList.remove("active");
-
-            section.style.display = "none";
-        });
-
-    /*
-       إظهار الصفحة المطلوبة
-    */
 
     target.classList.add("active");
     target.style.display = "block";
 
-    /*
-       تحديث أزرار Navigation
-    */
 
-    document
-        .querySelectorAll(".nav-btn")
-        .forEach(button => {
+    document.querySelectorAll(
+        ".main-nav .nav-btn"
+    ).forEach(button => {
 
-            button.classList.remove("active");
+        button.classList.remove("active");
 
-            const onclick =
-                button.getAttribute("onclick") || "";
+    });
 
-            if (
-                onclick.includes(
-                    `'${sectionId}'`
-                ) ||
-                onclick.includes(
-                    `"${sectionId}"`
-                )
-            ) {
-                button.classList.add("active");
-            }
-        });
 
-    /*
-       إغلاق قائمة الهاتف
-    */
+    const navButton = document.querySelector(
+        `.main-nav .nav-btn[onclick*="${pageId}"]`
+    );
 
-    const mobileNav =
-        document.getElementById("mobileNav");
+    if (navButton) {
+        navButton.classList.add("active");
+    }
+
+
+    if (pageId === "categories") {
+        renderCategories();
+    }
+
+    if (pageId === "sites") {
+        filterSiteList();
+    }
+
+    if (pageId === "fun") {
+        renderFun();
+    }
+
+    if (pageId === "gaming") {
+        renderGaming();
+    }
+
+    if (pageId === "favorites") {
+        renderFavorites();
+    }
+
+    if (pageId === "recent") {
+        renderRecent();
+    }
+
+
+    const mobileNav = document.getElementById("mobileNav");
 
     if (mobileNav) {
         mobileNav.classList.remove("open");
     }
 
-    /*
-       تحديث الصفحة المطلوبة
-    */
-
-    switch (sectionId) {
-
-        case "categories":
-            renderCategories();
-            break;
-
-        case "sites":
-            renderSites();
-            break;
-
-        case "fun":
-            renderFun();
-            break;
-
-        case "gaming":
-            renderGaming();
-            break;
-
-        case "favorites":
-            renderFavorites();
-            break;
-
-        case "recent":
-            renderRecent();
-            break;
-    }
-
-    /*
-       العودة إلى الأعلى
-    */
 
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
+
 }
 
 
-/*
-   هذه الدالة هي التي يستعملها index.html
-   مثل:
+/* مهم حتى تعمل أزرار HTML التي تستعمل webboxNavigate */
 
-   onclick="webboxNavigate('sites', this)"
-*/
+window.webboxNavigate = function(pageId, button = null) {
 
-function webboxNavigate(
-    sectionId,
-    clickedButton = null
-) {
+    showSection(pageId);
 
-    showSection(sectionId);
+    if (button) {
 
-    if (clickedButton) {
+        document.querySelectorAll(
+            ".main-nav .nav-btn"
+        ).forEach(btn => btn.classList.remove("active"));
 
-        document
-            .querySelectorAll(".nav-btn")
-            .forEach(button => {
-                button.classList.remove("active");
+        button.classList.add("active");
+
+    }
+
+};
+
+
+/* =========================================================
+   عرض كل شيء
+   ========================================================= */
+
+function renderAll() {
+
+    renderStats();
+
+    renderCategories();
+
+    renderHomeCategories();
+
+    renderFeatured();
+
+    renderFun();
+
+    renderGaming();
+
+    renderFavorites();
+
+    renderRecent();
+
+    renderSites(siteData);
+
+}
+
+
+/* =========================================================
+   الإحصائيات
+   ========================================================= */
+
+function renderStats() {
+
+    const totalSites = document.getElementById("totalSites");
+
+    const totalCategories =
+        document.getElementById("totalCategories");
+
+    const totalFavorites =
+        document.getElementById("totalFavorites");
+
+    const totalVisits =
+        document.getElementById("totalVisits");
+
+
+    if (totalSites) {
+        totalSites.textContent = siteData.length;
+    }
+
+
+    if (totalCategories) {
+        totalCategories.textContent =
+            Object.keys(CATEGORY_INFO).length;
+    }
+
+
+    if (totalFavorites) {
+        totalFavorites.textContent =
+            favorites.length;
+    }
+
+
+    if (totalVisits) {
+
+        const total = Object.values(visits)
+            .reduce((sum, value) => sum + Number(value), 0);
+
+        totalVisits.textContent = total;
+
+    }
+
+}
+
+
+/* =========================================================
+   التصنيفات
+   ========================================================= */
+
+function renderCategories() {
+
+    const container =
+        document.getElementById("categoriesContainer");
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    Object.entries(CATEGORY_INFO).forEach(
+        ([key, category]) => {
+
+            const count = siteData.filter(
+                site => site.category === key
+            ).length;
+
+
+            const card = document.createElement("div");
+
+            card.className = "category-card";
+
+            card.innerHTML = `
+
+                <div class="category-icon">
+                    ${category.icon}
+                </div>
+
+                <h3>${category.name}</h3>
+
+                <p>${category.description}</p>
+
+                <span class="category-count">
+                    ${count} موقع
+                </span>
+
+            `;
+
+
+            card.addEventListener("click", () => {
+
+                showSection("sites");
+
+                const select =
+                    document.getElementById("categorySelect");
+
+                if (select) {
+                    select.value = key;
+                    filterSiteList();
+                }
+
             });
 
-        clickedButton.classList.add("active");
-    }
+
+            container.appendChild(card);
+
+        }
+    );
+
 }
 
 
 /* =========================================================
-   MOBILE MENU
+   تصنيفات الصفحة الرئيسية
    ========================================================= */
 
-function toggleMobileMenu() {
+function renderHomeCategories() {
 
-    const mobileNav =
-        document.getElementById("mobileNav");
+    const container =
+        document.getElementById("homeCategories");
 
-    if (mobileNav) {
-        mobileNav.classList.toggle("open");
-    }
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    Object.entries(CATEGORY_INFO).forEach(
+        ([key, category]) => {
+
+            const count = siteData.filter(
+                site => site.category === key
+            ).length;
+
+
+            const item = document.createElement("div");
+
+            item.className = "category-card";
+
+            item.innerHTML = `
+
+                <div class="category-icon">
+                    ${category.icon}
+                </div>
+
+                <h3>${category.name}</h3>
+
+                <span class="category-count">
+                    ${count}
+                </span>
+
+            `;
+
+
+            item.onclick = () => {
+
+                showSection("sites");
+
+                const select =
+                    document.getElementById("categorySelect");
+
+                if (select) {
+
+                    select.value = key;
+
+                    filterSiteList();
+
+                }
+
+            };
+
+
+            container.appendChild(item);
+
+        }
+    );
+
 }
 
+
 /* =========================================================
-   THEME
+   قائمة التصنيفات داخل الفلتر
    ========================================================= */
 
-function initializeTheme() {
+function populateCategorySelect() {
+
+    const select =
+        document.getElementById("categorySelect");
+
+    if (!select) return;
+
+
+    select.innerHTML =
+        `<option value="">كل التصنيفات</option>`;
+
+
+    Object.entries(CATEGORY_INFO).forEach(
+        ([key, category]) => {
+
+            const option =
+                document.createElement("option");
+
+            option.value = key;
+
+            option.textContent =
+                `${category.icon} ${category.name}`;
+
+            select.appendChild(option);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   إنشاء بطاقة الموقع
+   ========================================================= */
+
+function createSiteCard(site) {
+
+    const category =
+        CATEGORY_INFO[site.category] ||
+        CATEGORY_INFO.tools;
+
+
+    const isFavorite =
+        favorites.includes(site.id);
+
+
+    const visitCount =
+        visits[site.id] || 0;
+
+
+    const card =
+        document.createElement("article");
+
+
+    card.className = "site-card";
+
+
+    card.innerHTML = `
+
+        <div class="site-card-top">
+
+            <div class="site-icon">
+                ${category.icon}
+            </div>
+
+            <button
+                class="favorite-btn ${isFavorite ? "active" : ""}"
+                onclick="toggleFavorite(${site.id}, event)"
+                title="المفضلة"
+            >
+                ${isFavorite ? "★" : "☆"}
+            </button>
+
+        </div>
+
+
+        <div class="site-card-body">
+
+            <span class="site-category">
+                ${category.name}
+            </span>
+
+            <h3>${escapeHTML(site.name)}</h3>
+
+            <p>
+                ${escapeHTML(site.description)}
+            </p>
+
+        </div>
+
+
+        <div class="site-card-footer">
+
+            <span class="visit-count">
+                👁️ ${visitCount}
+            </span>
+
+            <div class="site-actions">
+
+                <button
+                    class="details-btn"
+                    onclick="openModal(${site.id})"
+                >
+                    التفاصيل
+                </button>
+
+                <button
+                    class="open-btn"
+                    onclick="openSite(${site.id})"
+                >
+                    فتح
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    return card;
+
+}
+
+
+/* =========================================================
+   عرض المواقع
+   ========================================================= */
+
+function renderSites(sites) {
+
+    const container =
+        document.getElementById("sitesContainer");
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    if (!sites.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div>🔎</div>
+
+                <h3>لم يتم العثور على مواقع</h3>
+
+                <p>
+                    جرّب تغيير كلمة البحث أو التصنيف.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.className =
+        currentView === "list"
+            ? "sites-grid list-view"
+            : "sites-grid";
+
+
+    sites.forEach(site => {
+
+        container.appendChild(
+            createSiteCard(site)
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   البحث والفلاتر
+   ========================================================= */
+
+function filterSiteList() {
+
+    const search =
+        (
+            document.getElementById("siteSearch")?.value ||
+            ""
+        ).trim().toLowerCase();
+
+
+    const category =
+        document.getElementById("categorySelect")?.value ||
+        "";
+
+
+    const sort =
+        document.getElementById("sortSelect")?.value ||
+        "default";
+
+
+    let results =
+        siteData.filter(site => {
+
+            const matchesSearch =
+                !search ||
+                site.name.toLowerCase().includes(search) ||
+                site.description.toLowerCase().includes(search);
+
+
+            const matchesCategory =
+                !category ||
+                site.category === category;
+
+
+            return matchesSearch && matchesCategory;
+
+        });
+
+
+    if (sort === "name") {
+
+        results.sort((a, b) =>
+            a.name.localeCompare(
+                b.name,
+                "ar"
+            )
+        );
+
+    }
+
+
+    if (sort === "visits") {
+
+        results.sort(
+            (a, b) =>
+                (visits[b.id] || 0) -
+                (visits[a.id] || 0)
+        );
+
+    }
+
+
+    renderSites(results);
+
+
+    const resultText =
+        document.getElementById("resultText");
+
+
+    if (resultText) {
+
+        resultText.textContent =
+            `${results.length} موقع`;
+
+    }
+
+}
+
+
+function clearFilters() {
+
+    const search =
+        document.getElementById("siteSearch");
+
+    const category =
+        document.getElementById("categorySelect");
+
+    const sort =
+        document.getElementById("sortSelect");
+
+
+    if (search) search.value = "";
+
+    if (category) category.value = "";
+
+    if (sort) sort.value = "default";
+
+
+    filterSiteList();
+
+}
+
+
+/* =========================================================
+   البحث الرئيسي
+   ========================================================= */
+
+function handleMainSearch(event) {
+
+    event.preventDefault();
+
+
+    const input =
+        document.getElementById("searchInput");
+
+
+    if (!input) return;
+
+
+    const query =
+        input.value.trim().toLowerCase();
+
+
+    if (!query) {
+
+        showSection("sites");
+
+        return;
+
+    }
+
+
+    showSection("sites");
+
+
+    const siteSearch =
+        document.getElementById("siteSearch");
+
+
+    if (siteSearch) {
+
+        siteSearch.value = query;
+
+    }
+
+
+    filterSiteList();
+
+}
+
+
+function quickSearch(query) {
+
+    showSection("sites");
+
+
+    const search =
+        document.getElementById("siteSearch");
+
+
+    if (search) {
+
+        search.value = query;
+
+    }
+
+
+    filterSiteList();
+
+}
+
+
+/* =========================================================
+   المفضلة
+   ========================================================= */
+
+function toggleFavorite(id, event) {
+
+    if (event) {
+        event.stopPropagation();
+    }
+
+
+    const index =
+        favorites.indexOf(id);
+
+
+    if (index === -1) {
+
+        favorites.push(id);
+
+        showToast("تمت الإضافة إلى المفضلة ⭐");
+
+    } else {
+
+        favorites.splice(index, 1);
+
+        showToast("تمت الإزالة من المفضلة");
+
+    }
+
+
+    localStorage.setItem(
+        "webboxFavorites",
+        JSON.stringify(favorites)
+    );
+
+
+    renderStats();
+
+    renderSites(
+        getCurrentFilteredSites()
+    );
+
+    renderFavorites();
+
+}
+
+
+/* =========================================================
+   الحصول على المواقع المفلترة حاليًا
+   ========================================================= */
+
+function getCurrentFilteredSites() {
+
+    const search =
+        (
+            document.getElementById("siteSearch")?.value ||
+            ""
+        ).toLowerCase();
+
+
+    const category =
+        document.getElementById("categorySelect")?.value ||
+        "";
+
+
+    return siteData.filter(site => {
+
+        const matchesSearch =
+            !search ||
+            site.name.toLowerCase().includes(search) ||
+            site.description.toLowerCase().includes(search);
+
+
+        const matchesCategory =
+            !category ||
+            site.category === category;
+
+
+        return matchesSearch && matchesCategory;
+
+    });
+
+}
+
+
+/* =========================================================
+   المواقع المفضلة
+   ========================================================= */
+
+function renderFavorites() {
+
+    const container =
+        document.getElementById("favoritesContainer");
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    const sites =
+        siteData.filter(
+            site => favorites.includes(site.id)
+        );
+
+
+    if (!sites.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div>⭐</div>
+
+                <h3>لا توجد مواقع مفضلة</h3>
+
+                <p>
+                    اضغط على النجمة لإضافة موقع إلى المفضلة.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    sites.forEach(site => {
+
+        container.appendChild(
+            createSiteCard(site)
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   المواقع الأخيرة
+   ========================================================= */
+
+function renderRecent() {
+
+    const container =
+        document.getElementById("recentContainer");
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    const sites =
+        recentSites
+            .map(id =>
+                siteData.find(site => site.id === id)
+            )
+            .filter(Boolean);
+
+
+    if (!sites.length) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div>🕘</div>
+
+                <h3>لا توجد مواقع حديثة</h3>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    sites.forEach(site => {
+
+        container.appendChild(
+            createSiteCard(site)
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   المواقع المميزة
+   ========================================================= */
+
+function renderFeatured() {
+
+    const container =
+        document.getElementById("featuredContainer");
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    const featured =
+        siteData.slice(0, 8);
+
+
+    featured.forEach(site => {
+
+        container.appendChild(
+            createSiteCard(site)
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   الألعاب
+   ========================================================= */
+
+function renderGaming() {
+
+    const container =
+        document.getElementById("gamingContainer");
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    const games =
+        siteData.filter(
+            site => site.category === "games"
+        );
+
+
+    games.forEach(site => {
+
+        container.appendChild(
+            createSiteCard(site)
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   الترفيه
+   ========================================================= */
+
+function renderFun() {
+
+    const container =
+        document.getElementById("funContainer");
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    const funSites =
+        siteData.filter(
+            site => site.category === "fun"
+        );
+
+
+    funSites.forEach(site => {
+
+        container.appendChild(
+            createSiteCard(site)
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   فتح الموقع
+   ========================================================= */
+
+function openSite(id) {
+
+    const site =
+        siteData.find(
+            item => item.id === id
+        );
+
+
+    if (!site) return;
+
+
+    visits[id] =
+        (visits[id] || 0) + 1;
+
+
+    localStorage.setItem(
+        "webboxVisits",
+        JSON.stringify(visits)
+    );
+
+
+    recentSites =
+        recentSites.filter(
+            recentId => recentId !== id
+        );
+
+
+    recentSites.unshift(id);
+
+
+    recentSites =
+        recentSites.slice(0, 20);
+
+
+    localStorage.setItem(
+        "webboxRecent",
+        JSON.stringify(recentSites)
+    );
+
+
+    renderStats();
+
+
+    window.open(
+        site.url,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+/* =========================================================
+   النافذة المنبثقة
+   ========================================================= */
+
+function openModal(id) {
+
+    const site =
+        siteData.find(
+            item => item.id === id
+        );
+
+
+    if (!site) return;
+
+
+    currentModalSite = site;
+
+
+    const modal =
+        document.getElementById("siteModal");
+
+
+    if (!modal) return;
+
+
+    const category =
+        CATEGORY_INFO[site.category];
+
+
+    const icon =
+        document.getElementById("modalIcon");
+
+    const title =
+        document.getElementById("modalTitle");
+
+    const categoryElement =
+        document.getElementById("modalCategory");
+
+    const description =
+        document.getElementById("modalDescription");
+
+    const modalVisits =
+        document.getElementById("modalVisits");
+
+    const openBtn =
+        document.getElementById("modalOpenBtn");
+
+    const favoriteBtn =
+        document.getElementById("modalFavoriteBtn");
+
+    const favorite =
+        document.getElementById("modalFavorite");
+
+
+    if (icon) {
+        icon.textContent =
+            category?.icon || "🌐";
+    }
+
+
+    if (title) {
+        title.textContent =
+            site.name;
+    }
+
+
+    if (categoryElement) {
+        categoryElement.textContent =
+            category?.name || "موقع";
+    }
+
+
+    if (description) {
+        description.textContent =
+            site.description;
+    }
+
+
+    if (modalVisits) {
+        modalVisits.textContent =
+            `👁️ ${visits[id] || 0}`;
+    }
+
+
+    if (openBtn) {
+
+        openBtn.onclick = () => {
+            openSite(id);
+        };
+
+    }
+
+
+    if (favorite) {
+
+        favorite.textContent =
+            favorites.includes(id)
+                ? "★"
+                : "☆";
+
+    }
+
+
+    if (favoriteBtn) {
+
+        favoriteBtn.onclick = () => {
+
+            toggleFavorite(id);
+
+            if (favorite) {
+
+                favorite.textContent =
+                    favorites.includes(id)
+                        ? "★"
+                        : "☆";
+
+            }
+
+        };
+
+    }
+
+
+    modal.classList.add("open");
+
+    modal.style.display = "flex";
+
+}
+
+
+function closeModal() {
+
+    const modal =
+        document.getElementById("siteModal");
+
+
+    if (!modal) return;
+
+
+    modal.classList.remove("open");
+
+    modal.style.display = "none";
+
+}
+
+
+/* =========================================================
+   تغيير الوضع الليلي
+   ========================================================= */
+
+function toggleDarkMode() {
+
+    document.body.classList.toggle(
+        "light-mode"
+    );
+
+
+    const isLight =
+        document.body.classList.contains(
+            "light-mode"
+        );
+
+
+    localStorage.setItem(
+        "webboxTheme",
+        isLight ? "light" : "dark"
+    );
+
+
+    updateThemeButton();
+
+}
+
+
+function updateThemeButton() {
+
+    const button =
+        document.getElementById("themeBtn");
+
+    if (!button) return;
+
+
+    const isLight =
+        document.body.classList.contains(
+            "light-mode"
+        );
+
+
+    button.textContent =
+        isLight ? "🌙" : "☀️";
+
+}
+
+
+/* =========================================================
+   استرجاع الوضع
+   ========================================================= */
+
+function loadTheme() {
 
     const theme =
         localStorage.getItem(
-            STORAGE_KEYS.theme
+            "webboxTheme"
         );
+
 
     if (theme === "light") {
 
@@ -484,1208 +1660,122 @@ function initializeTheme() {
             "light-mode"
         );
 
-        updateThemeButton(true);
-
-    } else {
-
-        document.body.classList.remove(
-            "light-mode"
-        );
-
-        updateThemeButton(false);
     }
+
+
+    updateThemeButton();
+
 }
 
-function toggleDarkMode() {
-
-    const isLight =
-        document.body.classList.toggle(
-            "light-mode"
-        );
-
-    localStorage.setItem(
-        STORAGE_KEYS.theme,
-        isLight ? "light" : "dark"
-    );
-
-    updateThemeButton(isLight);
-}
-
-function updateThemeButton(isLight) {
-
-    const button =
-        document.getElementById("themeBtn");
-
-    if (!button) return;
-
-    button.innerHTML =
-        isLight ? "🌙" : "☀️";
-
-    button.title =
-        isLight
-            ? "تفعيل الوضع الداكن"
-            : "تفعيل الوضع الفاتح";
-}
 
 /* =========================================================
-   VIEW MODE
+   تغيير شكل عرض المواقع
    ========================================================= */
 
-function initializeView() {
+function setViewMode(mode) {
 
-    updateViewButtons();
+    currentView = mode;
 
-    const container =
-        document.getElementById(
-            "sitesContainer"
-        );
-
-    if (container) {
-
-        container.classList.toggle(
-            "list-view",
-            currentView === "list"
-        );
-    }
-}
-
-function setView(view) {
-
-    currentView = view;
-
-    localStorage.setItem(
-        STORAGE_KEYS.view,
-        view
-    );
-
-    updateViewButtons();
 
     const container =
-        document.getElementById(
-            "sitesContainer"
-        );
+        document.getElementById("sitesContainer");
 
-    if (container) {
-
-        container.classList.toggle(
-            "list-view",
-            view === "list"
-        );
-    }
-}
-
-function updateViewButtons() {
-
-    const gridButton =
-        document.getElementById(
-            "gridViewBtn"
-        );
-
-    const listButton =
-        document.getElementById(
-            "listViewBtn"
-        );
-
-    if (gridButton) {
-
-        gridButton.classList.toggle(
-            "active",
-            currentView === "grid"
-        );
-    }
-
-    if (listButton) {
-
-        listButton.classList.toggle(
-            "active",
-            currentView === "list"
-        );
-    }
-}
-
-/* =========================================================
-   CATEGORIES
-   ========================================================= */
-
-function renderCategories() {
-
-    const container =
-        document.getElementById(
-            "categoriesContainer"
-        );
 
     if (!container) return;
 
-    container.innerHTML =
-        Object.entries(CATEGORY_INFO)
-            .map(([key, category]) => {
 
-                const count =
-                    siteData.filter(
-                        site =>
-                            site.category === key
-                    ).length;
+    if (mode === "list") {
 
-                return `
-                    <article
-                        class="category-card"
-                        onclick="filterByCategory('${key}')"
-                    >
-
-                        <div class="category-icon">
-                            ${category.icon}
-                        </div>
-
-                        <h3>
-                            ${escapeHTML(
-                                category.name
-                            )}
-                        </h3>
-
-                        <p>
-                            ${escapeHTML(
-                                category.description
-                            )}
-                        </p>
-
-                        <span class="category-count">
-                            ${count} موقع
-                        </span>
-
-                    </article>
-                `;
-            })
-            .join("");
-}
-
-function renderHomeCategories() {
-
-    const container =
-        document.getElementById(
-            "homeCategories"
-        );
-
-    if (!container) return;
-
-    container.innerHTML =
-        Object.entries(CATEGORY_INFO)
-            .map(([key, category]) => {
-
-                const count =
-                    siteData.filter(
-                        site =>
-                            site.category === key
-                    ).length;
-
-                return `
-                    <button
-                        class="category-card"
-                        onclick="filterByCategory('${key}')"
-                    >
-
-                        <div class="category-icon">
-                            ${category.icon}
-                        </div>
-
-                        <h3>
-                            ${escapeHTML(
-                                category.name
-                            )}
-                        </h3>
-
-                        <span class="category-count">
-                            ${count}
-                        </span>
-
-                    </button>
-                `;
-            })
-            .join("");
-}
-
-function populateCategorySelect() {
-
-    const select =
-        document.getElementById(
-            "categorySelect"
-        );
-
-    if (!select) return;
-
-    const currentValue =
-        select.value;
-
-    select.innerHTML = `
-        <option value="all">
-            كل التصنيفات
-        </option>
-
-        ${Object.entries(CATEGORY_INFO)
-            .map(([key, category]) => {
-
-                const count =
-                    siteData.filter(
-                        site =>
-                            site.category === key
-                    ).length;
-
-                return `
-                    <option value="${key}">
-                        ${category.icon}
-                        ${category.name}
-                        (${count})
-                    </option>
-                `;
-            })
-            .join("")}
-    `;
-
-    select.value =
-        currentValue || "all";
-}
-
-function filterByCategory(category) {
-
-    showSection("sites");
-
-    const select =
-        document.getElementById(
-            "categorySelect"
-        );
-
-    if (select) {
-        select.value = category;
-    }
-
-    filterSiteList();
-}
-
-/* =========================================================
-   MAIN SEARCH
-   ========================================================= */
-
-function handleMainSearch(event) {
-
-    event.preventDefault();
-
-    const input =
-        document.getElementById(
-            "searchInput"
-        );
-
-    if (!input) return;
-
-    const query =
-        input.value.trim();
-
-    if (!query) {
-
-        showSection("sites");
-
-        return;
-    }
-
-    showSection("sites");
-
-    const siteSearch =
-        document.getElementById(
-            "siteSearch"
-        );
-
-    if (siteSearch) {
-        siteSearch.value = query;
-    }
-
-    const categorySelect =
-        document.getElementById(
-            "categorySelect"
-        );
-
-    if (categorySelect) {
-        categorySelect.value = "all";
-    }
-
-    filterSiteList();
-}
-
-function quickSearch(query) {
-
-    const input =
-        document.getElementById(
-            "searchInput"
-        );
-
-    if (input) {
-        input.value = query;
-    }
-
-    handleMainSearch({
-        preventDefault: () => {}
-    });
-}
-
-/* =========================================================
-   SITES
-   ========================================================= */
-
-function renderSites(list = siteData) {
-
-    const container =
-        document.getElementById(
-            "sitesContainer"
-        );
-
-    if (!container) return;
-
-    container.classList.toggle(
-        "list-view",
-        currentView === "list"
-    );
-
-    if (!list.length) {
-
-        container.innerHTML = `
-            <div class="empty-state">
-
-                <div class="empty-icon">
-                    🔎
-                </div>
-
-                <h3>
-                    لم يتم العثور على مواقع
-                </h3>
-
-                <p>
-                    جرب كلمة بحث أخرى أو اختر
-                    تصنيفًا مختلفًا.
-                </p>
-
-            </div>
-        `;
-
-        updateResultText(0);
-
-        return;
-    }
-
-    container.innerHTML =
-        list
-            .map(site =>
-                createSiteCard(site)
-            )
-            .join("");
-
-    updateResultText(list.length);
-}
-
-function createSiteCard(site) {
-
-    const category =
-        CATEGORY_INFO[site.category];
-
-    const isFavorite =
-        favorites.includes(site.id);
-
-    const siteVisits =
-        visits[site.id] || 0;
-
-    return `
-        <article class="site-card">
-
-            <div
-                class="site-cover"
-                style="${getSiteCover(site)}"
-            >
-
-                <div class="site-cover-icon">
-                    ${site.icon}
-                </div>
-
-                <button
-                    class="favorite-btn ${
-                        isFavorite
-                            ? "active"
-                            : ""
-                    }"
-                    onclick="
-                        toggleFavorite(
-                            '${site.id}',
-                            event
-                        )
-                    "
-                    title="إضافة للمفضلة"
-                >
-                    ${
-                        isFavorite
-                            ? "★"
-                            : "☆"
-                    }
-                </button>
-
-            </div>
-
-            <div class="site-card-body">
-
-                <span class="site-category">
-                    ${
-                        category
-                            ? category.icon
-                            : "🌐"
-                    }
-
-                    ${
-                        category
-                            ? escapeHTML(
-                                category.name
-                              )
-                            : ""
-                    }
-                </span>
-
-                <h3>
-                    ${escapeHTML(site.name)}
-                </h3>
-
-                <p>
-                    ${escapeHTML(
-                        site.description
-                    )}
-                </p>
-
-                <div class="site-card-footer">
-
-                    <span class="visit-count">
-                        👁️
-                        ${formatNumber(
-                            siteVisits
-                        )}
-                    </span>
-
-                    <div class="site-actions">
-
-                        <button
-                            class="details-btn"
-                            onclick="
-                                openSiteModal(
-                                    '${site.id}'
-                                )
-                            "
-                        >
-                            التفاصيل
-                        </button>
-
-                        <button
-                            class="open-btn"
-                            onclick="
-                                openSite(
-                                    '${site.id}'
-                                )
-                            "
-                        >
-                            فتح ↗
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </article>
-    `;
-}
-
-/* =========================================================
-   FEATURED
-   ========================================================= */
-
-function renderFeatured() {
-
-    const container =
-        document.getElementById(
-            "featuredContainer"
-        );
-
-    if (!container) return;
-
-    const featured =
-        siteData.slice(0, 12);
-
-    container.innerHTML =
-        featured
-            .map(site =>
-                createSiteCard(site)
-            )
-            .join("");
-}
-
-/* =========================================================
-   FUN
-   ========================================================= */
-
-function renderFun() {
-
-    const container =
-        document.getElementById(
-            "funContainer"
-        );
-
-    if (!container) return;
-
-    const funSites =
-        siteData.filter(
-            site =>
-                site.category === "fun"
-        );
-
-    container.innerHTML =
-        funSites
-            .map(site =>
-                createSiteCard(site)
-            )
-            .join("");
-}
-
-/* =========================================================
-   GAMING
-   ========================================================= */
-
-function renderGaming() {
-
-    const container =
-        document.getElementById(
-            "gamingContainer"
-        );
-
-    if (!container) return;
-
-    const gamingSites =
-        siteData.filter(
-            site =>
-                site.category === "games"
-        );
-
-    container.innerHTML =
-        gamingSites
-            .map(site =>
-                createSiteCard(site)
-            )
-            .join("");
-}
-
-/* =========================================================
-   FAVORITES
-   ========================================================= */
-
-function renderFavorites() {
-
-    const container =
-        document.getElementById(
-            "favoritesContainer"
-        );
-
-    if (!container) return;
-
-    const favoriteSites =
-        siteData.filter(site =>
-            favorites.includes(site.id)
-        );
-
-    if (!favoriteSites.length) {
-
-        container.innerHTML = `
-            <div class="empty-state">
-
-                <div class="empty-icon">
-                    ☆
-                </div>
-
-                <h3>
-                    لا توجد مواقع مفضلة
-                </h3>
-
-                <p>
-                    اضغط على النجمة بجانب أي
-                    موقع لإضافته هنا.
-                </p>
-
-            </div>
-        `;
-
-        return;
-    }
-
-    container.innerHTML =
-        favoriteSites
-            .map(site =>
-                createSiteCard(site)
-            )
-            .join("");
-}
-
-/* =========================================================
-   RECENT
-   ========================================================= */
-
-function renderRecent() {
-
-    const container =
-        document.getElementById(
-            "recentContainer"
-        );
-
-    if (!container) return;
-
-    const recent =
-        recentSites
-            .map(id =>
-                siteData.find(
-                    site =>
-                        site.id === id
-                )
-            )
-            .filter(Boolean);
-
-    if (!recent.length) {
-
-        container.innerHTML = `
-            <div class="empty-state">
-
-                <div class="empty-icon">
-                    🕘
-                </div>
-
-                <h3>
-                    لا توجد مواقع حديثة
-                </h3>
-
-                <p>
-                    المواقع التي تفتحها
-                    ستظهر هنا.
-                </p>
-
-            </div>
-        `;
-
-        return;
-    }
-
-    container.innerHTML =
-        recent
-            .map(site =>
-                createSiteCard(site)
-            )
-            .join("");
-}
-
-/* =========================================================
-   SEARCH / FILTER
-   ========================================================= */
-
-function filterSiteList() {
-
-    const searchInput =
-        document.getElementById(
-            "siteSearch"
-        );
-
-    const categorySelect =
-        document.getElementById(
-            "categorySelect"
-        );
-
-    const sortSelect =
-        document.getElementById(
-            "sortSelect"
-        );
-
-    const query =
-        searchInput
-            ? searchInput.value
-                .trim()
-                .toLowerCase()
-            : "";
-
-    const category =
-        categorySelect
-            ? categorySelect.value
-            : "all";
-
-    const sort =
-        sortSelect
-            ? sortSelect.value
-            : "default";
-
-    let filtered =
-        [...siteData];
-
-    if (query) {
-
-        filtered =
-            filtered.filter(site => {
-
-                const searchable = [
-                    site.name,
-                    site.description,
-                    site.category,
-                    CATEGORY_INFO[
-                        site.category
-                    ]?.name || "",
-                    site.url
-                ]
-                    .join(" ")
-                    .toLowerCase();
-
-                return searchable.includes(
-                    query
-                );
-            });
-    }
-
-    if (category !== "all") {
-
-        filtered =
-            filtered.filter(
-                site =>
-                    site.category === category
-            );
-    }
-
-    switch (sort) {
-
-        case "name":
-
-            filtered.sort((a, b) =>
-                a.name.localeCompare(
-                    b.name,
-                    "ar"
-                )
-            );
-
-            break;
-
-        case "visits":
-
-            filtered.sort(
-                (a, b) =>
-                    (visits[b.id] || 0) -
-                    (visits[a.id] || 0)
-            );
-
-            break;
-
-        case "category":
-
-            filtered.sort((a, b) =>
-                CATEGORY_INFO[
-                    a.category
-                ].name.localeCompare(
-                    CATEGORY_INFO[
-                        b.category
-                    ].name,
-                    "ar"
-                )
-            );
-
-            break;
-    }
-
-    renderSites(filtered);
-}
-
-function clearFilters() {
-
-    const searchInput =
-        document.getElementById(
-            "siteSearch"
-        );
-
-    const categorySelect =
-        document.getElementById(
-            "categorySelect"
-        );
-
-    const sortSelect =
-        document.getElementById(
-            "sortSelect"
-        );
-
-    if (searchInput) {
-        searchInput.value = "";
-    }
-
-    if (categorySelect) {
-        categorySelect.value = "all";
-    }
-
-    if (sortSelect) {
-        sortSelect.value = "default";
-    }
-
-    renderSites();
-}
-
-/* =========================================================
-   RESULT TEXT
-   ========================================================= */
-
-function updateResultText(count) {
-
-    const resultText =
-        document.getElementById(
-            "resultText"
-        );
-
-    if (!resultText) return;
-
-    resultText.textContent =
-        `عرض ${formatNumber(count)} من ${formatNumber(siteData.length)} موقع`;
-}
-
-/* =========================================================
-   FAVORITES
-   ========================================================= */
-
-function toggleFavorite(siteId, event) {
-
-    if (event) {
-        event.stopPropagation();
-    }
-
-    const index =
-        favorites.indexOf(siteId);
-
-    if (index === -1) {
-
-        favorites.push(siteId);
-
-        showToast(
-            "⭐ تمت إضافة الموقع إلى المفضلة"
+        container.classList.add(
+            "list-view"
         );
 
     } else {
 
-        favorites.splice(index, 1);
-
-        showToast(
-            "تمت إزالة الموقع من المفضلة"
+        container.classList.remove(
+            "list-view"
         );
+
     }
 
-    saveStorage(
-        STORAGE_KEYS.favorites,
-        favorites
-    );
 
-    renderAll();
-    updateStats();
+    const gridBtn =
+        document.getElementById("gridViewBtn");
+
+    const listBtn =
+        document.getElementById("listViewBtn");
+
+
+    if (gridBtn) {
+
+        gridBtn.classList.toggle(
+            "active",
+            mode === "grid"
+        );
+
+    }
+
+
+    if (listBtn) {
+
+        listBtn.classList.toggle(
+            "active",
+            mode === "list"
+        );
+
+    }
+
 }
+
 
 /* =========================================================
-   OPEN SITE
+   موقع عشوائي
    ========================================================= */
 
-function openSite(siteId) {
+function randomSite() {
 
-    const site =
-        siteData.find(
-            item =>
-                item.id === siteId
+    if (!siteData.length) return;
+
+
+    const randomIndex =
+        Math.floor(
+            Math.random() * siteData.length
         );
 
-    if (!site) return;
 
-    visits[siteId] =
-        (visits[siteId] || 0) + 1;
-
-    saveStorage(
-        STORAGE_KEYS.visits,
-        visits
+    openSite(
+        siteData[randomIndex].id
     );
 
-    recentSites = [
-        siteId,
-        ...recentSites.filter(
-            id => id !== siteId
-        )
-    ].slice(0, 12);
-
-    saveStorage(
-        STORAGE_KEYS.recent,
-        recentSites
-    );
-
-    updateStats();
-    renderRecent();
-
-    window.open(
-        site.url,
-        "_blank",
-        "noopener,noreferrer"
-    );
 }
+
 
 /* =========================================================
-   MODAL
+   إشعارات
    ========================================================= */
-
-function openSiteModal(siteId) {
-
-    const site =
-        siteData.find(
-            item =>
-                item.id === siteId
-        );
-
-    if (!site) return;
-
-    currentSite = site;
-
-    const modal =
-        document.getElementById(
-            "siteModal"
-        );
-
-    if (!modal) return;
-
-    const modalIcon =
-        document.getElementById(
-            "modalIcon"
-        );
-
-    const modalTitle =
-        document.getElementById(
-            "modalTitle"
-        );
-
-    const modalCategory =
-        document.getElementById(
-            "modalCategory"
-        );
-
-    const modalDescription =
-        document.getElementById(
-            "modalDescription"
-        );
-
-    const modalVisits =
-        document.getElementById(
-            "modalVisits"
-        );
-
-    const modalOpenBtn =
-        document.getElementById(
-            "modalOpenBtn"
-        );
-
-    const modalFavoriteBtn =
-        document.getElementById(
-            "modalFavoriteBtn"
-        );
-
-    const modalFavorite =
-        document.getElementById(
-            "modalFavorite"
-        );
-
-    if (modalIcon) {
-        modalIcon.textContent =
-            site.icon;
-    }
-
-    if (modalTitle) {
-        modalTitle.textContent =
-            site.name;
-    }
-
-    if (modalCategory) {
-        modalCategory.textContent =
-            CATEGORY_INFO[
-                site.category
-            ]?.name || "";
-    }
-
-    if (modalDescription) {
-        modalDescription.textContent =
-            site.description;
-    }
-
-    if (modalVisits) {
-        modalVisits.textContent =
-            `👁️ ${formatNumber(
-                visits[site.id] || 0
-            )} زيارة`;
-    }
-
-    if (modalOpenBtn) {
-
-        modalOpenBtn.onclick = () => {
-            openSite(site.id);
-        };
-    }
-
-    const favorite =
-        favorites.includes(site.id);
-
-    if (modalFavorite) {
-
-        modalFavorite.textContent =
-            favorite
-                ? "★"
-                : "☆";
-    }
-
-    if (modalFavoriteBtn) {
-
-        modalFavoriteBtn.onclick =
-            event => {
-
-                toggleFavorite(
-                    site.id,
-                    event
-                );
-
-                const nowFavorite =
-                    favorites.includes(
-                        site.id
-                    );
-
-                if (modalFavorite) {
-
-                    modalFavorite.textContent =
-                        nowFavorite
-                            ? "★"
-                            : "☆";
-                }
-            };
-    }
-
-    modal.classList.add("active");
-
-    document.body.classList.add(
-        "modal-open"
-    );
-}
-
-function closeModal() {
-
-    const modal =
-        document.getElementById(
-            "siteModal"
-        );
-
-    if (!modal) return;
-
-    modal.classList.remove(
-        "active"
-    );
-
-    document.body.classList.remove(
-        "modal-open"
-    );
-
-    currentSite = null;
-}
-
-/* =========================================================
-   STATS
-   ========================================================= */
-
-function updateStats() {
-
-    const totalSites =
-        document.getElementById(
-            "totalSites"
-        );
-
-    const totalCategories =
-        document.getElementById(
-            "totalCategories"
-        );
-
-    const totalFavorites =
-        document.getElementById(
-            "totalFavorites"
-        );
-
-    const totalVisits =
-        document.getElementById(
-            "totalVisits"
-        );
-
-    if (totalSites) {
-
-        totalSites.textContent =
-            formatNumber(
-                siteData.length
-            );
-    }
-
-    if (totalCategories) {
-
-        totalCategories.textContent =
-            formatNumber(
-                Object.keys(
-                    CATEGORY_INFO
-                ).length
-            );
-    }
-
-    if (totalFavorites) {
-
-        totalFavorites.textContent =
-            formatNumber(
-                favorites.length
-            );
-    }
-
-    if (totalVisits) {
-
-        const visitTotal =
-            Object.values(visits)
-                .reduce(
-                    (sum, value) =>
-                        sum +
-                        Number(
-                            value || 0
-                        ),
-                    0
-                );
-
-        totalVisits.textContent =
-            formatNumber(
-                visitTotal
-            );
-    }
-}
-
-/* =========================================================
-   TOAST
-   ========================================================= */
-
-let toastTimer = null;
 
 function showToast(message) {
 
     const toast =
-        document.getElementById(
-            "toast"
-        );
+        document.getElementById("toast");
+
 
     if (!toast) return;
+
 
     toast.textContent =
         message;
 
-    toast.classList.add(
-        "show"
-    );
+
+    toast.classList.add("show");
+
 
     clearTimeout(
-        toastTimer
+        window.webboxToastTimer
     );
 
-    toastTimer =
+
+    window.webboxToastTimer =
         setTimeout(() => {
 
             toast.classList.remove(
@@ -1693,248 +1783,89 @@ function showToast(message) {
             );
 
         }, 2500);
+
 }
 
+
 /* =========================================================
-   RANDOM SITE
+   زر القائمة في الهاتف
    ========================================================= */
 
-function randomSite() {
+function toggleMobileMenu() {
 
-    if (!siteData.length) return;
+    const nav =
+        document.getElementById("mobileNav");
 
-    const randomIndex =
-        Math.floor(
-            Math.random() *
-            siteData.length
-        );
 
-    const site =
-        siteData[randomIndex];
+    if (!nav) return;
 
-    openSiteModal(
-        site.id
-    );
+
+    nav.classList.toggle("open");
+
 }
 
+
 /* =========================================================
-   COVER
+   حماية النصوص
    ========================================================= */
 
-function hashString(value) {
+function escapeHTML(text) {
 
-    let hash = 0;
+    const div =
+        document.createElement("div");
 
-    for (
-        let i = 0;
-        i < value.length;
-        i++
-    ) {
 
-        hash =
-            (hash << 5) -
-            hash +
-            value.charCodeAt(i);
+    div.textContent =
+        text;
 
-        hash |= 0;
-    }
 
-    return Math.abs(hash);
+    return div.innerHTML;
+
 }
 
-function getCoverTheme(site) {
-
-    const themes = [
-        ["#00f5ff", "#0066ff"],
-        ["#8b5cf6", "#ec4899"],
-        ["#00ff88", "#00aaff"],
-        ["#ff0080", "#7928ca"],
-        ["#ff8a00", "#e52e71"],
-        ["#00c6ff", "#0072ff"],
-        ["#7f00ff", "#e100ff"],
-        ["#00f2fe", "#4facfe"],
-        ["#43e97b", "#38f9d7"],
-        ["#fa709a", "#fee140"],
-        ["#a18cd1", "#fbc2eb"],
-        ["#667eea", "#764ba2"]
-    ];
-
-    const hash =
-        hashString(
-            site.id +
-            site.name +
-            site.url
-        );
-
-    return themes[
-        hash % themes.length
-    ];
-}
-
-function getSiteCover(site) {
-
-    const [
-        color1,
-        color2
-    ] = getCoverTheme(site);
-
-    const hash =
-        hashString(
-            site.name +
-            site.url
-        );
-
-    const angle =
-        110 + (hash % 100);
-
-    return `
-        background:
-            radial-gradient(
-                circle at
-                ${20 + hash % 60}%
-                ${20 + (hash >> 4) % 60}%,
-                rgba(255,255,255,.20),
-                transparent 25%
-            ),
-            linear-gradient(
-                ${angle}deg,
-                ${color1},
-                ${color2}
-            );
-    `;
-}
 
 /* =========================================================
-   UTILS
+   عند تحميل الصفحة
    ========================================================= */
 
-function formatNumber(number) {
+loadTheme();
 
-    return Number(
-        number || 0
-    ).toLocaleString("ar");
-}
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-}
 
 /* =========================================================
-   MODAL BACKDROP
+   إغلاق Modal بزر ESC
    ========================================================= */
 
 document.addEventListener(
-    "click",
+    "keydown",
     event => {
 
-        const modal =
-            document.getElementById(
-                "siteModal"
-            );
-
-        if (!modal) return;
-
-        if (
-            event.target === modal ||
-            event.target.classList.contains(
-                "modal-backdrop"
-            )
-        ) {
+        if (event.key === "Escape") {
             closeModal();
         }
+
     }
 );
 
-/* =========================================================
-   EXPORTS FOR HTML ONCLICK
-   ========================================================= */
-
-window.showSection =
-    showSection;
-
-/*
-   هذا هو الإصلاح الأساسي.
-*/
-window.webboxNavigate =
-    webboxNavigate;
-
-window.toggleMobileMenu =
-    toggleMobileMenu;
-
-window.toggleDarkMode =
-    toggleDarkMode;
-
-window.handleMainSearch =
-    handleMainSearch;
-
-window.quickSearch =
-    quickSearch;
-
-window.filterByCategory =
-    filterByCategory;
-
-window.filterSiteList =
-    filterSiteList;
-
-window.clearFilters =
-    clearFilters;
-
-window.setView =
-    setView;
-
-window.toggleFavorite =
-    toggleFavorite;
-
-window.openSite =
-    openSite;
-
-window.openSiteModal =
-    openSiteModal;
-
-window.closeModal =
-    closeModal;
-
-window.randomSite =
-    randomSite;
 
 /* =========================================================
-   DEBUG
+   تصدير الدوال التي يستعملها HTML
    ========================================================= */
 
-console.log(
-    "%cWEBBOX 5.0",
-    "font-size:24px;font-weight:bold;"
-);
-
-console.log(
-    `عدد المواقع: ${siteData.length}`
-);
-
-console.log(
-    `عدد التصنيفات: ${
-        Object.keys(
-            CATEGORY_INFO
-        ).length
-    }`
-);
+window.showSection = showSection;
+window.toggleDarkMode = toggleDarkMode;
+window.handleMainSearch = handleMainSearch;
+window.quickSearch = quickSearch;
+window.toggleFavorite = toggleFavorite;
+window.openSite = openSite;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.randomSite = randomSite;
+window.toggleMobileMenu = toggleMobileMenu;
+window.setViewMode = setViewMode;
+window.filterSiteList = filterSiteList;
+window.clearFilters = clearFilters;
+window.renderCategories = renderCategories;
+window.renderFavorites = renderFavorites;
+window.renderFun = renderFun;
+window.renderGaming = renderGaming;
+window.renderRecent = renderRecent;
